@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0519fa0d-c9be-4b66-b2f0-2c3f77aa5a00" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Ball.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Player.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ball.js" beforeDir="false" afterPath="$PROJECT_DIR$/Ball.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
     </list>
@@ -64,7 +62,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1583182977632</updated>
-      <workItem from="1583182980663" duration="4937000" />
+      <workItem from="1583182980663" duration="8013000" />
     </task>
     <servers />
   </component>
@@ -72,6 +70,10 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="583" y="27" width="1232" height="985" key="CommitChangelistDialog2" timestamp="1583190742243">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="583" y="27" width="1232" height="985" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.2560.1400@0.0.1920.1040" timestamp="1583190742243" />
     <state x="446" y="324" key="SettingsEditor" timestamp="1583184256872">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
