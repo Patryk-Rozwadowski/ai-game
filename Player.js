@@ -1,16 +1,17 @@
 class Player {
-    constructor(x, y) {
+    constructor(x = 200, y = 600) {
         this.x = x;
         this.y = y;
     }
 
     draw() {
-        ctx.rect(160, 10, 100, 40);
-        ctx.strokeStyle = "rgba(0, 0, 255, 0.5)";
+        ctx.rect(this.x, this.y, 1225, 25);
+        ctx.fillStyle = "#0095DD";
+        ctx.fill();
     }
 
 }
 
-const player = new Player(25, 25);
+const player = new Player();
 
 player.draw();

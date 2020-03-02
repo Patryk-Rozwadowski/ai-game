@@ -1,5 +1,5 @@
 class Ball {
-    constructor(x = 600, y = 600, ballRadius = 110) {
+    constructor(x = 600, y = 600, ballRadius = 10) {
         this.x = x;
         this.y = y;
         this.x_step = 1;
@@ -18,8 +18,11 @@ class Ball {
     }
 
     changeColor() {
-        const arr = ['blue', 'green', 'yellow', 'purple'];
-        this.color = arr[Math.floor(Math.random() * arr.length)];
+        let red = Math.floor(Math.random() * 3) * 127;
+        let green = Math.floor(Math.random() * 3) * 127;
+        let blue = Math.floor(Math.random() * 3) * 127;
+
+        this.color= "rgb(" + red + ", " + green + ", " + blue + ")";
     }
 
     collision() {
@@ -36,14 +39,10 @@ class Ball {
     }
 
     move() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        //ctx.clearRect(0, 0, canvas.width, canvas.height);
         this.draw();
         this.collision();
         this.x += this.x_step;
         this.y += this.y_step;
     }
 }
-
-const ball = new Ball();
-
-setInterval(() => ball.move(), 3);
