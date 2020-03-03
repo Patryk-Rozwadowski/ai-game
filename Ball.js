@@ -32,14 +32,12 @@ class Ball {
             this.x_step = -this.x_step;
         } else if (this.x + this.x_step + this.ballRadius > canvas.width) {
             this.x_step = -this.x_step;
-            this.changeColor();
         } else if (this.y + this.y_step + this.ballRadius > canvas.height) {
             this.y_step = -this.y_step;
         }
     }
 
-    move() {
-        //ctx.clearRect(0, 0, canvas.width, canvas.height);
+    start() {
         this.draw();
         this.collision();
         this.x += this.x_step;
