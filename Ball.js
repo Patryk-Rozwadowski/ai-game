@@ -22,18 +22,32 @@ class Ball {
         let green = Math.floor(Math.random() * 3) * 127;
         let blue = Math.floor(Math.random() * 3) * 127;
 
-        this.color= "rgb(" + red + ", " + green + ", " + blue + ")";
+        this.color = 'rgb(' + red + ', ' + green + ', ' + blue + ')';
     }
 
     collision() {
-        if (this.y + this.y_step - this.ballRadius < 0) {
-            this.y_step = -this.y_step;
-        } else if (this.x + this.x_step - this.ballRadius < 0) {
-            this.x_step = -this.x_step;
-        } else if (this.x + this.x_step + this.ballRadius > canvas.width) {
-            this.x_step = -this.x_step;
-        } else if (this.y + this.y_step + this.ballRadius > canvas.height) {
-            this.y_step = -this.y_step;
+
+        const ROOF = this.y + this.y_step - this.ballRadius < 0;
+        const RIGHT_WALL = this.x + this.x_step + this.ballRadius > canvas.width;
+        const LEFT_WALL = this.x + this.x_step - this.ballRadius < 0;
+        const GROUND = this.y + this.y_step + this.ballRadius > canvas.height;
+
+        switch (true) {
+            case ROOF:
+                this.y_step = -this.y_step;
+                break;
+
+            case LEFT_WALL:
+                this.x_step = -this.x_step;
+                break;
+
+            case RIGHT_WALL:
+                this.x_step = -this.x_step;
+                break;
+
+            case GROUND:
+                this.y_step = -this.y_step;
+                break;
         }
     }
 
