@@ -3,7 +3,7 @@ class Ball {
         this.x = x;
         this.y = y;
         this.x_step = 1;
-        this.y_step = -2;
+        this.y_step = -3;
         this.color = 'blue';
         this.mass = this.ballRadius * this.ballRadius * this.ballRadius;
         this.ballRadius = ballRadius;
@@ -25,8 +25,18 @@ class Ball {
         this.color = 'rgb(' + red + ', ' + green + ', ' + blue + ')';
     }
 
-    collision() {
+    player_collision(player) {
+        if (this.y + this.y_step + this.ballRadius > player.y
+            && this.x + this.ballRadius < player.x + player.width
+            && player.x < this.x + this.ballRadius) {
 
+            console.log('player ' + player.y);
+            console.log('ball ' +this.y);
+            this.y_step = -this.y_step;
+        }
+    }
+
+    walls_collision() {
         const ROOF = this.y + this.y_step - this.ballRadius < 0;
         const RIGHT_WALL = this.x + this.x_step + this.ballRadius > canvas.width;
         const LEFT_WALL = this.x + this.x_step - this.ballRadius < 0;
@@ -47,13 +57,14 @@ class Ball {
 
             case GROUND:
                 this.y_step = -this.y_step;
+                console.log('lose');
                 break;
         }
     }
 
     start() {
         this.draw();
-        this.collision();
+        this.walls_collision();
         this.x += this.x_step;
         this.y += this.y_step;
     }

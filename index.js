@@ -14,5 +14,7 @@ const game = () => {
         ball.start();
         player.start();
 
+        ball.player_collision(player);
     });
+
 };

@@ -5,8 +5,6 @@ class Player {
         this.x_step = 10;
         this.height = 25;
         this.width = canvas.width / 6;
-        this.left = false;
-        this.right = false;
     }
 
     draw() {
@@ -25,6 +23,7 @@ class Player {
         switch (type === 'keydown') {
             case key === 'a':
                 this.x -= this.x_step;
+                console.log(this.y);
                 this.update();
                 break;
 

@@ -2,15 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0519fa0d-c9be-4b66-b2f0-2c3f77aa5a00" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/gra.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ball.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Player.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_components/Ball.js" beforeDir="false" afterPath="$PROJECT_DIR$/game_components/Ball.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_components/Player.js" beforeDir="false" afterPath="$PROJECT_DIR$/game_components/Player.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,7 +68,8 @@
       <option name="presentableId" value="Default" />
       <updated>1583182977632</updated>
       <workItem from="1583182980663" duration="9172000" />
-      <workItem from="1583269638312" duration="6099000" />
+      <workItem from="1583269638312" duration="7912000" />
+      <workItem from="1583356101577" duration="3342000" />
     </task>
     <task id="LOCAL-00001" summary="Add ball collision detection">
       <created>1583191014409</created>
@@ -103,7 +99,14 @@
       <option name="project" value="LOCAL" />
       <updated>1583275741309</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Split architecture for game_components">
+      <created>1583275879766</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1583275879766</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -117,17 +120,18 @@
     <MESSAGE value="save" />
     <MESSAGE value="Add player control" />
     <MESSAGE value="Refactored collision detection" />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactored collision detection" />
+    <MESSAGE value="Split architecture for game_components" />
+    <option name="LAST_COMMIT_MESSAGE" value="Split architecture for game_components" />
   </component>
   <component name="WindowStateProjectService">
     <state x="414" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1583269966883">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="414" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040/1920.0.2560.1400@0.0.1920.1040" timestamp="1583269966883" />
-    <state x="583" y="27" width="1232" height="985" key="CommitChangelistDialog2" timestamp="1583275740242">
+    <state x="583" y="27" width="1232" height="985" key="CommitChangelistDialog2" timestamp="1583275878783">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="583" y="27" width="1232" height="985" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.2560.1400@0.0.1920.1040" timestamp="1583275740242" />
+    <state x="583" y="27" width="1232" height="985" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.2560.1400@0.0.1920.1040" timestamp="1583275878783" />
     <state width="1899" height="323" key="GridCell.Tab.0.bottom" timestamp="1583269989880">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -184,9 +188,9 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="446" y="324" key="SettingsEditor/0.0.1920.1040/1920.0.2560.1400@0.0.1920.1040" timestamp="1583184256872" />
-    <state x="552" y="248" key="Vcs.Push.Dialog.v2" timestamp="1583275743387">
+    <state x="552" y="248" key="Vcs.Push.Dialog.v2" timestamp="1583275881954">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="248" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.2560.1400@0.0.1920.1040" timestamp="1583275743387" />
+    <state x="552" y="248" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.2560.1400@0.0.1920.1040" timestamp="1583275881954" />
   </component>
 </project>
