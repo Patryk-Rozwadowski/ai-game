@@ -7,6 +7,7 @@ class Ball {
         this.color = 'blue';
         this.mass = this.ballRadius * this.ballRadius * this.ballRadius;
         this.ballRadius = ballRadius;
+        this.ballOut = false;
     }
 
     draw() {
@@ -29,9 +30,6 @@ class Ball {
         if (this.y + this.y_step + this.ballRadius > player.y
             && this.x + this.ballRadius < player.x + player.width
             && player.x < this.x + this.ballRadius) {
-
-            console.log('player ' + player.y);
-            console.log('ball ' +this.y);
             this.y_step = -this.y_step;
         }
     }
@@ -57,7 +55,9 @@ class Ball {
 
             case GROUND:
                 this.y_step = -this.y_step;
-                console.log('lose');
+                console.log('Lost');
+                newGame.restart();
+                newGame.lifes = -1;
                 break;
         }
     }

@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0519fa0d-c9be-4b66-b2f0-2c3f77aa5a00" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/game_components/Game.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game_components/Ball.js" beforeDir="false" afterPath="$PROJECT_DIR$/game_components/Ball.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_components/Player.js" beforeDir="false" afterPath="$PROJECT_DIR$/game_components/Player.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -37,8 +38,14 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.standard" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.standard" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.standard" value="" />
     <property name="prettierjs.PrettierConfiguration.Package" value="C:\Users\papryk\AppData\Roaming\npm\node_modules\prettier" />
-    <property name="settings.editor.selected.configurable" value="liveEdit" />
+    <property name="settings.editor.selected.configurable" value="settings.javascript.linters.eslint" />
   </component>
   <component name="RunManager">
     <configuration name="Unnamed" type="ChromiumRemoteDebugType" factoryName="Chromium Remote" nameIsGenerated="true" port="9229">
@@ -69,7 +76,11 @@
       <updated>1583182977632</updated>
       <workItem from="1583182980663" duration="9172000" />
       <workItem from="1583269638312" duration="7912000" />
-      <workItem from="1583356101577" duration="3342000" />
+      <workItem from="1583356101577" duration="3608000" />
+      <workItem from="1583442158761" duration="1221000" />
+      <workItem from="1583669301665" duration="80000" />
+      <workItem from="1583787336976" duration="799000" />
+      <workItem from="1583870607399" duration="2757000" />
     </task>
     <task id="LOCAL-00001" summary="Add ball collision detection">
       <created>1583191014409</created>
@@ -106,7 +117,14 @@
       <option name="project" value="LOCAL" />
       <updated>1583275879766</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Fixed player and ball collision">
+      <created>1583359488703</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1583359488703</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -121,17 +139,18 @@
     <MESSAGE value="Add player control" />
     <MESSAGE value="Refactored collision detection" />
     <MESSAGE value="Split architecture for game_components" />
-    <option name="LAST_COMMIT_MESSAGE" value="Split architecture for game_components" />
+    <MESSAGE value="Fixed player and ball collision" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed player and ball collision" />
   </component>
   <component name="WindowStateProjectService">
     <state x="414" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1583269966883">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="414" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040/1920.0.2560.1400@0.0.1920.1040" timestamp="1583269966883" />
-    <state x="583" y="27" width="1232" height="985" key="CommitChangelistDialog2" timestamp="1583275878783">
+    <state x="583" y="27" width="1232" height="985" key="CommitChangelistDialog2" timestamp="1583359487079">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="583" y="27" width="1232" height="985" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.2560.1400@0.0.1920.1040" timestamp="1583275878783" />
+    <state x="583" y="27" width="1232" height="985" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.2560.1400@0.0.1920.1040" timestamp="1583359487079" />
     <state width="1899" height="323" key="GridCell.Tab.0.bottom" timestamp="1583269989880">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -184,13 +203,13 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="839" y="145" key="RollbackChangesDialog/0.0.1920.1040/1920.0.2560.1400@0.0.1920.1040" timestamp="1583269828615" />
-    <state x="446" y="324" key="SettingsEditor" timestamp="1583184256872">
+    <state x="446" y="324" key="SettingsEditor" timestamp="1583873547546">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="446" y="324" key="SettingsEditor/0.0.1920.1040/1920.0.2560.1400@0.0.1920.1040" timestamp="1583184256872" />
-    <state x="552" y="248" key="Vcs.Push.Dialog.v2" timestamp="1583275881954">
+    <state x="446" y="324" key="SettingsEditor/0.0.1920.1040/1920.0.2560.1400@0.0.1920.1040" timestamp="1583873547546" />
+    <state x="552" y="248" key="Vcs.Push.Dialog.v2" timestamp="1583359491874">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="248" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.2560.1400@0.0.1920.1040" timestamp="1583275881954" />
+    <state x="552" y="248" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.2560.1400@0.0.1920.1040" timestamp="1583359491874" />
   </component>
 </project>
