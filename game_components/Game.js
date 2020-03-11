@@ -12,7 +12,7 @@ class Game {
     }
 
     restart() {
-        document.location.reload();
+        console.log('lost')
     }
 
     start() {
