@@ -1,13 +1,19 @@
+const canvas = document.getElementById('gameContainer');
+const ctx = canvas.getContext('2d');
+
+canvas.width = 1000;
+canvas.height = 900;
+
 class Ball {
     constructor(x = 600, y = 600, ballRadius = 10) {
         this.x = x;
         this.y = y;
         this.x_step = 1;
-        this.y_step = -3;
+        this.y_step = -15;
         this.color = 'blue';
         this.mass = this.ballRadius * this.ballRadius * this.ballRadius;
         this.ballRadius = ballRadius;
-        this.ballOut = false;
+        this.lifes = 5;
     }
 
     draw() {
@@ -55,17 +61,34 @@ class Ball {
 
             case GROUND:
                 this.y_step = -this.y_step;
-                console.log('Lost');
-                newGame.restart();
-                newGame.lifes = -1;
+                this.lifes -= 1;
+                console.log(this.lifes);
                 break;
         }
     }
 
     start() {
-        this.draw();
-        this.walls_collision();
-        this.x += this.x_step;
-        this.y += this.y_step;
+        const ball = new Ball();
+        const player = new Player();
+
+        const playerPlaying = setInterval(() => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            this.draw();
+            this.x += this.x_step;
+            this.y += this.y_step;
+            this.walls_collision();
+
+            player.start();
+            ball.player_collision(player);
+            
+            if (this.lifes === 0) {
+                clearInterval(playerPlaying);
+                console.log('Game over');
+            }
+        }, 1);
+        document.addEventListener('keydown', (e) => player.control(e));
     }
 }
+
+const newGame = new Ball();
+newGame.start();
