@@ -15,7 +15,6 @@ class Player {
 
   think() {
     let inputs = [1.0,0.5, 0.7, 0.2];
-    debugger
     let output = this.brain.predict(inputs);
     output > 0.5 ? this.left() : this.right();
   }
@@ -33,14 +32,13 @@ class Player {
   }
 
   left () {
-    this.x > 0 ? this.x -= this.x_step : console.log('left stop')
-    console.log(`${this.x}`)
-    console.log(`${canvas.width}`)
+    this.x > 0 ? this.x -= this.x_step : null;
+    console.log(this.x)
   }
 
   right () {
     this.x + this.x_step + this.width <= canvas.width ? this.x += this.x_step : console.log('right stop')
-
+    console.log(this.x)
   }
 
   control ({ key, type }) {

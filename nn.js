@@ -25,7 +25,6 @@ class NeuralNetwork {
 
     predict(inputs) {
         this.createModel();
-        debugger
         return tf.tidy(() => {
             const xs = tf.tensor2d([inputs]);
             const ys = this.model.predict(xs);
