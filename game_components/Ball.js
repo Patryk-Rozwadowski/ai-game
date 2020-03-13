@@ -35,6 +35,7 @@ class Ball {
     }
 
     player_collision(player) {
+
         if (this.y + this.y_step + this.ballRadius > player.y
             && this.x + this.ballRadius < player.x + player.width
             && player.x < this.x + this.ballRadius) {
@@ -70,9 +71,7 @@ class Ball {
     }
 
     start() {
-        const ball = new Ball();
         const player = new Player();
-
         const playerPlaying = setInterval(() => {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             this.draw();
@@ -81,7 +80,7 @@ class Ball {
             this.walls_collision();
 
             player.start();
-            player.think();
+
             this.player_collision(player);
             
             if (this.lifes === 0) {
@@ -90,6 +89,7 @@ class Ball {
             }
         }, 1);
         document.addEventListener('keydown', (e) => player.control(e));
+        player.think();
     }
 }
 

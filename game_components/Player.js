@@ -1,3 +1,4 @@
+import * as tf from '@tensorflow/tfjs';
 import NeuralNetwork from '../nn';
 const canvas = document.getElementById('gameContainer')
 const ctx = canvas.getContext('2d')
@@ -14,8 +15,8 @@ class Player {
 
   think() {
     let inputs = [1.0,0.5, 0.7, 0.2];
+    debugger
     let output = this.brain.predict(inputs);
-
     output > 0.5 ? this.left() : this.right();
   }
 

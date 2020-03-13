@@ -4,7 +4,7 @@ class NeuralNetwork {
         this.input_nodes = a;
         this.hidden_nodes = b;
         this.output_nodes = c;
-        this.createModel();
+
     }
 
     createModel() {
@@ -20,7 +20,19 @@ class NeuralNetwork {
             activation: 'softmax'
         });
         this.model.add(output);
-        this.model.compile({});
+
+    }
+
+    predict(inputs) {
+        this.createModel();
+        debugger
+        return tf.tidy(() => {
+            const xs = tf.tensor2d([inputs]);
+            const ys = this.model.predict(xs);
+            const outputs = ys.dataSync();
+            // console.log(outputs);
+            return outputs;
+        });
     }
 }
 
