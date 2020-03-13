@@ -10,5 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "html-server": "^0.1.1"
+  },
+  "devDependencies": {
+    "@tensorflow/tfjs": "^1.7.0"
   }
 }

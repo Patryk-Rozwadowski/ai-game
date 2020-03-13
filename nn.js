@@ -1,3 +1,4 @@
+import * as tf from '@tensorflow/tfjs';
 class NeuralNetwork {
     constructor(a, b, c) {
         this.input_nodes = a;
@@ -22,3 +23,5 @@ class NeuralNetwork {
         this.model.compile({});
     }
 }
+
+export default NeuralNetwork;

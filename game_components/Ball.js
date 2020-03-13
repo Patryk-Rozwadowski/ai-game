@@ -1,3 +1,5 @@
+import Player from './Player'
+
 const canvas = document.getElementById('gameContainer');
 const ctx = canvas.getContext('2d');
 
@@ -5,14 +7,14 @@ canvas.width = 1000;
 canvas.height = 900;
 
 class Ball {
-    constructor(x = 600, y = 600, ballRadius = 10) {
-        this.x = x;
-        this.y = y;
+    constructor() {
+        this.x = 600;
+        this.y = 600;
         this.x_step = 1;
-        this.y_step = -15;
+        this.y_step = -2;
         this.color = 'blue';
         this.mass = this.ballRadius * this.ballRadius * this.ballRadius;
-        this.ballRadius = ballRadius;
+        this.ballRadius = 10;
         this.lifes = 5;
     }
 
@@ -79,10 +81,11 @@ class Ball {
             this.walls_collision();
 
             player.start();
-            ball.player_collision(player);
+            player.think();
+            this.player_collision(player);
             
             if (this.lifes === 0) {
-                clearInterval(playerPlaying);
+                //clearInterval(playerPlaying);
                 console.log('Game over');
             }
         }, 1);
