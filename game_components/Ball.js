@@ -1,5 +1,5 @@
-import Player from './Player';
-import NeuralNetwork from '../nn';
+import Player from './Player'
+import NeuralNetwork from '../nn'
 
 const canvas = document.getElementById('gameContainer');
 const ctx = canvas.getContext('2d');
@@ -60,8 +60,9 @@ class Game {
 		this.ball_y = '';
 		this.player_x = '';
 
+		this.inputs = [];
 		this.lifes = 3;
-		this.brain = new NeuralNetwork(4, 4, 2);
+		this.brain = new NeuralNetwork(5, 15, 2);
 	}
 
 	info_params () {
@@ -87,6 +88,8 @@ class Game {
 
 		nnInfo.innerHTML = `
 				<h2>Neural network params:</h2>
+				<p></p>
+				<p>${this.inputs.map(item => `<p>${item}</p>`)}</p>
 		`;
 	}
 
@@ -98,15 +101,19 @@ class Game {
 		}
 	}
 
+	create_inputs () {
+		this.inputs.push(
+			this.player.x,
+			this.player.y,
+			this.ball.x,
+			this.ball.y,
+			this.lifes
+		);
+	}
+
 	think () {
-		const input = [];
-		input[0] = this.player.x;
-		input[1] = this.player.y;
-		input[2] = this.ball.x;
-		input[3] = newGame.ball.y;
-		debugger
-		let output = this.brain.predict(input);
-		output[0] > 0.5 ? this.player.left() : this.player.right();
+		let output = this.brain.predict(this.inputs);
+		output[0] > output[1] ? this.player.left() : this.player.right();
 	}
 
 	walls_collision () {
@@ -139,15 +146,17 @@ class Game {
 	start () {
 		this.ball = new Ball();
 		this.player = new Player();
-
+		this.create_inputs();
+		this.player.changeColor();
 		const playerPlaying = setInterval(() => {
 			ctx.clearRect(0, 0, canvas.width, canvas.height);
 			this.ball.start();
 			this.player.start();
-			//this.think();
+			this.think();
 			this.walls_collision();
 			this.player_collision();
 			this.info_params();
+
 			if (this.lifes === 0) {
 				//clearInterval(playerPlaying);
 				console.log('Game over');

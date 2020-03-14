@@ -8,12 +8,13 @@ class Player {
 		this.x_step = 10;
 		this.height = 25;
 		this.width = canvas.width / 6;
+		this.color = '';
 	}
 
 	draw () {
 		ctx.beginPath();
 		ctx.rect(this.x, canvas.height - this.height, this.width, this.height);
-		ctx.fillStyle = '#0095DD';
+		ctx.fillStyle = this.color;
 		ctx.fill();
 		ctx.closePath();
 	}
@@ -29,6 +30,14 @@ class Player {
 	right () {
 		this.x + this.x_step + this.width <= canvas.width ? this.x += this.x_step : console.log('right stop');
 }
+
+	changeColor () {
+		let red = Math.floor(Math.random() * 3) * 127;
+		let green = Math.floor(Math.random() * 3) * 127;
+		let blue = Math.floor(Math.random() * 3) * 127;
+
+		this.color = 'rgb(' + red + ', ' + green + ', ' + blue + ')';
+	}
 
 	control ({ key, type }) {
 		switch (key) {
