@@ -1,3 +1,5 @@
+import NeuralNetwork from '../nn'
+
 const canvas = document.getElementById('gameContainer');
 const ctx = canvas.getContext('2d');
 
@@ -9,6 +11,7 @@ class Player {
 		this.height = 25;
 		this.width = canvas.width / 6;
 		this.color = '';
+		this.brain = new NeuralNetwork(5, 15, 2);
 	}
 
 	draw () {
