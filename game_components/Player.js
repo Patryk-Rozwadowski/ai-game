@@ -24,13 +24,11 @@ class Player {
 
 	left () {
 		this.x > 0 ? this.x -= this.x_step : null;
-		console.log(this.x);
 	}
 
 	right () {
 		this.x + this.x_step + this.width <= canvas.width ? this.x += this.x_step : console.log('right stop');
-		console.log(this.x);
-	}
+}
 
 	control ({ key, type }) {
 		switch (key) {

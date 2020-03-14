@@ -7,12 +7,17 @@ const ctx = canvas.getContext('2d');
 canvas.width = 1000;
 canvas.height = 900;
 
+const playerInfo = document.getElementById('playerInfo');
+const ballInfo = document.getElementById('ballInfo');
+const gameInfo = document.getElementById('gameInfo');
+const nnInfo = document.getElementById('nnInfo');
+
 class Ball {
 	constructor () {
 		this.x = 600;
 		this.y = 600;
 		this.x_speed = 1;
-		this.y_speed = -2;
+		this.y_speed = -5;
 		this.color = 'blue';
 		this.mass = this.ballRadius * this.ballRadius * this.ballRadius;
 		this.ballRadius = 10;
@@ -57,6 +62,32 @@ class Game {
 
 		this.lifes = 3;
 		this.brain = new NeuralNetwork(4, 4, 2);
+	}
+
+	info_params () {
+		playerInfo.innerHTML = `
+				<h2>Player params:</h2>
+				<p>Player position X: ${this.player.x}</p>
+				<p>Player position Y: ${this.player.y}</p>	
+		`;
+
+		ballInfo.innerHTML = `
+				<h2>Ball params:</h2>
+				<p>Ball position X: ${this.ball.x}</p>
+				<p>Ball position Y: ${this.ball.y}</p>
+				<p>Ball speed: ${this.ball.y_speed}</p>
+				<p>Ball wall bounce: ${this.ball.x_speed}</p>
+
+		`;
+
+		gameInfo.innerHTML = `
+				<h2>Game params:</h2>
+				<p>Lifes: ${this.lifes}</p>
+		`;
+
+		nnInfo.innerHTML = `
+				<h2>Neural network params:</h2>
+		`;
 	}
 
 	player_collision () {
@@ -113,15 +144,16 @@ class Game {
 			ctx.clearRect(0, 0, canvas.width, canvas.height);
 			this.ball.start();
 			this.player.start();
-			this.think();
+			//this.think();
 			this.walls_collision();
 			this.player_collision();
-
+			this.info_params();
 			if (this.lifes === 0) {
 				//clearInterval(playerPlaying);
 				console.log('Game over');
 			}
-		}, 1);
+
+		}, 10);
 		document.addEventListener('keydown', (e) => this.player.control(e));
 	}
 }
