@@ -1,4 +1,5 @@
 import Player from './Player';
+import NeuralNetwork from '../nn';
 
 const canvas = document.getElementById('gameContainer');
 const ctx = canvas.getContext('2d');
@@ -25,10 +26,10 @@ class Ball {
 		ctx.closePath();
 	}
 
-	movement() {
-    this.x += this.x_speed;
-    this.y += this.y_speed;
-  }
+	movement () {
+		this.x += this.x_speed;
+		this.y += this.y_speed;
+	}
 
 	changeColor () {
 		let red = Math.floor(Math.random() * 3) * 127;
@@ -38,7 +39,7 @@ class Ball {
 		this.color = 'rgb(' + red + ', ' + green + ', ' + blue + ')';
 	}
 
-	start() {
+	start () {
 		this.draw();
 		this.movement();
 	}
@@ -55,14 +56,26 @@ class Game {
 		this.player_x = '';
 
 		this.lifes = 3;
+		this.brain = new NeuralNetwork(4, 4, 2);
 	}
 
 	player_collision () {
 		if (this.ball.y + this.ball.y_speed + this.ball.ballRadius > this.player.y
 			&& this.ball.x + this.ball.ballRadius < this.player.x + this.player.width
 			&& this.player.x < this.ball.x + this.ball.ballRadius) {
-			this.y_speed = -this.y_speed;
+			this.ball.y_speed = -this.ball.y_speed;
 		}
+	}
+
+	think () {
+		const input = [];
+		input[0] = this.player.x;
+		input[1] = this.player.y;
+		input[2] = this.ball.x;
+		input[3] = newGame.ball.y;
+		debugger
+		let output = this.brain.predict(input);
+		output[0] > 0.5 ? this.player.left() : this.player.right();
 	}
 
 	walls_collision () {
@@ -100,6 +113,7 @@ class Game {
 			ctx.clearRect(0, 0, canvas.width, canvas.height);
 			this.ball.start();
 			this.player.start();
+			this.think();
 			this.walls_collision();
 			this.player_collision();
 
