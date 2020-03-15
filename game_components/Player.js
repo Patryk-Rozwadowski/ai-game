@@ -11,7 +11,23 @@ class Player {
 		this.height = 25;
 		this.width = canvas.width / 6;
 		this.color = '';
-		this.brain = new NeuralNetwork(5, 15, 2);
+
+		this.brain = new NeuralNetwork(5, 15, 2)
+		this.inputs = []
+		this.brain.createModel();
+
+		this.lifes = 1;
+	}
+
+	think (ballX, ballY) {
+		this.inputs[0] = this.x;
+		this.inputs[1] = this.y;
+		this.inputs[2] = ballX;
+		this.inputs[3] = ballY;
+		this.inputs[4] = this.lifes;
+
+		let output = this.brain.predict(this.inputs)
+		output[0] > output[1] ? this.left() : this.right()
 	}
 
 	draw () {
@@ -56,6 +72,7 @@ class Player {
 
 	start () {
 		this.draw();
+
 	}
 }
 

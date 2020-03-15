@@ -1,11 +1,10 @@
-import * as tf from '@tensorflow/tfjs';
+import * as tf from '@tensorflow/tfjs'
 
 class NeuralNetwork {
 	constructor (a, b, c) {
 		this.input_nodes = a;
 		this.hidden_nodes = b;
 		this.output_nodes = c;
-		this.createModel();
 	}
 
 	createModel () {

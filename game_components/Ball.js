@@ -9,7 +9,7 @@ class Ball {
 		this.x = 600;
 		this.y = 600;
 		this.x_speed = 1;
-		this.y_speed = -5;
+		this.y_speed = -2;
 		this.color = 'blue';
 		this.mass = this.ballRadius * this.ballRadius * this.ballRadius;
 		this.ballRadius = 10;

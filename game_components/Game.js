@@ -1,4 +1,3 @@
-import NeuralNetwork from '../nn'
 import Player from './Player'
 import Ball from './Ball'
 
@@ -7,24 +6,48 @@ const ballInfo = document.getElementById('ballInfo')
 const gameInfo = document.getElementById('gameInfo')
 const nnInfo = document.getElementById('nnInfo')
 
-const canvas = document.getElementById('gameContainer');
-const ctx = canvas.getContext('2d');
-canvas.width = 1000;
-canvas.height = 900;
+const canvas = document.getElementById('gameContainer')
+const ctx = canvas.getContext('2d')
+canvas.width = 1000
+canvas.height = 900
 
 class Game {
 
 	constructor () {
+		this.total = 2
 		this.ball = ''
-		this.player = ''
+		this.players = []
 
 		this.ball_x = ''
 		this.ball_y = ''
 		this.player_x = ''
 
-		this.inputs = []
-		this.lifes = 3
-		this.brain = new NeuralNetwork(5, 15, 2)
+		this.dead = false
+		this.repeat = false
+
+	}
+
+	playing () {
+		debugger;
+		setInterval(() => {
+			ctx.clearRect(0, 0, canvas.width, canvas.height)
+			this.ball.start()
+			this.players.map(player => player.start())
+			this.players.map(player => player.think(this.ball_x, this.ball_y))
+			this.player_collision()
+
+			this.walls_collision()
+			//this.info_params()
+
+		})
+	}
+
+	clearGame () {
+		ctx.clearRect(0, 0, canvas.width, canvas.height)
+	}
+
+	stop () {
+		clearInterval(this.playing)
 	}
 
 	info_params () {
@@ -48,34 +71,23 @@ class Game {
 				<p>Lifes: ${this.lifes}</p>
 		`
 
-		nnInfo.innerHTML = `
-				<h2>Neural network params:</h2>
-				<p></p>
-				<p>${this.inputs.map(item => `<p>${item}</p>`)}</p>
-		`
+		// nnInfo.innerHTML = `
+		// 		<h2>Neural network params:</h2>
+		// 		<p></p>
+		// 		<p>${this.inputs.map(item => `<p>${item}</p>`)}</p>
+		// `
 	}
 
 	player_collision () {
-		if (this.ball.y + this.ball.y_speed + this.ball.ballRadius > this.player.y
-			&& this.ball.x + this.ball.ballRadius < this.player.x + this.player.width
-			&& this.player.x < this.ball.x + this.ball.ballRadius) {
-			this.ball.y_speed = -this.ball.y_speed
-		}
-	}
-
-	create_inputs () {
-		this.inputs.push(
-			this.player.x,
-			this.player.y,
-			this.ball.x,
-			this.ball.y,
-			this.lifes,
-		)
-	}
-
-	think () {
-		let output = this.brain.predict(this.inputs)
-		output[0] > output[1] ? this.player.left() : this.player.right()
+		this.players.map(player => {
+			if (this.ball.y + this.ball.y_speed + this.ball.ballRadius > player.y
+				&& this.ball.x + this.ball.ballRadius < player.x + player.width
+				&& player.x < this.ball.x + this.ball.ballRadius) {
+				this.ball.y_speed = -this.ball.y_speed
+			} else {
+				this.stop()
+			}
+		})
 	}
 
 	walls_collision () {
@@ -99,37 +111,40 @@ class Game {
 
 			case GROUND:
 				this.ball.y_speed = -this.ball.y_speed
-				this.lifes -= 1
-				console.log(this.lifes)
+				this.players.map((player, i) => {
+						debugger;
+						player.lifes -= 1
+						if (player.lifes === 0) {
+							console.log(`remove player ${i} from game`)
+							this.players.splice(i, 1)
+							this.stop()
+							console.log(this.players)
+							this.clearGame()
+						}
+						console.log(player.lifes)
+					},
+				)
+
 				break
 		}
 	}
 
 	start () {
 		this.ball = new Ball()
-		this.player = new Player()
-		this.create_inputs()
-		this.player.changeColor()
-		const playerPlaying = setInterval(() => {
-			ctx.clearRect(0, 0, canvas.width, canvas.height)
-			this.ball.start()
-			this.player.start()
-			this.think()
-			this.walls_collision()
-			this.player_collision()
-			this.info_params()
+		for (let i = 0; i < this.total; i++) {
+			debugger
+			this.players[i] = new Player
+			this.players[i].changeColor()
+		}
 
-			if (this.lifes === 0) {
-				//clearInterval(playerPlaying);
-				console.log('Game over')
-			}
+		this.playing()
 
-		}, 10)
-		document.addEventListener('keydown', (e) => this.player.control(e))
+		//document.addEventListener('keydown', (e) => this.player.control(e))
 	}
 }
 
 const newGame = new Game
+
 newGame.start()
 
 export default Game
