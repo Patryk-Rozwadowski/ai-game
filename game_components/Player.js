@@ -10,8 +10,8 @@ class Player {
 		this.x = 500;
 		this.y = canvas.height - 25;
 		this.x_step = 10;
-		this.height = 25;
-		this.width = canvas.width / 6;
+		this.height = 15;
+		this.width = canvas.width / 7;
 		this.color = '';
 
 		this.brain = new NeuralNetwork(5, 15, 2)

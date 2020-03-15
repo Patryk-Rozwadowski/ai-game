@@ -7,7 +7,7 @@ canvas.height = 900;
 class Ball {
 	constructor () {
 		this.x = 600 + Math.floor(Math.random() * 100);
-		this.y = 600 + Math.floor(Math.random() * 100);
+		this.y = canvas.height / 2 + Math.floor(Math.random() * 100);
 		this.x_speed = 1;
 		this.y_speed = -10;
 		this.color = '';

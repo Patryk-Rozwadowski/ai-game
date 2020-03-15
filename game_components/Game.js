@@ -1,6 +1,7 @@
 import Player from './Player'
 
 const playerInfo = document.getElementById('playerInfo')
+const deadPlayersList = document.getElementById('deadPlayersList')
 const ballInfo = document.getElementById('ballInfo')
 const gameInfo = document.getElementById('gameInfo')
 const nnInfo = document.getElementById('nnInfo')
@@ -8,20 +9,28 @@ const nnInfo = document.getElementById('nnInfo')
 const canvas = document.getElementById('gameContainer')
 const ctx = canvas.getContext('2d')
 canvas.width = 1000
-canvas.height = 900
+canvas.height = 500
 
 class Game {
 
 	constructor () {
 		this.total = 5
 		this.players = []
-	}
-
-	playing () {
-		debugger;
-		setInterval(() => {
+		this.deadPlayers = []
+		this.interval = setInterval(() => {
 			ctx.clearRect(0, 0, canvas.width, canvas.height)
-			this.players.map(player => player.start())
+			this.players.map((player, i) => {
+				player.start()
+
+				if (player.dead === true) {
+					if (!this.players.length) {
+						this.stop()
+					}
+					this.players.splice(i, 1)
+					this.deadPlayers.push(player)
+
+				}
+			})
 			this.players.map(player => player.think())
 			this.info_params()
 		})
@@ -32,22 +41,24 @@ class Game {
 	}
 
 	stop () {
-		clearInterval(this.playing)
+		clearInterval(this.interval)
 	}
 
 	info_params () {
-		debugger;
 		playerInfo.innerHTML =
 			`
-				<li>Players params:</li>
-				
-				<li>
-						${this.players.map(player => `<li>Player id: ${player.id}</li>
+				<h2>Live players: ${this.players.length}</h2>
+						${this.players.map(player => `
+							<li>Player id: ${player.id}</li>
 							<li>Player id: ${player.lifes}</li>
 							<li>Player dead: ${player.dead}</li>
-							`,
+							`
 			)}
-				</li>
+		`
+
+		deadPlayersList.innerHTML = `
+			<h2>Dead players: ${this.deadPlayers.length}</h2>
+			${this.deadPlayers.map(player => `<li>${player.id}</li>`)}
 		`
 
 		// ballInfo.innerHTML = `
@@ -76,12 +87,11 @@ class Game {
 			this.players[i] = new Player
 			this.players[i].changeColor()
 		}
-
-		this.playing()
-
+		this.interval
 		//document.addEventListener('keydown', (e) => this.player.control(e))
 	}
 }
+
 const newGame = new Game
 newGame.start()
 
