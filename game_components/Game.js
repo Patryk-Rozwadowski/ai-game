@@ -14,16 +14,7 @@ class Game {
 
 	constructor () {
 		this.total = 5
-
 		this.players = []
-
-		this.ball_x = ''
-		this.ball_y = ''
-		this.player_x = ''
-
-		this.dead = false
-		this.repeat = false
-
 	}
 
 	playing () {
@@ -32,8 +23,7 @@ class Game {
 			ctx.clearRect(0, 0, canvas.width, canvas.height)
 			this.players.map(player => player.start())
 			this.players.map(player => player.think())
-			//this.info_params()
-
+			this.info_params()
 		})
 	}
 
@@ -46,25 +36,33 @@ class Game {
 	}
 
 	info_params () {
-		playerInfo.innerHTML = `
-				<h2>Player params:</h2>
-				<p>Player position X: ${this.player.x}</p>
-				<p>Player position Y: ${this.player.y}</p>	
+		debugger;
+		playerInfo.innerHTML =
+			`
+				<li>Players params:</li>
+				
+				<li>
+						${this.players.map(player => `<li>Player id: ${player.id}</li>
+							<li>Player id: ${player.lifes}</li>
+							<li>Player dead: ${player.dead}</li>
+							`,
+			)}
+				</li>
 		`
 
-		ballInfo.innerHTML = `
-				<h2>Ball params:</h2>
-				<p>Ball position X: ${this.ball.x}</p>
-				<p>Ball position Y: ${this.ball.y}</p>
-				<p>Ball speed: ${this.ball.y_speed}</p>
-				<p>Ball wall bounce: ${this.ball.x_speed}</p>
-
-		`
-
-		gameInfo.innerHTML = `
-				<h2>Game params:</h2>
-				<p>Lifes: ${this.lifes}</p>
-		`
+		// ballInfo.innerHTML = `
+		// 		<h2>Ball params:</h2>
+		// 		<p>Ball position X: ${this.ball.x}</p>
+		// 		<p>Ball position Y: ${this.ball.y}</p>
+		// 		<p>Ball speed: ${this.ball.y_speed}</p>
+		// 		<p>Ball wall bounce: ${this.ball.x_speed}</p>
+		//
+		// `
+		//
+		// gameInfo.innerHTML = `
+		// 		<h2>Game params:</h2>
+		// 		<p>Lifes: ${this.lifes}</p>
+		// `
 
 		// nnInfo.innerHTML = `
 		// 		<h2>Neural network params:</h2>
@@ -73,13 +71,8 @@ class Game {
 		// `
 	}
 
-
-
-
-
 	start () {
 		for (let i = 0; i < this.total; i++) {
-			debugger
 			this.players[i] = new Player
 			this.players[i].changeColor()
 		}
@@ -89,9 +82,7 @@ class Game {
 		//document.addEventListener('keydown', (e) => this.player.control(e))
 	}
 }
-
 const newGame = new Game
-
 newGame.start()
 
 export default Game
