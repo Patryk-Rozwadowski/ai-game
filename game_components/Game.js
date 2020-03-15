@@ -1,5 +1,4 @@
 import Player from './Player'
-import Ball from './Ball'
 
 const playerInfo = document.getElementById('playerInfo')
 const ballInfo = document.getElementById('ballInfo')
@@ -14,8 +13,8 @@ canvas.height = 900
 class Game {
 
 	constructor () {
-		this.total = 2
-		this.ball = ''
+		this.total = 5
+
 		this.players = []
 
 		this.ball_x = ''
@@ -31,12 +30,8 @@ class Game {
 		debugger;
 		setInterval(() => {
 			ctx.clearRect(0, 0, canvas.width, canvas.height)
-			this.ball.start()
 			this.players.map(player => player.start())
-			this.players.map(player => player.think(this.ball_x, this.ball_y))
-			this.player_collision()
-
-			this.walls_collision()
+			this.players.map(player => player.think())
 			//this.info_params()
 
 		})
@@ -78,59 +73,11 @@ class Game {
 		// `
 	}
 
-	player_collision () {
-		this.players.map(player => {
-			if (this.ball.y + this.ball.y_speed + this.ball.ballRadius > player.y
-				&& this.ball.x + this.ball.ballRadius < player.x + player.width
-				&& player.x < this.ball.x + this.ball.ballRadius) {
-				this.ball.y_speed = -this.ball.y_speed
-			} else {
-				this.stop()
-			}
-		})
-	}
 
-	walls_collision () {
-		const ROOF = this.ball.y + this.ball.y_speed - this.ball.ballRadius < 0
-		const RIGHT_WALL = this.ball.x + this.ball.x_speed + this.ball.ballRadius > canvas.width
-		const LEFT_WALL = this.ball.x + this.ball.x_speed - this.ball.ballRadius < 0
-		const GROUND = this.ball.y + this.ball.y_speed + this.ball.ballRadius > canvas.height
 
-		switch (true) {
-			case ROOF:
-				this.ball.y_speed = -this.ball.y_speed
-				break
 
-			case LEFT_WALL:
-				this.ball.x_speed = -this.ball.x_speed
-				break
-
-			case RIGHT_WALL:
-				this.ball.x_speed = -this.ball.x_speed
-				break
-
-			case GROUND:
-				this.ball.y_speed = -this.ball.y_speed
-				this.players.map((player, i) => {
-						debugger;
-						player.lifes -= 1
-						if (player.lifes === 0) {
-							console.log(`remove player ${i} from game`)
-							this.players.splice(i, 1)
-							this.stop()
-							console.log(this.players)
-							this.clearGame()
-						}
-						console.log(player.lifes)
-					},
-				)
-
-				break
-		}
-	}
 
 	start () {
-		this.ball = new Ball()
 		for (let i = 0; i < this.total; i++) {
 			debugger
 			this.players[i] = new Player

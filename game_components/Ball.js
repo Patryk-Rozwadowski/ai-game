@@ -6,11 +6,11 @@ canvas.height = 900;
 
 class Ball {
 	constructor () {
-		this.x = 600;
-		this.y = 600;
+		this.x = 600 + Math.floor(Math.random() * 100);
+		this.y = 600 + Math.floor(Math.random() * 100);
 		this.x_speed = 1;
-		this.y_speed = -2;
-		this.color = 'blue';
+		this.y_speed = -10;
+		this.color = '';
 		this.mass = this.ballRadius * this.ballRadius * this.ballRadius;
 		this.ballRadius = 10;
 	}
@@ -26,14 +26,6 @@ class Ball {
 	movement () {
 		this.x += this.x_speed;
 		this.y += this.y_speed;
-	}
-
-	changeColor () {
-		let red = Math.floor(Math.random() * 3) * 127;
-		let green = Math.floor(Math.random() * 3) * 127;
-		let blue = Math.floor(Math.random() * 3) * 127;
-
-		this.color = 'rgb(' + red + ', ' + green + ', ' + blue + ')';
 	}
 
 	start () {
