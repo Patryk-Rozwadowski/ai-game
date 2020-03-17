@@ -1,5 +1,7 @@
-import NeuralNetwork from '../nn'
-import Ball from './Ball'
+import * as tf from '@tensorflow/tfjs';
+
+import NeuralNetwork from '../nn';
+import Ball from './Ball';
 
 const canvas = document.getElementById('gameContainer');
 const ctx = canvas.getContext('2d');
@@ -14,37 +16,39 @@ class Player {
 		this.width = canvas.width / 7;
 		this.color = '';
 
-		this.brain = new NeuralNetwork(5, 15, 2)
-		this.inputs = []
+		this.brain = new NeuralNetwork(5, 15, 2);
+		this.inputs = [];
 		this.brain.createModel();
 
-		this.lifes = 1;
-		this.dead = false
+		this.dead = false;
 		this.ball = new Ball();
+
+		this.lifes = 1;
+		this.fitness = 0;
 	}
 
 	walls_collision () {
-		const ROOF = this.ball.y + this.ball.y_speed - this.ball.ballRadius < 0
-		const RIGHT_WALL = this.ball.x + this.ball.x_speed + this.ball.ballRadius > canvas.width
-		const LEFT_WALL = this.ball.x + this.ball.x_speed - this.ball.ballRadius < 0
-		const GROUND = this.ball.y + this.ball.y_speed + this.ball.ballRadius > canvas.height
+		const ROOF = this.ball.y + this.ball.y_speed - this.ball.ballRadius < 0;
+		const RIGHT_WALL = this.ball.x + this.ball.x_speed + this.ball.ballRadius > canvas.width;
+		const LEFT_WALL = this.ball.x + this.ball.x_speed - this.ball.ballRadius < 0;
+		const GROUND = this.ball.y + this.ball.y_speed + this.ball.ballRadius > canvas.height;
 
 		switch (true) {
 			case ROOF:
-				this.ball.y_speed = -this.ball.y_speed
-				break
+				this.ball.y_speed = -this.ball.y_speed;
+				break;
 
 			case LEFT_WALL:
-				this.ball.x_speed = -this.ball.x_speed
-				break
+				this.ball.x_speed = -this.ball.x_speed;
+				break;
 
 			case RIGHT_WALL:
-				this.ball.x_speed = -this.ball.x_speed
-				break
+				this.ball.x_speed = -this.ball.x_speed;
+				break;
 
 			case GROUND:
-				this.ball.y_speed = -this.ball.y_speed
-				this.lifes -= 1
+				this.ball.y_speed = -this.ball.y_speed;
+				this.lifes -= 1;
 				if (this.lifes === 0) {
 					this.dead = true;
 					console.log(`remove player ${this.id} from game`)
@@ -85,7 +89,7 @@ class Player {
 		this.inputs[3] = this.ball.y;
 		this.inputs[4] = this.lifes;
 
-		let output = this.brain.predict(this.inputs)
+		let output = this.brain.predict(this.inputs);
 		output[0] > output[1] ? this.left() : this.right()
 	}
 
@@ -133,8 +137,9 @@ class Player {
 	start () {
 		this.draw();
 		this.ball.start();
-		this.player_collision()
-		this.walls_collision()
+		this.player_collision();
+		this.walls_collision();
+		tf.setBackend('cpu');
 	}
 }
 
