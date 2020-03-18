@@ -117,9 +117,9 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"../../Users/rozwadowskip/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/_empty.js":[function(require,module,exports) {
+})({"C:/Users/papryk/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/_empty.js":[function(require,module,exports) {
 
-},{}],"../../Users/rozwadowskip/AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/process/browser.js":[function(require,module,exports) {
+},{}],"C:/Users/papryk/AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/process/browser.js":[function(require,module,exports) {
 
 // shim for using process in browser
 var process = module.exports = {}; // cached from whatever global is present so that test runners that stub it
@@ -328,7 +328,7 @@ process.chdir = function (dir) {
 process.umask = function () {
   return 0;
 };
-},{}],"../../Users/rozwadowskip/AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/base64-js/index.js":[function(require,module,exports) {
+},{}],"C:/Users/papryk/AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/base64-js/index.js":[function(require,module,exports) {
 'use strict'
 
 exports.byteLength = byteLength
@@ -482,7 +482,7 @@ function fromByteArray (uint8) {
   return parts.join('')
 }
 
-},{}],"../../Users/rozwadowskip/AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/ieee754/index.js":[function(require,module,exports) {
+},{}],"C:/Users/papryk/AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/ieee754/index.js":[function(require,module,exports) {
 exports.read = function (buffer, offset, isLE, mLen, nBytes) {
   var e, m
   var eLen = (nBytes * 8) - mLen - 1
@@ -568,14 +568,14 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
   buffer[offset + i - d] |= s * 128
 }
 
-},{}],"../../Users/rozwadowskip/AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/isarray/index.js":[function(require,module,exports) {
+},{}],"C:/Users/papryk/AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/isarray/index.js":[function(require,module,exports) {
 var toString = {}.toString;
 
 module.exports = Array.isArray || function (arr) {
   return toString.call(arr) == '[object Array]';
 };
 
-},{}],"../../Users/rozwadowskip/AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/buffer/index.js":[function(require,module,exports) {
+},{}],"C:/Users/papryk/AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/buffer/index.js":[function(require,module,exports) {
 
 var global = arguments[3];
 /*!
@@ -2368,7 +2368,7 @@ function isnan (val) {
   return val !== val // eslint-disable-line no-self-compare
 }
 
-},{"base64-js":"../../Users/rozwadowskip/AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/base64-js/index.js","ieee754":"../../Users/rozwadowskip/AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/ieee754/index.js","isarray":"../../Users/rozwadowskip/AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/isarray/index.js","buffer":"../../Users/rozwadowskip/AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/buffer/index.js"}],"node_modules/@tensorflow/tfjs-core/dist/tf-core.esm.js":[function(require,module,exports) {
+},{"base64-js":"C:/Users/papryk/AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/base64-js/index.js","ieee754":"C:/Users/papryk/AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/ieee754/index.js","isarray":"C:/Users/papryk/AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/isarray/index.js","buffer":"C:/Users/papryk/AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/buffer/index.js"}],"node_modules/@tensorflow/tfjs-core/dist/tf-core.esm.js":[function(require,module,exports) {
 var global = arguments[3];
 var process = require("process");
 var Buffer = require("buffer").Buffer;
@@ -19976,7 +19976,7 @@ function Td() {
 wt.prototype.squaredDifference = function (t) {
   return nu(this, t);
 }, xt = Gh;
-},{"crypto":"../../Users/rozwadowskip/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/_empty.js","node-fetch":"../../Users/rozwadowskip/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/_empty.js","util":"../../Users/rozwadowskip/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/_empty.js","process":"../../Users/rozwadowskip/AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/process/browser.js","buffer":"../../Users/rozwadowskip/AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/buffer/index.js"}],"node_modules/@tensorflow/tfjs-layers/dist/tf-layers.esm.js":[function(require,module,exports) {
+},{"crypto":"C:/Users/papryk/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/_empty.js","node-fetch":"C:/Users/papryk/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/_empty.js","util":"C:/Users/papryk/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/_empty.js","process":"C:/Users/papryk/AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/process/browser.js","buffer":"C:/Users/papryk/AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/buffer/index.js"}],"node_modules/@tensorflow/tfjs-layers/dist/tf-layers.esm.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -34815,7 +34815,7 @@ function loadGraphModel(e, t) {
 
 var version = "1.7.0";
 exports.version_converter = version;
-},{"@tensorflow/tfjs-core":"node_modules/@tensorflow/tfjs-core/dist/tf-core.esm.js","buffer":"../../Users/rozwadowskip/AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/buffer/index.js"}],"node_modules/@tensorflow/tfjs-data/dist/tf-data.esm.js":[function(require,module,exports) {
+},{"@tensorflow/tfjs-core":"node_modules/@tensorflow/tfjs-core/dist/tf-core.esm.js","buffer":"C:/Users/papryk/AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/buffer/index.js"}],"node_modules/@tensorflow/tfjs-data/dist/tf-data.esm.js":[function(require,module,exports) {
 var global = arguments[3];
 var Buffer = require("buffer").Buffer;
 "use strict";
@@ -37399,7 +37399,7 @@ function microphone(t) {
 
 var version = "1.7.0";
 exports.version_data = version;
-},{"@tensorflow/tfjs-core":"node_modules/@tensorflow/tfjs-core/dist/tf-core.esm.js","crypto":"../../Users/rozwadowskip/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/_empty.js","string_decoder":"../../Users/rozwadowskip/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/_empty.js","fs":"../../Users/rozwadowskip/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/_empty.js","buffer":"../../Users/rozwadowskip/AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/buffer/index.js"}],"node_modules/@tensorflow/tfjs/dist/tf.esm.js":[function(require,module,exports) {
+},{"@tensorflow/tfjs-core":"node_modules/@tensorflow/tfjs-core/dist/tf-core.esm.js","crypto":"C:/Users/papryk/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/_empty.js","string_decoder":"C:/Users/papryk/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/_empty.js","fs":"C:/Users/papryk/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/_empty.js","buffer":"C:/Users/papryk/AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/buffer/index.js"}],"node_modules/@tensorflow/tfjs/dist/tf.esm.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -37500,6 +37500,7 @@ var NeuralNetwork = /*#__PURE__*/function () {
   _createClass(NeuralNetwork, [{
     key: "createModel",
     value: function createModel() {
+      console.log('Create model');
       this.model = tf.sequential();
       var hidden = tf.layers.dense({
         units: this.hidden_nodes,
@@ -37518,8 +37519,6 @@ var NeuralNetwork = /*#__PURE__*/function () {
     value: function predict(inputs) {
       var _this = this;
 
-      this.createModel();
-      debugger;
       return tf.tidy(function () {
         var xs = tf.tensor2d([inputs]);
 
@@ -37537,7 +37536,67 @@ var NeuralNetwork = /*#__PURE__*/function () {
 
 var _default = NeuralNetwork;
 exports.default = _default;
-},{"@tensorflow/tfjs":"node_modules/@tensorflow/tfjs/dist/tf.esm.js"}],"game_components/Player.js":[function(require,module,exports) {
+},{"@tensorflow/tfjs":"node_modules/@tensorflow/tfjs/dist/tf.esm.js"}],"game_components/Ball.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var canvas = document.getElementById('gameContainer');
+var ctx = canvas.getContext('2d');
+canvas.width = 1000;
+canvas.height = 900;
+
+var Ball = /*#__PURE__*/function () {
+  function Ball() {
+    _classCallCheck(this, Ball);
+
+    this.x = 600 + Math.floor(Math.random() * 100);
+    this.y = canvas.height / 2 + Math.floor(Math.random() * 100);
+    this.x_speed = 1;
+    this.y_speed = -10;
+    this.color = '';
+    this.mass = this.ballRadius * this.ballRadius * this.ballRadius;
+    this.ballRadius = 10;
+  }
+
+  _createClass(Ball, [{
+    key: "draw",
+    value: function draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.ballRadius, 0, Math.PI * 2);
+      ctx.fillStyle = this.color;
+      ctx.fill();
+      ctx.closePath();
+    }
+  }, {
+    key: "movement",
+    value: function movement() {
+      this.x += this.x_speed;
+      this.y += this.y_speed;
+    }
+  }, {
+    key: "start",
+    value: function start() {
+      this.draw();
+      this.movement();
+    }
+  }]);
+
+  return Ball;
+}();
+
+var _default = Ball;
+exports.default = _default;
+},{}],"game_components/Player.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -37548,6 +37607,8 @@ exports.default = void 0;
 var tf = _interopRequireWildcard(require("@tensorflow/tfjs"));
 
 var _nn = _interopRequireDefault(require("../nn"));
+
+var _Ball = _interopRequireDefault(require("./Ball"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -37568,30 +37629,99 @@ var Player = /*#__PURE__*/function () {
   function Player() {
     _classCallCheck(this, Player);
 
+    this.id = Math.random();
     this.x = 500;
     this.y = canvas.height - 25;
     this.x_step = 10;
-    this.height = 25;
-    this.width = canvas.width / 6;
-    this.brain = new _nn.default(4, 4, 2);
+    this.height = 15;
+    this.width = canvas.width / 7;
+    this.color = '';
+    this.brain = new _nn.default(5, 15, 2);
+    this.inputs = [];
+    this.brain.createModel();
+    this.dead = false;
+    this.ball = new _Ball.default();
+    this.lifes = 1;
+    this.fitness = 0;
+    this.score = 0;
   }
 
   _createClass(Player, [{
+    key: "walls_collision",
+    value: function walls_collision() {
+      var ROOF = this.ball.y + this.ball.y_speed - this.ball.ballRadius < 0;
+      var RIGHT_WALL = this.ball.x + this.ball.x_speed + this.ball.ballRadius > canvas.width;
+      var LEFT_WALL = this.ball.x + this.ball.x_speed - this.ball.ballRadius < 0;
+      var GROUND = this.ball.y + this.ball.y_speed + this.ball.ballRadius > canvas.height;
+
+      switch (true) {
+        case ROOF:
+          this.ball.y_speed = -this.ball.y_speed;
+          break;
+
+        case LEFT_WALL:
+          this.ball.x_speed = -this.ball.x_speed;
+          break;
+
+        case RIGHT_WALL:
+          this.ball.x_speed = -this.ball.x_speed;
+          break;
+
+        case GROUND:
+          this.ball.y_speed = -this.ball.y_speed;
+          this.lifes -= 1;
+
+          if (this.lifes === 0) {
+            this.dead = true;
+            console.log("remove player ".concat(this.id, " from game")); // this.players.splice(i, 1)
+            // this.stop()
+            // console.log(this.players)
+            // this.clearGame()
+          }
+
+        //
+        // .map((player, i) => {
+        // 		debugger;
+        // 		player.lifes -= 1
+        // 		if (player.lifes === 0) {
+        // 			console.log(`remove player ${i} from game`)
+        // 			this.players.splice(i, 1)
+        // 			this.stop()
+        // 			console.log(this.players)
+        // 			this.clearGame()
+        // 		}
+        // 		console.log(player.lifes)
+        // 	},
+        // )
+      }
+    }
+  }, {
+    key: "player_collision",
+    value: function player_collision() {
+      if (this.ball.y + this.ball.y_speed + this.ball.ballRadius > this.y && this.ball.x + this.ball.ballRadius < this.x + this.width && this.x < this.ball.x + this.ball.ballRadius) {
+        this.ball.y_speed = -this.ball.y_speed;
+      }
+    }
+  }, {
     key: "think",
     value: function think() {
-      var inputs = [1.0, 0.5, 0.7, 0.2];
-      debugger;
-      var output = this.brain.predict(inputs);
-      output > 0.5 ? this.left() : this.right();
+      this.inputs[0] = this.x;
+      this.inputs[1] = this.y;
+      this.inputs[2] = this.ball.x;
+      this.inputs[3] = this.ball.y;
+      this.inputs[4] = this.lifes;
+      var output = this.brain.predict(this.inputs);
+      output[0] > output[1] ? this.left() : this.right();
     }
   }, {
     key: "draw",
     value: function draw() {
       ctx.beginPath();
       ctx.rect(this.x, canvas.height - this.height, this.width, this.height);
-      ctx.fillStyle = '#0095DD';
+      ctx.fillStyle = this.color;
       ctx.fill();
       ctx.closePath();
+      this.ball.color = this.color;
     }
   }, {
     key: "update",
@@ -37601,14 +37731,20 @@ var Player = /*#__PURE__*/function () {
   }, {
     key: "left",
     value: function left() {
-      this.x > 0 ? this.x -= this.x_step : console.log('left stop');
-      console.log("".concat(this.x));
-      console.log("".concat(canvas.width));
+      this.x > 0 ? this.x -= this.x_step : null;
     }
   }, {
     key: "right",
     value: function right() {
-      this.x + this.x_step + this.width <= canvas.width ? this.x += this.x_step : console.log('right stop');
+      this.x + this.x_step + this.width <= canvas.width ? this.x += this.x_step : null;
+    }
+  }, {
+    key: "changeColor",
+    value: function changeColor() {
+      var red = Math.floor(Math.random() * 3) * 127;
+      var green = Math.floor(Math.random() * 3) * 127;
+      var blue = Math.floor(Math.random() * 3) * 127;
+      this.color = 'rgb(' + red + ', ' + green + ', ' + blue + ')';
     }
   }, {
     key: "control",
@@ -37622,7 +37758,7 @@ var Player = /*#__PURE__*/function () {
           break;
 
         case 'd':
-          this.right();
+          this.x + this.x_step + this.width <= canvas.width ? this.x += this.x_step : console.log('right stop');
           break;
       }
     }
@@ -37630,6 +37766,11 @@ var Player = /*#__PURE__*/function () {
     key: "start",
     value: function start() {
       this.draw();
+      this.ball.start();
+      this.player_collision();
+      this.walls_collision();
+      this.score++;
+      tf.setBackend('cpu');
     }
   }]);
 
@@ -37638,7 +37779,7 @@ var Player = /*#__PURE__*/function () {
 
 var _default = Player;
 exports.default = _default;
-},{"@tensorflow/tfjs":"node_modules/@tensorflow/tfjs/dist/tf.esm.js","../nn":"nn.js"}],"../../Users/rozwadowskip/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"@tensorflow/tfjs":"node_modules/@tensorflow/tfjs/dist/tf.esm.js","../nn":"nn.js","./Ball":"game_components/Ball.js"}],"C:/Users/papryk/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -37666,7 +37807,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53984" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60865" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -37842,5 +37983,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../Users/rozwadowskip/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","game_components/Player.js"], null)
+},{}]},{},["C:/Users/papryk/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","game_components/Player.js"], null)
 //# sourceMappingURL=/Player.d1ed8641.js.map

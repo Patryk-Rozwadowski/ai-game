@@ -25,6 +25,7 @@ class Player {
 
 		this.lifes = 1;
 		this.fitness = 0;
+		this.score = 0;
 	}
 
 	walls_collision () {
@@ -139,6 +140,7 @@ class Player {
 		this.ball.start();
 		this.player_collision();
 		this.walls_collision();
+		this.score++;
 		tf.setBackend('cpu');
 	}
 }

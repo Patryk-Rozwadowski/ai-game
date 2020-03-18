@@ -28,7 +28,7 @@ class Game {
           this.deadPlayers.push(player);
         }
       });
-      
+
       if (this.players.length === 0) {
         this.nextGeneration();
       }
@@ -42,6 +42,13 @@ class Game {
     for (let i = 0; i < this.total; i++) {
       this.players[i] = new Player;
       this.players[i].changeColor();
+    }
+  }
+
+  calculateFitness() {
+    let fitness = 0;
+    for(let player in this.deadPlayers) {
+
     }
   }
 
@@ -59,6 +66,7 @@ class Game {
 				<h2>Live players: ${this.players.length}</h2>
 						${this.players.map(player => `
 							<li>Player id: ${player.id}</li>
+							<li>Score: ${player.score}</li>
 							<li>Player id: ${player.lifes}</li>
 							<li>Player dead: ${player.dead}</li>
 							`,

@@ -20,6 +20,7 @@ class NeuralNetwork {
 			units: this.output_nodes,
 			activation: 'softmax'
 		});
+
 		this.model.add(output);
 
 	}
