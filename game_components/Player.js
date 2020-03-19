@@ -24,7 +24,6 @@ class Player {
 		this.ball = new Ball();
 
 		this.lifes = 1;
-		this.fitness = 0;
 		this.score = 0;
 	}
 

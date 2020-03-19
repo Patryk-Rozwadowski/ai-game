@@ -5,6 +5,7 @@ const deadPlayersList = document.getElementById('deadPlayersList');
 const ballInfo = document.getElementById('ballInfo');
 const gameInfo = document.getElementById('gameInfo');
 const nnInfo = document.getElementById('nnInfo');
+const bestPlayer = document.getElementById('bestPlayer');
 
 const canvas = document.getElementById('gameContainer');
 const ctx = canvas.getContext('2d');
@@ -14,9 +15,13 @@ canvas.height = 500;
 class Game {
 
   constructor() {
-    this.total = 22;
+    this.total = 3;
     this.players = [];
     this.deadPlayers = [];
+    this.bestPlayer = '';
+    this.fitness = '';
+    this.generation = 1;
+    this.avgFitness = '';
     this.interval = setInterval(() => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       this.players.map((player, i) => {
@@ -30,6 +35,13 @@ class Game {
       });
 
       if (this.players.length === 0) {
+        this.avgFitness = 0;
+        let temporaryScores = [];
+        this.deadPlayers.map(player => temporaryScores.push(player.score));
+        this.bestPlayer = Math.max.apply(Math, temporaryScores);
+
+        this.calculateFitness();
+
         this.nextGeneration();
       }
       this.players.map(player => player.think());
@@ -39,6 +51,7 @@ class Game {
 
   nextGeneration() {
     console.log('Next generation');
+    this.generation++;
     for (let i = 0; i < this.total; i++) {
       this.players[i] = new Player;
       this.players[i].changeColor();
@@ -46,10 +59,20 @@ class Game {
   }
 
   calculateFitness() {
-    let fitness = 0;
-    for(let player in this.deadPlayers) {
+    debugger;
+    let scoreSum = 0;
+    let playersFitness = 0;
 
+    for (let player of this.deadPlayers) {
+      scoreSum += player.score;
     }
+
+    for (let player of this.deadPlayers) {
+      player.fitness = player.score / scoreSum;
+      playersFitness += player.fitness;
+    }
+
+    this.avgFitness = playersFitness / this.deadPlayers.length;
   }
 
   clearGame() {
@@ -73,6 +96,10 @@ class Game {
         )}
 		`;
 
+    bestPlayer.innerHTML = `
+      <h2>${this.bestPlayer ? this.bestPlayer : 'No best player yet!'}</h2>
+    `;
+
     deadPlayersList.innerHTML = `
 			<h2>Dead players: ${this.deadPlayers.length}</h2>
 			${this.deadPlayers.map(player => `<li>${player.id}</li>`)}
@@ -92,11 +119,11 @@ class Game {
     // 		<p>Lifes: ${this.lifes}</p>
     // `
 
-    // nnInfo.innerHTML = `
-    // 		<h2>Neural network params:</h2>
-    // 		<p></p>
-    // 		<p>${this.inputs.map(item => `<p>${item}</p>`)}</p>
-    // `
+    nnInfo.innerHTML = `
+    		<h2>Generations:</h2>
+    		<p>${this.generation}</p>
+    		<p>${this.avgFitness}</p>
+    `
   }
 
   start() {

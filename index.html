@@ -13,21 +13,23 @@
 <body>
 <main>
     <div class="row">
-        <div class="col-sm-4">
+        <div class="col-sm-6">
             <div class="row">
-                <div class="col-sm-6">
+                <div class="col-sm-2">
+                    <div id="bestPlayer"></div>
+                </div>
+                <div class="col-sm-2">
                     <ul id="playerInfo"></ul>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-2">
                     <ul id="deadPlayersList"></ul>
                 </div>
+                <div class="col-sm-2">
+                    <ul id="nnInfo"></ul>
+                </div>
             </div>
-
-            <div id="ballInfo"></div>
-            <div id="gameInfo"></div>
-            <div id="nnInfo"></div>
         </div>
-        <div class="col-sm-8">
+        <div class="col-sm-6">
             <canvas style="width:100%; border: 1px solid #222;" id="gameContainer"></canvas>
         </div>
     </div>
@@ -36,9 +38,9 @@
 </main>
 
 </body>
-<script type="module" src="./nn.js"></script>
-<script type="module" src="./game_components/Player.js"></script>
-<script type="module" src="./game_components/Ball.js"></script>
-<script type="module" src="./game_components/Game.js"></script>
+<script  src="./nn.js"></script>
+<script  src="./game_components/Player.js"></script>
+<script src="./game_components/Ball.js"></script>
+<script  src="./game_components/Game.js"></script>
 
 </html>
