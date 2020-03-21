@@ -1,1 +1,45 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"><title>Ai game</title></head><body> <main> <div class="row"> <div class="col-sm-4"> <div class="row"> <div class="col-sm-6"> <ul id="playerInfo"></ul> </div> <div class="col-sm-6"> <ul id="deadPlayersList"></ul> </div> </div> <div id="ballInfo"></div> <div id="gameInfo"></div> <div id="nnInfo"></div> </div> <div class="col-sm-8"> <canvas style="width:100%;border:1px solid #222;" id="gameContainer"></canvas> </div> </div> </main> </body><script type="module" src="a:/Git/ai-game/nn.1f0b3223.js"></script><script type="module" src="a:/Git/ai-game/Player.505795d8.js"></script><script type="module" src="a:/Git/ai-game/Ball.5f10390f.js"></script><script type="module" src="a:/Git/ai-game/Game.627df1d0.js"></script></html>
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>Ai game</title>
+</head>
+<body>
+<main>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="row">
+                <div class="col-sm-2">
+                    <div id="bestPlayer"></div>
+                </div>
+                <div class="col-sm-2">
+                    <ul id="playerInfo"></ul>
+                </div>
+                <div class="col-sm-2">
+                    <ul id="deadPlayersList"></ul>
+                </div>
+                <div class="col-sm-2">
+                    <ul id="nnInfo"></ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <canvas style="width:100%; border: 1px solid #222;" id="gameContainer"></canvas>
+        </div>
+    </div>
+
+
+</main>
+
+</body>
+<script src="/nn.8fac6a84.js"></script>
+<script src="/Player.d1ed8641.js"></script>
+<script src="/Ball.dd648381.js"></script>
+<script src="/Game.eb98264e.js"></script>
+
+</html>

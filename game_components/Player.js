@@ -7,7 +7,7 @@ const canvas = document.getElementById('gameContainer');
 const ctx = canvas.getContext('2d');
 
 class Player {
-	constructor () {
+	constructor (fitness) {
 		this.id = Math.random();
 		this.x = 500;
 		this.y = canvas.height - 25;
@@ -22,7 +22,7 @@ class Player {
 
 		this.dead = false;
 		this.ball = new Ball();
-
+		this.fitness = fitness;
 		this.lifes = 1;
 		this.score = 0;
 	}

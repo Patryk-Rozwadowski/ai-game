@@ -37626,7 +37626,7 @@ var canvas = document.getElementById('gameContainer');
 var ctx = canvas.getContext('2d');
 
 var Player = /*#__PURE__*/function () {
-  function Player() {
+  function Player(fitness) {
     _classCallCheck(this, Player);
 
     this.id = Math.random();
@@ -37641,8 +37641,8 @@ var Player = /*#__PURE__*/function () {
     this.brain.createModel();
     this.dead = false;
     this.ball = new _Ball.default();
+    this.fitness = fitness;
     this.lifes = 1;
-    this.fitness = 0;
     this.score = 0;
   }
 
@@ -37802,6 +37802,7 @@ var deadPlayersList = document.getElementById('deadPlayersList');
 var ballInfo = document.getElementById('ballInfo');
 var gameInfo = document.getElementById('gameInfo');
 var nnInfo = document.getElementById('nnInfo');
+var bestPlayer = document.getElementById('bestPlayer');
 var canvas = document.getElementById('gameContainer');
 var ctx = canvas.getContext('2d');
 canvas.width = 1000;
@@ -37813,50 +37814,179 @@ var Game = /*#__PURE__*/function () {
 
     _classCallCheck(this, Game);
 
-    this.total = 22;
+    this.total = 3;
     this.players = [];
     this.deadPlayers = [];
+    this.bestPair = [];
+    this.bestPlayer = '';
+    this.bestFitness = '';
+    this.fitness = '';
+    this.generation = 1;
+    this.avgFitness = '';
+    this.matingPool = [];
     this.interval = setInterval(function () {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      _this.players.map(function (player, i) {
-        player.start();
-
-        if (player.dead === true) {
-          _this.players.splice(i, 1);
-
-          _this.deadPlayers.push(player);
-        }
-      });
-
       if (_this.players.length === 0) {
+        _this.avgFitness = 0;
+        var temporaryScores = [];
+
+        _this.deadPlayers.map(function (player) {
+          return temporaryScores.push(player.score);
+        });
+
+        _this.bestPlayer = Math.max.apply(Math, temporaryScores);
+
+        _this.calculateFitness();
+
+        _this.calculateBestFitness();
+
         _this.nextGeneration();
+      } else {
+        _this.players.map(function (player, i) {
+          debugger;
+
+          if (player.dead === true) {
+            _this.players.splice(i, 1);
+
+            _this.deadPlayers.push(player);
+          }
+
+          player.start();
+
+          _this.players.map(function (player) {
+            return player.think();
+          });
+
+          _this.info_params();
+        });
       }
-
-      _this.players.map(function (player) {
-        return player.think();
-      });
-
-      _this.info_params();
     });
   }
 
   _createClass(Game, [{
+    key: "calculateBestFitness",
+    value: function calculateBestFitness() {
+      debugger;
+      this.bestPair = [];
+      this.bestFitness = 0;
+      var _iteratorNormalCompletion = true;
+      var _didIteratorError = false;
+      var _iteratorError = undefined;
+
+      try {
+        for (var _iterator = this.deadPlayers[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+          var player = _step.value;
+
+          if (player.fitness > this.bestFitness) {
+            this.bestFitness = player.fitness;
+          }
+        }
+      } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion && _iterator.return != null) {
+            _iterator.return();
+          }
+        } finally {
+          if (_didIteratorError) {
+            throw _iteratorError;
+          }
+        }
+      }
+    }
+  }, {
     key: "nextGeneration",
     value: function nextGeneration() {
       console.log('Next generation');
+      this.generation++;
 
       for (var i = 0; i < this.total; i++) {
-        this.players[i] = new _Player.default();
+        var parentA = this.acceptReject();
+        var parentB = this.acceptReject();
+        this.players[i] = new _Player.default(this.bestFitness);
         this.players[i].changeColor();
+      }
+    }
+  }, {
+    key: "acceptReject",
+    value: function acceptReject() {
+      var escapeLoop = 0;
+
+      while (true) {
+        var index = Math.floor(Math.random() * this.total);
+        var partner = this.deadPlayers[index];
+        var r = Math.floor(Math.random() * this.bestFitness + 1);
+
+        if (r < partner.fitness) {
+          return new _Player.default(partner.fitness);
+        }
+
+        escapeLoop++;
+
+        if (escapeLoop > 500) {
+          return;
+        }
       }
     }
   }, {
     key: "calculateFitness",
     value: function calculateFitness() {
-      var fitness = 0;
+      debugger;
+      var scoreSum = 0;
+      var playersFitness = 0;
+      var _iteratorNormalCompletion2 = true;
+      var _didIteratorError2 = false;
+      var _iteratorError2 = undefined;
 
-      for (var player in this.deadPlayers) {}
+      try {
+        for (var _iterator2 = this.deadPlayers[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+          var player = _step2.value;
+          scoreSum += player.score;
+        }
+      } catch (err) {
+        _didIteratorError2 = true;
+        _iteratorError2 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion2 && _iterator2.return != null) {
+            _iterator2.return();
+          }
+        } finally {
+          if (_didIteratorError2) {
+            throw _iteratorError2;
+          }
+        }
+      }
+
+      var _iteratorNormalCompletion3 = true;
+      var _didIteratorError3 = false;
+      var _iteratorError3 = undefined;
+
+      try {
+        for (var _iterator3 = this.deadPlayers[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+          var _player = _step3.value;
+          _player.fitness = _player.score / scoreSum + 0.01;
+          playersFitness += _player.fitness;
+        }
+      } catch (err) {
+        _didIteratorError3 = true;
+        _iteratorError3 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion3 && _iterator3.return != null) {
+            _iterator3.return();
+          }
+        } finally {
+          if (_didIteratorError3) {
+            throw _iteratorError3;
+          }
+        }
+      }
+
+      this.avgFitness = playersFitness / this.deadPlayers.length;
     }
   }, {
     key: "clearGame",
@@ -37874,26 +38004,11 @@ var Game = /*#__PURE__*/function () {
       playerInfo.innerHTML = "\n\t\t\t\t<h2>Live players: ".concat(this.players.length, "</h2>\n\t\t\t\t\t\t").concat(this.players.map(function (player) {
         return "\n\t\t\t\t\t\t\t<li>Player id: ".concat(player.id, "</li>\n\t\t\t\t\t\t\t<li>Score: ").concat(player.score, "</li>\n\t\t\t\t\t\t\t<li>Player id: ").concat(player.lifes, "</li>\n\t\t\t\t\t\t\t<li>Player dead: ").concat(player.dead, "</li>\n\t\t\t\t\t\t\t");
       }), "\n\t\t");
+      bestPlayer.innerHTML = "\n      <h2>".concat(this.bestPlayer ? "Best score: ".concat(this.bestPlayer) : 'No best player yet!', "</h2>\n    ");
       deadPlayersList.innerHTML = "\n\t\t\t<h2>Dead players: ".concat(this.deadPlayers.length, "</h2>\n\t\t\t").concat(this.deadPlayers.map(function (player) {
         return "<li>".concat(player.id, "</li>");
-      }), "\n\t\t"); // ballInfo.innerHTML = `
-      // 		<h2>Ball params:</h2>
-      // 		<p>Ball position X: ${this.ball.x}</p>
-      // 		<p>Ball position Y: ${this.ball.y}</p>
-      // 		<p>Ball speed: ${this.ball.y_speed}</p>
-      // 		<p>Ball wall bounce: ${this.ball.x_speed}</p>
-      //
-      // `
-      //
-      // gameInfo.innerHTML = `
-      // 		<h2>Game params:</h2>
-      // 		<p>Lifes: ${this.lifes}</p>
-      // `
-      // nnInfo.innerHTML = `
-      // 		<h2>Neural network params:</h2>
-      // 		<p></p>
-      // 		<p>${this.inputs.map(item => `<p>${item}</p>`)}</p>
-      // `
+      }), "\n\t\t");
+      nnInfo.innerHTML = "\n    \t\t<h2>Generations:</h2>\n    \t\t<p>".concat(this.generation, "</p>\n    \t\t<p>").concat(this.avgFitness, "</p>\n    ");
     }
   }, {
     key: "start",
@@ -37944,7 +38059,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60865" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50115" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

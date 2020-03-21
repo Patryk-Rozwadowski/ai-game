@@ -18,22 +18,16 @@ class Game {
     this.total = 3;
     this.players = [];
     this.deadPlayers = [];
+    this.bestPair = [];
     this.bestPlayer = '';
+    this.bestFitness = '';
     this.fitness = '';
     this.generation = 1;
     this.avgFitness = '';
+    this.matingPool = [];
+
     this.interval = setInterval(() => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      this.players.map((player, i) => {
-        player.start();
-
-        if (player.dead === true) {
-
-          this.players.splice(i, 1);
-          this.deadPlayers.push(player);
-        }
-      });
-
       if (this.players.length === 0) {
         this.avgFitness = 0;
         let temporaryScores = [];
@@ -41,20 +35,60 @@ class Game {
         this.bestPlayer = Math.max.apply(Math, temporaryScores);
 
         this.calculateFitness();
-
+        this.calculateBestFitness();
         this.nextGeneration();
+      } else {
+        this.players.map((player, i) => {
+          debugger
+
+          if (player.dead === true) {
+            this.players.splice(i, 1);
+            this.deadPlayers.push(player);
+          }
+
+          player.start();
+          this.players.map(player => player.think());
+          this.info_params();
+
+        });
       }
-      this.players.map(player => player.think());
-      this.info_params();
+
+
     });
+  }
+
+  calculateBestFitness() {
+    debugger;
+    this.bestPair = [];
+    this.bestFitness = 0;
+
+    for (let player of this.deadPlayers) {
+      if (player.fitness > this.bestFitness) {
+        this.bestFitness = player.fitness;
+      }
+    }
   }
 
   nextGeneration() {
     console.log('Next generation');
     this.generation++;
     for (let i = 0; i < this.total; i++) {
-      this.players[i] = new Player;
+      const parentA = this.acceptReject();
+      const parentB = this.acceptReject();
+      this.players[i] = new Player(this.bestFitness);
       this.players[i].changeColor();
+    }
+  }
+
+  acceptReject() {
+    let escapeLoop = 0;
+    while (true) {
+      const index = Math.floor(Math.random() * this.total);
+      const partner = this.deadPlayers[index];
+      const r = Math.floor(Math.random() * this.bestFitness + 1);
+      if (r < partner.fitness) { return new Player(partner.fitness);}
+      escapeLoop++;
+      if (escapeLoop > 500) { return}
     }
   }
 
@@ -68,10 +102,9 @@ class Game {
     }
 
     for (let player of this.deadPlayers) {
-      player.fitness = player.score / scoreSum;
+      player.fitness = (player.score / scoreSum) + 0.01;
       playersFitness += player.fitness;
     }
-
     this.avgFitness = playersFitness / this.deadPlayers.length;
   }
 
@@ -97,7 +130,7 @@ class Game {
 		`;
 
     bestPlayer.innerHTML = `
-      <h2>${this.bestPlayer ? this.bestPlayer : 'No best player yet!'}</h2>
+      <h2>${this.bestPlayer ? `Best score: ${this.bestPlayer}` : 'No best player yet!'}</h2>
     `;
 
     deadPlayersList.innerHTML = `
@@ -105,25 +138,11 @@ class Game {
 			${this.deadPlayers.map(player => `<li>${player.id}</li>`)}
 		`;
 
-    // ballInfo.innerHTML = `
-    // 		<h2>Ball params:</h2>
-    // 		<p>Ball position X: ${this.ball.x}</p>
-    // 		<p>Ball position Y: ${this.ball.y}</p>
-    // 		<p>Ball speed: ${this.ball.y_speed}</p>
-    // 		<p>Ball wall bounce: ${this.ball.x_speed}</p>
-    //
-    // `
-    //
-    // gameInfo.innerHTML = `
-    // 		<h2>Game params:</h2>
-    // 		<p>Lifes: ${this.lifes}</p>
-    // `
-
     nnInfo.innerHTML = `
     		<h2>Generations:</h2>
     		<p>${this.generation}</p>
     		<p>${this.avgFitness}</p>
-    `
+    `;
   }
 
   start() {

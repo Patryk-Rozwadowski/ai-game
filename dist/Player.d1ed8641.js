@@ -37626,7 +37626,7 @@ var canvas = document.getElementById('gameContainer');
 var ctx = canvas.getContext('2d');
 
 var Player = /*#__PURE__*/function () {
-  function Player() {
+  function Player(fitness) {
     _classCallCheck(this, Player);
 
     this.id = Math.random();
@@ -37641,8 +37641,8 @@ var Player = /*#__PURE__*/function () {
     this.brain.createModel();
     this.dead = false;
     this.ball = new _Ball.default();
+    this.fitness = fitness;
     this.lifes = 1;
-    this.fitness = 0;
     this.score = 0;
   }
 
@@ -37807,7 +37807,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60865" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50115" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
