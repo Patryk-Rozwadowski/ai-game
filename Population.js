@@ -1,6 +1,13 @@
 import DNA from './DNA';
 import Player from './game_components/Player';
 
+const playerInfo = document.getElementById('playerInfo');
+const deadPlayersList = document.getElementById('deadPlayersList');
+const ballInfo = document.getElementById('ballInfo');
+const gameInfo = document.getElementById('gameInfo');
+const nnInfo = document.getElementById('nnInfo');
+const bestPlayer = document.getElementById('bestPlayer');
+
 class Population {
   constructor() {
 
@@ -8,40 +15,49 @@ class Population {
     this.avgFitness = 0;
     this.bestPlayer = 0;
     this.bestFitness = 0;
-    this.generation = 0;
-    this.total = 2;
+    this.generation = 1;
+    this.total = 4;
 
     this.deadPopulation = [];
     this.population = [];
-    for(let i = 0; i < this.total; i++){
+    for (let i = 0; i < this.total; i++) {
       this.population[i] = new Player(new DNA());
     }
   }
-
-
 
   nextGeneration() {
     console.log('Next generation');
     this.generation++;
     this.pickMatingPool();
-    const index = Math.floor(Math.random() * this.deadPopulation.length);
-      const a = this.matingPool[index];
-      const b = this.matingPool[index];
+
+    // for (let i = 0; i < this.total; i++) {
+    //   this.population[i] = new Player(new DNA());
+    // }
+
+    const a = Math.floor(Math.random() * this.deadPopulation.length);
+    const b = Math.floor(Math.random() * this.deadPopulation.length);
+
+    const parentA = this.matingPool[a];
+    const parentB = this.matingPool[b];
+    debugger
+
+    const parentAGenes = parentA.getDNA();
+    const parentBGenes = parentB.getDNA();
+
+    const child = parentAGenes.crossOver(parentBGenes);
+    return child;
   }
 
   pickMatingPool() {
-    for(let i = 0; i < this.deadPopulation.length; i++) {
+    for (let i = 0; i < this.deadPopulation.length; i++) {
       let n = this.deadPopulation[i].fitness * 100;
-
-      for(let i = 0; i < n; i++) {
+      for (let i = 0; i < n; i++) {
         this.matingPool.push(this.deadPopulation[i]);
       }
     }
   }
 
   getMaxFitness() {
-    let bestFitness = this.bestFitness;
-    debugger
     for (let player of this.deadPopulation) {
       if (player.fitness > this.bestFitness) {
         this.bestFitness = player.fitness;
@@ -50,11 +66,9 @@ class Population {
   }
 
   calculateFitness() {
-
-    for(let player of this.deadPopulation) {
+    for (let player of this.deadPopulation) {
       player.calcFitness();
     }
-
 
     // let scoreSum = 0;
     // let playersFitness = 0;
@@ -71,7 +85,6 @@ class Population {
     // console.log(this.deadPopulation)
   }
 
-
   acceptReject() {
     let escapeLoop = 0;
     while (true) {
@@ -80,15 +93,16 @@ class Population {
       const r = Math.floor(Math.random() * this.bestFitness + 1);
       if (r < partner.fitness) { return new Player(partner.fitness);}
       escapeLoop++;
-      if (escapeLoop > 500) { return}
+      if (escapeLoop > 500) { return;}
     }
   }
 
   info_params() {
     playerInfo.innerHTML =
         `
-				<h2>Live players: ${this.players.length}</h2>
-						${this.players.map(player => `
+        <h2>Generations: ${this.generation}</h2>
+				<h2>Alive population: ${this.population.length}</h2>
+						${this.population.map(player => `
 							<li>Player id: ${player.id}</li>
 							<li>Score: ${player.score}</li>
 							<li>Player id: ${player.lifes}</li>
@@ -98,21 +112,19 @@ class Population {
 		`;
 
     bestPlayer.innerHTML = `
-      <h2>${this.bestPlayer ? `Best score: ${this.bestPlayer}` : 'No best player yet!'}</h2>
+      <h2>${this.bestFitness ? `Best fitness: ${this.bestFitness}` : 'No best fitness yet!'}</h2>
     `;
 
     deadPlayersList.innerHTML = `
-			<h2>Dead players: ${this.deadPlayers.length}</h2>
-			${this.deadPlayers.map(player => `<li>${player.id}</li>`)}
+			<h2>Dead players: ${this.deadPopulation.length}</h2>
+			${this.deadPopulation.map(player => `
+        <li>${player.id}</li>
+        <li>Fitness: ${player.fitness}</li>
+        <li>Score: ${player.score}</li>
+`)}
 		`;
 
-    nnInfo.innerHTML = `
-    		<h2>Generations:</h2>
-    		<p>${this.generation}</p>
-    		<p>${this.avgFitness}</p>
-    `;
   }
-
 
 }
 

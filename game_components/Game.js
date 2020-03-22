@@ -1,12 +1,5 @@
 import Population from '../Population';
 
-const playerInfo = document.getElementById('playerInfo');
-const deadPlayersList = document.getElementById('deadPlayersList');
-const ballInfo = document.getElementById('ballInfo');
-const gameInfo = document.getElementById('gameInfo');
-const nnInfo = document.getElementById('nnInfo');
-const bestPlayer = document.getElementById('bestPlayer');
-
 const canvas = document.getElementById('gameContainer');
 const ctx = canvas.getContext('2d');
 canvas.width = 1000;
@@ -37,6 +30,7 @@ class Game {
                 this.game.deadPopulation.push(player);
               }
               player.start();
+              this.game.info_params();
               document.addEventListener('keydown', (e) => player.control(e))
             });
           }

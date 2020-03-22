@@ -7,9 +7,8 @@ class Player {
   constructor(dna) {
     this.id = Math.random();
     this.dna = dna;
-    debugger;
     this.x = Math.floor(Math.random() * 800);
-    this.lifes = 10;
+
     this.y = canvas.height - 25;
     this.x_step = 10;
     this.height = 15;
@@ -18,13 +17,16 @@ class Player {
 
     this.dead = false;
     this.ball = new Ball();
+
+    this.lifes = 1;
     this.score = 0;
     this.ballHit = 0;
+    this.fitness = 0;
   }
 
   calcFitness() {
-    this.fitness = (1 / this.score * this.ballHit);
-    if (this.ballHit > 2) this.fitness *= 0.1;
+    this.fitness = (1 / this.score);
+    if (this.ballHit > 0) this.fitness *= 0.1;
     if (this.ballHit < 3) this.fitness *= 2;
   }
 
@@ -76,11 +78,7 @@ class Player {
   }
 
   think() {
-  	debugger;
-    this.dna.genes.map(x => {
-      x > 400 ? this.left() : this.right()
-    });
-
+    this.dna.genes.map(x => x > 400 ? this.left() : this.right());
   }
 
   update() {
