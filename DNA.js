@@ -1,13 +1,11 @@
 class DNA {
-  constructor(total) {
+  constructor() {
     this.genes = [];
-    this.genes = this.randomCoords();
   }
 
-  randomCoords() {
+  creatingGenes() {
     const x = Math.floor(Math.random() * 800);
-    debugger;
-    return [x];
+    this.genes.push(x);
   }
 
   genesInfo() {

@@ -9,7 +9,7 @@ class Ball {
 		this.x = 600 + Math.floor(Math.random() * 100);
 		this.y = canvas.height / 2 + Math.floor(Math.random() * 100);
 		this.x_speed = 1;
-		this.y_speed = -2;
+		this.y_speed = -8;
 		this.color = '';
 		this.mass = this.ballRadius * this.ballRadius * this.ballRadius;
 		this.ballRadius = 10;
