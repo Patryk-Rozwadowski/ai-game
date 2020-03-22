@@ -5,55 +5,70 @@ class Population {
   constructor() {
 
     this.matingPool = [];
-    this.avgFitness = '';
-    this.bestPlayer = '';
-    this.bestFitness = '';
-    this.generation = '';
+    this.avgFitness = 0;
+    this.bestPlayer = 0;
+    this.bestFitness = 0;
+    this.generation = 0;
     this.total = 2;
 
+    this.deadPopulation = [];
     this.population = [];
     for(let i = 0; i < this.total; i++){
       this.population[i] = new Player(new DNA());
     }
   }
 
-  calculateBestFitness() {
-    this.bestPair = [];
-    this.bestFitness = 0;
 
-    for (let player of this.deadPlayers) {
+
+  nextGeneration() {
+    console.log('Next generation');
+    this.generation++;
+    this.pickMatingPool();
+    const index = Math.floor(Math.random() * this.deadPopulation.length);
+      const a = this.matingPool[index];
+      const b = this.matingPool[index];
+  }
+
+  pickMatingPool() {
+    for(let i = 0; i < this.deadPopulation.length; i++) {
+      let n = this.deadPopulation[i].fitness * 100;
+
+      for(let i = 0; i < n; i++) {
+        this.matingPool.push(this.deadPopulation[i]);
+      }
+    }
+  }
+
+  getMaxFitness() {
+    let bestFitness = this.bestFitness;
+    debugger
+    for (let player of this.deadPopulation) {
       if (player.fitness > this.bestFitness) {
         this.bestFitness = player.fitness;
       }
     }
   }
 
-  nextGeneration() {
-    console.log('Next generation');
-    this.generation++;
-    for (let i = 0; i < this.total; i++) {
-      const parentA = this.acceptReject();
-      const parentB = this.acceptReject();
-      this.players[i] = new Player(this.bestFitness);
-      this.players[i].changeColor();
-    }
-  }
-
-
   calculateFitness() {
-    debugger;
-    let scoreSum = 0;
-    let playersFitness = 0;
 
-    for (let player of this.deadPlayers) {
-      scoreSum += player.score;
+    for(let player of this.deadPopulation) {
+      player.calcFitness();
     }
 
-    for (let player of this.deadPlayers) {
-      player.fitness = (player.score / scoreSum) + 0.01;
-      playersFitness += player.fitness;
-    }
-    this.avgFitness = playersFitness / this.deadPlayers.length;
+
+    // let scoreSum = 0;
+    // let playersFitness = 0;
+    // debugger
+    // for (let player of this.deadPopulation) {
+    //   scoreSum += player.score;
+    // }
+    //
+    // for (let player of this.deadPopulation) {
+    //   player.fitness = (player.score / scoreSum) + 0.01;
+    //   playersFitness += player.fitness;
+    // }
+    // this.avgFitness = playersFitness / this.deadPopulation.length;
+    // console.log(this.deadPopulation)
   }
 
 
@@ -61,7 +76,7 @@ class Population {
     let escapeLoop = 0;
     while (true) {
       const index = Math.floor(Math.random() * this.total);
-      const partner = this.deadPlayers[index];
+      const partner = this.deadPopulation[index];
       const r = Math.floor(Math.random() * this.bestFitness + 1);
       if (r < partner.fitness) { return new Player(partner.fitness);}
       escapeLoop++;

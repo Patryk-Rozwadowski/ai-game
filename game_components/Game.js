@@ -1,4 +1,3 @@
-import Player from './Player';
 import Population from '../Population';
 
 const playerInfo = document.getElementById('playerInfo');
@@ -21,20 +20,28 @@ class Game {
     this.game = new Population();
 
     this.interval = setInterval(() => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      if (this.game.population.length === 0) {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          if (this.game.population.length === 0) {
+            /// next generation
+            console.log('next gen');
+            this.game.calculateFitness();
+            this.game.getMaxFitness();
+            this.game.pickMatingPool();
+            this.game.nextGeneration();
 
-      } else {
-        this.game.population.map((player, i) => {
-          if (player.dead === true) {
-            this.game.population.splice(i, 1);
-            this.deadPlayers.push(player);
           }
-          player.start();
-        });
-      }
-
-    });
+          if (this.game.population) {
+            this.game.population.map((player, i) => {
+              if (player.dead === true) {
+                this.game.population.splice(i, 1);
+                this.game.deadPopulation.push(player);
+              }
+              player.start();
+              document.addEventListener('keydown', (e) => player.control(e))
+            });
+          }
+        }, 30
+    );
   }
 
   clearGame() {
@@ -45,14 +52,8 @@ class Game {
     clearInterval(this.interval);
   }
 
-
   start() {
-    for (let i = 0; i < this.total; i++) {
-      this.players[i] = new Player;
-      this.players[i].changeColor();
-    }
     this.interval;
-    //document.addEventListener('keydown', (e) => this.player.control(e))
   }
 }
 
