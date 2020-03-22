@@ -1,29 +1,22 @@
-import * as tf from '@tensorflow/tfjs';
-
-import NeuralNetwork from '../nn';
 import Ball from './Ball';
 
 const canvas = document.getElementById('gameContainer');
 const ctx = canvas.getContext('2d');
 
 class Player {
-	constructor (fitness) {
+	constructor (dna) {
 		this.id = Math.random();
-		this.x = 500;
+		this.dna = dna;
+		debugger;
+		this.x = this.dna.genes[0];
 		this.y = canvas.height - 25;
 		this.x_step = 10;
 		this.height = 15;
 		this.width = canvas.width / 7;
-		this.color = '';
-
-		this.brain = new NeuralNetwork(5, 15, 2);
-		this.inputs = [];
-		this.brain.createModel();
+		this.color = this.changeColor();
 
 		this.dead = false;
 		this.ball = new Ball();
-		this.fitness = fitness;
-		this.lifes = 1;
 		this.score = 0;
 	}
 
@@ -52,25 +45,7 @@ class Player {
 				if (this.lifes === 0) {
 					this.dead = true;
 					console.log(`remove player ${this.id} from game`)
-					// this.players.splice(i, 1)
-					// this.stop()
-					// console.log(this.players)
-					// this.clearGame()
 				}
-				//
-				// .map((player, i) => {
-				// 		debugger;
-				// 		player.lifes -= 1
-				// 		if (player.lifes === 0) {
-				// 			console.log(`remove player ${i} from game`)
-				// 			this.players.splice(i, 1)
-				// 			this.stop()
-				// 			console.log(this.players)
-				// 			this.clearGame()
-				// 		}
-				// 		console.log(player.lifes)
-				// 	},
-				// )
 		}
 	}
 
@@ -80,17 +55,6 @@ class Player {
 				&& this.x < this.ball.x + this.ball.ballRadius) {
 				this.ball.y_speed = -this.ball.y_speed
 		}
-	}
-
-	think () {
-		this.inputs[0] = this.x;
-		this.inputs[1] = this.y;
-		this.inputs[2] = this.ball.x;
-		this.inputs[3] = this.ball.y;
-		this.inputs[4] = this.lifes;
-
-		let output = this.brain.predict(this.inputs);
-		output[0] > output[1] ? this.left() : this.right()
 	}
 
 	draw () {
@@ -119,7 +83,7 @@ class Player {
 		let green = Math.floor(Math.random() * 3) * 127;
 		let blue = Math.floor(Math.random() * 3) * 127;
 
-		this.color = 'rgb(' + red + ', ' + green + ', ' + blue + ')';
+		return 'rgb(' + red + ', ' + green + ', ' + blue + ')';
 	}
 
 	control ({ key, type }) {
@@ -139,8 +103,8 @@ class Player {
 		this.ball.start();
 		this.player_collision();
 		this.walls_collision();
+
 		this.score++;
-		tf.setBackend('cpu');
 	}
 }
 
