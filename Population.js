@@ -16,12 +16,12 @@ class Population {
     this.bestPlayer = 0;
     this.bestFitness = 0;
     this.generation = 1;
-    this.total = 4;
+    this.total = 65;
 
     this.deadPopulation = [];
     this.population = [];
     for (let i = 0; i < this.total; i++) {
-      this.population[i] = new Player(new DNA());
+      this.population[i] = new Player(new DNA(), false);
     }
   }
 
@@ -29,28 +29,30 @@ class Population {
     console.log('Next generation');
     this.generation++;
     this.pickMatingPool();
+    //this.acceptReject()
 
-    // for (let i = 0; i < this.total; i++) {
-    //   this.population[i] = new Player(new DNA());
-    // }
 
     const a = Math.floor(Math.random() * this.deadPopulation.length);
     const b = Math.floor(Math.random() * this.deadPopulation.length);
-
+    this.deadPopulation = [];
     const parentA = this.matingPool[a];
     const parentB = this.matingPool[b];
-    debugger
 
     const parentAGenes = parentA.getDNA();
     const parentBGenes = parentB.getDNA();
 
-    const child = parentAGenes.crossOver(parentBGenes);
-    return child;
+    const childDNA = parentAGenes.crossOver(parentBGenes);
+    childDNA.mutate(0.5);
+    for(let i = 0; i < this.total; i++) {
+      this.population[i] = new Player(childDNA, true);
+    }
   }
 
   pickMatingPool() {
-    for (let i = 0; i < this.deadPopulation.length; i++) {
-      let n = this.deadPopulation[i].fitness * 100;
+    debugger
+    this.matingPool = [];
+    for (let i = 0; i < this.total; i++) {
+      let n = this.deadPopulation[i].fitness * this.total / 2;
       for (let i = 0; i < n; i++) {
         this.matingPool.push(this.deadPopulation[i]);
       }
@@ -91,7 +93,9 @@ class Population {
       const index = Math.floor(Math.random() * this.total);
       const partner = this.deadPopulation[index];
       const r = Math.floor(Math.random() * this.bestFitness + 1);
-      if (r < partner.fitness) { return new Player(partner.fitness);}
+      if (r < partner.fitness) {
+        this.population.push(new Player(partner.getDNA().mutate(0.1), true))
+      }
       escapeLoop++;
       if (escapeLoop > 500) { return;}
     }

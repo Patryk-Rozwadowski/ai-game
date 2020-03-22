@@ -34,7 +34,7 @@ class Game {
               document.addEventListener('keydown', (e) => player.control(e))
             });
           }
-        }, 30
+        }, 10
     );
   }
 

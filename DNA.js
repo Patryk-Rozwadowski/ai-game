@@ -27,6 +27,19 @@ class DNA {
     }
     return child;
   }
+
+  applyMutate() {
+    return Math.floor(Math.random() * 800);
+  }
+
+  mutate(rate) {
+    for(let i = 0; i < this.genes.length; i++){
+      if(Math.random() < rate) {
+        this.genes[i] = this.applyMutate();
+
+      }
+    }
+  }
 }
 
 export default DNA;

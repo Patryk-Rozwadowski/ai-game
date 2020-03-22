@@ -4,9 +4,16 @@ const canvas = document.getElementById('gameContainer');
 const ctx = canvas.getContext('2d');
 
 class Player {
-  constructor(dna) {
+  constructor(dna, newGenes) {
     this.id = Math.random();
-    this.dna = dna;
+    if(newGenes) {
+      this.dna = dna;
+      this.newGenes = true;
+    } else {
+      this.dna = dna;
+      this.newGenes = false;
+    }
+
     this.x = Math.floor(Math.random() * 800);
 
     this.y = canvas.height - 25;
@@ -25,9 +32,9 @@ class Player {
   }
 
   calcFitness() {
-    this.fitness = (1 / this.score);
-    if (this.ballHit > 0) this.fitness *= 0.1;
-    if (this.ballHit < 3) this.fitness *= 2;
+    this.fitness = Math.pow((1 / this.score + this.ballHit),4);
+    if (this.ballHit === 0) this.fitness *= 0.1;
+    if (this.ballHit > 3) this.fitness *= 2;
   }
 
   walls_collision() {
@@ -118,7 +125,7 @@ class Player {
   }
 
   start() {
-    this.dna.creatingGenes();
+    if(!this.newGenes) this.dna.creatingGenes();
     this.draw();
     this.ball.start();
     this.player_collision();
