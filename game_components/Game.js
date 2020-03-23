@@ -15,13 +15,11 @@ class Game {
     this.interval = setInterval(() => {
           ctx.clearRect(0, 0, canvas.width, canvas.height);
           if (this.game.population.length === 0) {
-            /// next generation
-            console.log('next gen');
             this.game.calculateFitness();
             this.game.getMaxFitness();
             this.game.pickMatingPool();
             this.game.nextGeneration();
-
+            //this.game.deadPopulation = [];
           }
           if (this.game.population) {
             this.game.population.map((player, i) => {
@@ -31,7 +29,7 @@ class Game {
               }
               player.start();
               this.game.info_params();
-              document.addEventListener('keydown', (e) => player.control(e))
+              //document.addEventListener('keydown', (e) => player.control(e))
             });
           }
         }, 10

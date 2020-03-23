@@ -9,7 +9,7 @@ class DNA {
   }
 
   creatingGenes() {
-    const x = Math.floor(Math.random() * 800);
+    let x = Math.floor(Math.random() * 800);
     this.genes.push(x);
   }
 
@@ -33,8 +33,8 @@ class DNA {
   }
 
   mutate(rate) {
-    for(let i = 0; i < this.genes.length; i++){
-      if(Math.random() < rate) {
+    for (let i = 0; i < this.genes.length; i++) {
+      if (Math.random() < rate) {
         this.genes[i] = this.applyMutate();
 
       }

@@ -1,5 +1,6 @@
 import DNA from './DNA';
 import Player from './game_components/Player';
+import Ball from './game_components/Ball';
 
 const playerInfo = document.getElementById('playerInfo');
 const deadPlayersList = document.getElementById('deadPlayersList');
@@ -16,45 +17,54 @@ class Population {
     this.bestPlayer = 0;
     this.bestFitness = 0;
     this.generation = 1;
-    this.total = 65;
+    this.total = 15;
 
     this.deadPopulation = [];
     this.population = [];
     for (let i = 0; i < this.total; i++) {
-      this.population[i] = new Player(new DNA(), false);
+      this.population[i] = new Player(new DNA(), false, new Ball());
     }
   }
 
   nextGeneration() {
     console.log('Next generation');
     this.generation++;
-    this.pickMatingPool();
-    //this.acceptReject()
-
-
-    const a = Math.floor(Math.random() * this.deadPopulation.length);
-    const b = Math.floor(Math.random() * this.deadPopulation.length);
-    this.deadPopulation = [];
-    const parentA = this.matingPool[a];
-    const parentB = this.matingPool[b];
-
-    const parentAGenes = parentA.getDNA();
-    const parentBGenes = parentB.getDNA();
-
-    const childDNA = parentAGenes.crossOver(parentBGenes);
-    childDNA.mutate(0.5);
     for(let i = 0; i < this.total; i++) {
-      this.population[i] = new Player(childDNA, true);
+      let a = Math.floor(Math.random() * this.matingPool.length);
+      let b = Math.floor(Math.random() * this.matingPool.length);
+      debugger
+      const parentA = this.matingPool[a];
+      const parentB = this.matingPool[b];
+
+      if(parentA.id === parentB.id) {
+        while (parentA.id !== parentB.id) {
+          parentA[Math.floor(Math.random() * this.matingPool.length)];
+        }
+        return parentA;
+      }
+
+      if (parentA.id === parentB.id) {
+        return parentA[a];
+      }
+
+      const parentAGenes = parentA.getDNA();
+      const parentBGenes = parentB.getDNA();
+
+      const childDNA = parentAGenes.crossOver(parentBGenes);
+      childDNA.mutate(0.01);
+      this.population[i] = new Player(childDNA, true, new Ball());
     }
   }
 
   pickMatingPool() {
-    debugger
     this.matingPool = [];
+    let bestFitness = this.bestFitness;
     for (let i = 0; i < this.total; i++) {
-      let n = this.deadPopulation[i].fitness * this.total / 2;
-      for (let i = 0; i < n; i++) {
-        this.matingPool.push(this.deadPopulation[i]);
+
+      debugger
+      let n = this.deadPopulation[i].fitness;
+      for (let j = 0; j < n; j++) {
+        this.matingPool.push(this.deadPopulation[j]);
       }
     }
   }
@@ -71,20 +81,6 @@ class Population {
     for (let player of this.deadPopulation) {
       player.calcFitness();
     }
-
-    // let scoreSum = 0;
-    // let playersFitness = 0;
-    // debugger
-    // for (let player of this.deadPopulation) {
-    //   scoreSum += player.score;
-    // }
-    //
-    // for (let player of this.deadPopulation) {
-    //   player.fitness = (player.score / scoreSum) + 0.01;
-    //   playersFitness += player.fitness;
-    // }
-    // this.avgFitness = playersFitness / this.deadPopulation.length;
-    // console.log(this.deadPopulation)
   }
 
   acceptReject() {
@@ -92,9 +88,9 @@ class Population {
     while (true) {
       const index = Math.floor(Math.random() * this.total);
       const partner = this.deadPopulation[index];
-      const r = Math.floor(Math.random() * this.bestFitness + 1);
+      const r = Math.floor(Math.random() * this.bestFitness);
       if (r < partner.fitness) {
-        this.population.push(new Player(partner.getDNA().mutate(0.1), true))
+        this.population.push(new Player(partner.getDNA().mutate(0.1), true));
       }
       escapeLoop++;
       if (escapeLoop > 500) { return;}
@@ -108,9 +104,11 @@ class Population {
 				<h2>Alive population: ${this.population.length}</h2>
 						${this.population.map(player => `
 							<li>Player id: ${player.id}</li>
+							<li>Player id: ${player.fitness ? player.fitness : '0'}</li>
 							<li>Score: ${player.score}</li>
 							<li>Player id: ${player.lifes}</li>
 							<li>Player dead: ${player.dead}</li>
+							<li>Player X: ${player.x}</li>
 							`,
         )}
 		`;

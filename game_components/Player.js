@@ -1,29 +1,28 @@
-import Ball from './Ball';
-
 const canvas = document.getElementById('gameContainer');
 const ctx = canvas.getContext('2d');
 
 class Player {
-  constructor(dna, newGenes) {
+  constructor(dna, newGenes, ball) {
     this.id = Math.random();
-    if(newGenes) {
+    if (newGenes) {
       this.dna = dna;
       this.newGenes = true;
     } else {
       this.dna = dna;
+      this.dna.creatingGenes();
       this.newGenes = false;
     }
 
-    this.x = Math.floor(Math.random() * 800);
+    this.x = this.dna.genes[0];
 
     this.y = canvas.height - 25;
-    this.x_step = 10;
+    this.x_step = 1;
     this.height = 15;
     this.width = canvas.width / 7;
     this.color = this.changeColor();
 
     this.dead = false;
-    this.ball = new Ball();
+    this.ball = ball;
 
     this.lifes = 1;
     this.score = 0;
@@ -32,9 +31,9 @@ class Player {
   }
 
   calcFitness() {
-    this.fitness = Math.pow((1 / this.score + this.ballHit),4);
-    if (this.ballHit === 0) this.fitness *= 0.1;
-    if (this.ballHit > 3) this.fitness *= 2;
+    this.fitness = 1 / this.score + (this.ballHit);
+    // if (this.ballHit === 0) this.fitness *= 0.8;
+    // if (this.ballHit > 1) this.fitness *= 2;
   }
 
   walls_collision() {
@@ -61,6 +60,7 @@ class Player {
         this.lifes -= 1;
         if (this.lifes === 0) {
           this.dead = true;
+          this.calcFitness();
           console.log(`remove player ${this.id} from game`);
         }
     }
@@ -104,8 +104,7 @@ class Player {
     let red = Math.floor(Math.random() * 3) * 127;
     let green = Math.floor(Math.random() * 3) * 127;
     let blue = Math.floor(Math.random() * 3) * 127;
-
-    return 'rgb(' + red + ', ' + green + ', ' + blue + ')';
+    return `rgba(${red}, ${green}, ${blue}, ${Math.random()}`;
   }
 
   control({key, type}) {
@@ -125,7 +124,7 @@ class Player {
   }
 
   start() {
-    if(!this.newGenes) this.dna.creatingGenes();
+    if (!this.newGenes) this.dna.creatingGenes();
     this.draw();
     this.ball.start();
     this.player_collision();
