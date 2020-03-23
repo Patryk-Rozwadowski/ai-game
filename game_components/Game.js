@@ -19,6 +19,7 @@ class Game {
             this.game.getMaxFitness();
             this.game.pickMatingPool();
             this.game.nextGeneration();
+            console.log('elo')
             //this.game.deadPopulation = [];
           }
           if (this.game.population) {
@@ -28,7 +29,7 @@ class Game {
                 this.game.deadPopulation.push(player);
               }
               player.start();
-              this.game.info_params();
+              //this.game.info_params();
               //document.addEventListener('keydown', (e) => player.control(e))
             });
           }

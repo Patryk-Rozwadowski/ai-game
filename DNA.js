@@ -8,9 +8,11 @@ class DNA {
     }
   }
 
-  creatingGenes() {
-    let x = Math.floor(Math.random() * 800);
-    this.genes.push(x);
+  creatingGenes(lifeSpan) {
+    for(let i = 0; i < lifeSpan; i++) {
+      this.genes[i] = Math.floor(Math.random() * 800);
+    }
+
   }
 
   genesInfo() {
@@ -21,10 +23,11 @@ class DNA {
     let child = new DNA(this.genes.length);
     let midpoint = Math.floor(Math.random() * this.genes.length);
 
-    for (let i = 0; i < midpoint; i++) {
+    for (let i = 0; i < this.genes.length; i++) {
       if (i > midpoint) child.genes[i] = this.genes[i];
-      else child.genes[i] = partner.genes[i];
+      else if(i < midpoint) child.genes[i] = partner.genes[i];
     }
+    debugger;
     return child;
   }
 

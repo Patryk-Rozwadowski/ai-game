@@ -4,19 +4,21 @@ const ctx = canvas.getContext('2d');
 class Player {
   constructor(dna, newGenes, ball) {
     this.id = Math.random();
+    this.lifeSpan = 300;
     if (newGenes) {
+      debugger
       this.dna = dna;
       this.newGenes = true;
     } else {
       this.dna = dna;
-      this.dna.creatingGenes();
+      this.dna.creatingGenes(this.lifeSpan);
       this.newGenes = false;
     }
 
     this.x = this.dna.genes[0];
 
     this.y = canvas.height - 25;
-    this.x_step = 1;
+    this.x_step = 3;
     this.height = 15;
     this.width = canvas.width / 7;
     this.color = this.changeColor();
@@ -32,8 +34,8 @@ class Player {
 
   calcFitness() {
     this.fitness = 1 / this.score + (this.ballHit);
-    // if (this.ballHit === 0) this.fitness *= 0.8;
-    // if (this.ballHit > 1) this.fitness *= 2;
+     if (this.ballHit === 0) this.fitness *= 0.8;
+     if (this.ballHit > 3) this.fitness *= 2;
   }
 
   walls_collision() {
@@ -61,7 +63,6 @@ class Player {
         if (this.lifes === 0) {
           this.dead = true;
           this.calcFitness();
-          console.log(`remove player ${this.id} from game`);
         }
     }
   }
@@ -85,7 +86,10 @@ class Player {
   }
 
   think() {
-    this.dna.genes.map(x => x > 400 ? this.left() : this.right());
+    for(let i = 0; i < this.dna.genes.length; i++) {
+
+      this.dna.genes[i] < 400 ? this.left() : this.right();
+    }
   }
 
   update() {
@@ -124,7 +128,7 @@ class Player {
   }
 
   start() {
-    if (!this.newGenes) this.dna.creatingGenes();
+    if (!this.newGenes) this.dna.creatingGenes(this.lifeSpan);
     this.draw();
     this.ball.start();
     this.player_collision();

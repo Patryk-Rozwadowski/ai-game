@@ -17,7 +17,7 @@ class Population {
     this.bestPlayer = 0;
     this.bestFitness = 0;
     this.generation = 1;
-    this.total = 15;
+    this.total = 665;
 
     this.deadPopulation = [];
     this.population = [];
@@ -32,20 +32,9 @@ class Population {
     for(let i = 0; i < this.total; i++) {
       let a = Math.floor(Math.random() * this.matingPool.length);
       let b = Math.floor(Math.random() * this.matingPool.length);
-      debugger
+
       const parentA = this.matingPool[a];
       const parentB = this.matingPool[b];
-
-      if(parentA.id === parentB.id) {
-        while (parentA.id !== parentB.id) {
-          parentA[Math.floor(Math.random() * this.matingPool.length)];
-        }
-        return parentA;
-      }
-
-      if (parentA.id === parentB.id) {
-        return parentA[a];
-      }
 
       const parentAGenes = parentA.getDNA();
       const parentBGenes = parentB.getDNA();
@@ -61,7 +50,6 @@ class Population {
     let bestFitness = this.bestFitness;
     for (let i = 0; i < this.total; i++) {
 
-      debugger
       let n = this.deadPopulation[i].fitness;
       for (let j = 0; j < n; j++) {
         this.matingPool.push(this.deadPopulation[j]);
@@ -102,17 +90,17 @@ class Population {
         `
         <h2>Generations: ${this.generation}</h2>
 				<h2>Alive population: ${this.population.length}</h2>
-						${this.population.map(player => `
-							<li>Player id: ${player.id}</li>
-							<li>Player id: ${player.fitness ? player.fitness : '0'}</li>
-							<li>Score: ${player.score}</li>
-							<li>Player id: ${player.lifes}</li>
-							<li>Player dead: ${player.dead}</li>
-							<li>Player X: ${player.x}</li>
-							`,
-        )}
+		
 		`;
-
+//				${this.population.map(player => `
+// 							<li>Player id: ${player.id}</li>
+// 							<li>Player id: ${player.fitness ? player.fitness : '0'}</li>
+// 							<li>Score: ${player.score}</li>
+// 							<li>Player id: ${player.lifes}</li>
+// 							<li>Player dead: ${player.dead}</li>
+// 							<li>Player X: ${player.x}</li>
+// 							`,
+//         )}
     bestPlayer.innerHTML = `
       <h2>${this.bestFitness ? `Best fitness: ${this.bestFitness}` : 'No best fitness yet!'}</h2>
     `;
