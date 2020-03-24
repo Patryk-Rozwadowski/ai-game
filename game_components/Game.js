@@ -2,7 +2,7 @@ import Population from '../Population';
 
 const canvas = document.getElementById('gameContainer');
 const ctx = canvas.getContext('2d');
-canvas.width = 1000;
+canvas.width = 800;
 canvas.height = 500;
 
 class Game {
@@ -17,23 +17,23 @@ class Game {
           if (this.game.population.length === 0) {
             this.game.calculateFitness();
             this.game.getMaxFitness();
-            this.game.pickMatingPool();
             this.game.nextGeneration();
-            console.log('elo')
-            //this.game.deadPopulation = [];
+            this.game.deadPopulation = [];
+            this.game.info_params();
           }
           if (this.game.population) {
             this.game.population.map((player, i) => {
-              if (player.dead === true) {
+              if (player.dead === true || player.lifeSpan === 0) {
                 this.game.population.splice(i, 1);
                 this.game.deadPopulation.push(player);
+                this.game.info_params();
               }
               player.start();
-              //this.game.info_params();
+
               //document.addEventListener('keydown', (e) => player.control(e))
             });
           }
-        }, 10
+        }, 1
     );
   }
 

@@ -17,7 +17,7 @@ class Population {
     this.bestPlayer = 0;
     this.bestFitness = 0;
     this.generation = 1;
-    this.total = 665;
+    this.total = 540;
 
     this.deadPopulation = [];
     this.population = [];
@@ -30,11 +30,11 @@ class Population {
     console.log('Next generation');
     this.generation++;
     for(let i = 0; i < this.total; i++) {
-      let a = Math.floor(Math.random() * this.matingPool.length);
-      let b = Math.floor(Math.random() * this.matingPool.length);
-
-      const parentA = this.matingPool[a];
-      const parentB = this.matingPool[b];
+      // let a = Math.floor(Math.random() * this.matingPool.length);
+      // let b = Math.floor(Math.random() * this.matingPool.length);
+      debugger;
+      const parentA = this.acceptReject();
+      const parentB = this.acceptReject();
 
       const parentAGenes = parentA.getDNA();
       const parentBGenes = parentB.getDNA();
@@ -47,13 +47,28 @@ class Population {
 
   pickMatingPool() {
     this.matingPool = [];
-    let bestFitness = this.bestFitness;
     for (let i = 0; i < this.total; i++) {
-
       let n = this.deadPopulation[i].fitness;
       for (let j = 0; j < n; j++) {
         this.matingPool.push(this.deadPopulation[j]);
       }
+    }
+  }
+
+  acceptReject() {
+    let escapeLoop = 0;
+    while (true) {
+      const index = Math.floor(Math.random() * this.total);
+      const partner = this.deadPopulation[index];
+      const halfBest = this.bestFitness * Math.random();
+      const r = [halfBest, this.bestFitness];
+      debugger;
+      if ( halfBest < partner.fitness || r[1] < partner.fitness) {
+       return partner;
+      }
+
+      escapeLoop++;
+      if (escapeLoop > 1000) { return;}
     }
   }
 
@@ -71,19 +86,7 @@ class Population {
     }
   }
 
-  acceptReject() {
-    let escapeLoop = 0;
-    while (true) {
-      const index = Math.floor(Math.random() * this.total);
-      const partner = this.deadPopulation[index];
-      const r = Math.floor(Math.random() * this.bestFitness);
-      if (r < partner.fitness) {
-        this.population.push(new Player(partner.getDNA().mutate(0.1), true));
-      }
-      escapeLoop++;
-      if (escapeLoop > 500) { return;}
-    }
-  }
+
 
   info_params() {
     playerInfo.innerHTML =
@@ -107,13 +110,13 @@ class Population {
 
     deadPlayersList.innerHTML = `
 			<h2>Dead players: ${this.deadPopulation.length}</h2>
-			${this.deadPopulation.map(player => `
-        <li>${player.id}</li>
-        <li>Fitness: ${player.fitness}</li>
-        <li>Score: ${player.score}</li>
-`)}
+			
 		`;
-
+    // ${this.deadPopulation.map(player => `
+    //         <li>${player.id}</li>
+    // <li>Fitness: ${player.fitness}</li>
+    // <li>Score: ${player.score}</li>
+    //     `)}
   }
 
 }

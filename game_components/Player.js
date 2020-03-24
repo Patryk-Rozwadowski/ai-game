@@ -4,9 +4,8 @@ const ctx = canvas.getContext('2d');
 class Player {
   constructor(dna, newGenes, ball) {
     this.id = Math.random();
-    this.lifeSpan = 300;
+    this.lifeSpan = 3900;
     if (newGenes) {
-      debugger
       this.dna = dna;
       this.newGenes = true;
     } else {
@@ -18,14 +17,14 @@ class Player {
     this.x = this.dna.genes[0];
 
     this.y = canvas.height - 25;
-    this.x_step = 3;
+    this.x_step = 10;
     this.height = 15;
-    this.width = canvas.width / 7;
+    this.width = 300;
     this.color = this.changeColor();
 
     this.dead = false;
     this.ball = ball;
-
+    this.index = 0;
     this.lifes = 1;
     this.score = 0;
     this.ballHit = 0;
@@ -33,9 +32,7 @@ class Player {
   }
 
   calcFitness() {
-    this.fitness = 1 / this.score + (this.ballHit);
-     if (this.ballHit === 0) this.fitness *= 0.8;
-     if (this.ballHit > 3) this.fitness *= 2;
+    this.fitness =  this.score * this.ballHit;
   }
 
   walls_collision() {
@@ -86,10 +83,8 @@ class Player {
   }
 
   think() {
-    for(let i = 0; i < this.dna.genes.length; i++) {
-
-      this.dna.genes[i] < 400 ? this.left() : this.right();
-    }
+    this.dna.genes[this.index] < 400 ?  this.left() : this.right();
+    //this.x = this.dna.genes[this.index];
   }
 
   update() {
@@ -135,6 +130,8 @@ class Player {
     this.walls_collision();
     this.think();
     this.score++;
+    this.lifeSpan--;
+    this.index++;
   }
 }
 

@@ -27,7 +27,7 @@ class DNA {
       if (i > midpoint) child.genes[i] = this.genes[i];
       else if(i < midpoint) child.genes[i] = partner.genes[i];
     }
-    debugger;
+
     return child;
   }
 
@@ -38,8 +38,7 @@ class DNA {
   mutate(rate) {
     for (let i = 0; i < this.genes.length; i++) {
       if (Math.random() < rate) {
-        this.genes[i] = this.applyMutate();
-
+        this.genes[i] = Math.floor(Math.random() * 800);
       }
     }
   }
