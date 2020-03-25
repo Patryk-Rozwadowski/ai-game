@@ -14,8 +14,9 @@ class Population {
 
     this.matingPool = [];
     this.avgFitness = 0;
-    this.bestPlayer = 0;
+
     this.bestFitness = 0;
+    this.worstFitness = 0;
     this.generation = 1;
     this.total = 645;
 
@@ -28,8 +29,8 @@ class Population {
   }
 
   setMostBallHit() {
-    for(let player of this.deadPopulation) {
-      if(player.ballHit > this.mostBallHit) {
+    for (let player of this.deadPopulation) {
+      if (player.ballHit > this.mostBallHit) {
         this.mostBallHit = player.ballHit;
       }
     }
@@ -42,11 +43,7 @@ class Population {
   nextGeneration() {
     console.log('Next generation');
     this.generation++;
-    for(let i = 0; i < this.total; i++) {
-      debugger
-      // let a = Math.floor(Math.random() * this.matingPool.length);
-      // let b = Math.floor(Math.random() * this.matingPool.length);
-      debugger;
+    for (let i = 0; i < this.total; i++) {
       const parentA = this.acceptReject();
       const parentB = this.acceptReject();
 
@@ -77,7 +74,7 @@ class Population {
       const partner = this.deadPopulation[index];
       const r = Math.floor(Math.random() * this.bestFitness);
       if (r < partner.fitness) {
-       return partner;
+        return partner;
       }
 
       escapeLoop++;
@@ -93,13 +90,19 @@ class Population {
     }
   }
 
+  getWorstFitness() {
+    let worstFitness = this.deadPopulation[0].fitness;
+    debugger
+    for (let i = 0; i < this.deadPopulation.length; i++) {
+      if (worstFitness > this.deadPopulation[i].fitness) worstFitness = this.deadPopulation[i].fitness;
+    }
+  }
+
   calculateFitness() {
     for (let player of this.deadPopulation) {
       player.calcFitness();
     }
   }
-
-
 
   info_params() {
     playerInfo.innerHTML =
@@ -119,7 +122,8 @@ class Population {
 //         )}
     bestPlayer.innerHTML = `
       <h2>${this.bestFitness ? `Best fitness: ${this.bestFitness}` : 'No best fitness yet!'}</h2>
-      <h2>${this.mostBallHit ? `Most ball hit: ${this.mostBallHit}` : 'No best fitness yet!'}</h2>
+      <h2>${this.bestFitness ? `Worst fitness: ${this.worstFitness}` : 'No best worst yet!'}</h2>
+      <h2>${this.mostBallHit ? `Most ball hit: ${this.mostBallHit}` : 'No best ball hit yet!'}</h2>
     `;
 
     deadPlayersList.innerHTML = `

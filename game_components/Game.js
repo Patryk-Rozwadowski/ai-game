@@ -12,10 +12,11 @@ class Game {
 
     this.interval = setInterval(() => {
           ctx.clearRect(0, 0, canvas.width, canvas.height);
-      this.game.info_params();
+          this.game.info_params();
           if (this.game.population.length === 0) {
             this.game.calculateFitness();
             this.game.getMaxFitness();
+            this.game.getWorstFitness();
             this.game.setMostBallHit();
             this.game.nextGeneration();
             this.game.deadPopulation = [];
@@ -29,7 +30,7 @@ class Game {
               player.start();
             });
           }
-        }, 10
+        }, 10,
     );
   }
 
@@ -43,7 +44,7 @@ class Game {
 
   start() {
     this.interval;
-    this.game.population.map(player =>  document.addEventListener('keydown', (e) => player.control(e)))
+    this.game.population.map(player => document.addEventListener('keydown', (e) => player.control(e)));
   }
 }
 
