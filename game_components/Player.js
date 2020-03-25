@@ -14,12 +14,12 @@ class Player {
       this.newGenes = false;
     }
 
-    this.x = this.dna.genes[0];
+    this.x = 400;
 
     this.y = canvas.height - 25;
-    this.x_step = 10;
+    this.x_step = 5;
     this.height = 15;
-    this.width = 300;
+    this.width = 150;
     this.color = this.changeColor();
 
     this.dead = false;
@@ -29,10 +29,11 @@ class Player {
     this.score = 0;
     this.ballHit = 0;
     this.fitness = 0;
+
   }
 
   calcFitness() {
-    this.fitness =  this.score * this.ballHit;
+    this.fitness = this.ballHit + this.score;
   }
 
   walls_collision() {
@@ -65,26 +66,33 @@ class Player {
   }
 
   player_collision() {
-    if (this.ball.y + this.ball.y_speed + this.ball.ballRadius > this.y
+    if (this.ball.y + this.ball.y_speed + this.ball.ballRadius >= this.y + this.height
         && this.ball.x + this.ball.ballRadius < this.x + this.width
         && this.x < this.ball.x + this.ball.ballRadius) {
+      debugger
       this.ball.y_speed = -this.ball.y_speed;
       this.ballHit++;
     }
   }
 
-  draw() {
+  drawPlayer() {
     ctx.beginPath();
     ctx.rect(this.x, canvas.height - this.height, this.width, this.height);
-    ctx.fillStyle = this.color;
     ctx.fill();
     ctx.closePath();
+    ctx.fillStyle = this.color;
     this.ball.color = this.color;
   }
 
+  drawBallLine() {
+    ctx.moveTo(this.x + this.width / 2, this.y + this.height);
+    ctx.lineTo(this.ball.x, this.ball.y);
+    ctx.strokeStyle = this.color;
+    ctx.stroke();
+  }
+
   think() {
-    this.dna.genes[this.index] < 400 ?  this.left() : this.right();
-    //this.x = this.dna.genes[this.index];
+    this.dna.genes[this.index] > 400 ? this.left() : this.right();
   }
 
   update() {
@@ -92,11 +100,12 @@ class Player {
   }
 
   left() {
-    this.x > 0 ? this.x -= this.x_step : null;
+    this.x > 0 ? this.x -= this.x_step : [];
   }
 
   right() {
-    this.x + this.x_step + this.width <= canvas.width ? this.x += this.x_step : null;
+    debugger
+    this.x + this.width < canvas.width ? this.x += this.x_step : [];
   }
 
   changeColor() {
@@ -106,14 +115,14 @@ class Player {
     return `rgba(${red}, ${green}, ${blue}, ${Math.random()}`;
   }
 
-  control({key, type}) {
+  control({key}) {
     switch (key) {
       case 'a':
         this.left();
         break;
 
       case 'd':
-        this.x + this.x_step + this.width <= canvas.width ? this.x += this.x_step : console.log('right stop');
+        this.right();
         break;
     }
   }
@@ -124,7 +133,8 @@ class Player {
 
   start() {
     if (!this.newGenes) this.dna.creatingGenes(this.lifeSpan);
-    this.draw();
+    this.drawPlayer();
+    this.drawBallLine();
     this.ball.start();
     this.player_collision();
     this.walls_collision();
@@ -132,6 +142,7 @@ class Player {
     this.score++;
     this.lifeSpan--;
     this.index++;
+    this.distanceFromBall = ((this.x + this.width / 2 - this.ball.x) + (this.y - this.ball.y));
   }
 }
 

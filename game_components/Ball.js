@@ -6,10 +6,10 @@ canvas.height = 900;
 
 class Ball {
   constructor() {
-    this.x = 600;
+    this.x = 500;
     this.y = canvas.height / 2;
-    this.x_speed = 1;
-    this.y_speed = -17;
+    this.x_speed = 3;
+    this.y_speed = -14;
     this.color = '';
     this.mass = this.ballRadius * this.ballRadius * this.ballRadius;
     this.ballRadius = 10;

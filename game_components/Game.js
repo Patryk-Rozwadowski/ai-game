@@ -6,17 +6,17 @@ canvas.width = 800;
 canvas.height = 500;
 
 class Game {
-
   constructor() {
-    this.deadPlayers = [];
     this.generation = 1;
     this.game = new Population();
 
     this.interval = setInterval(() => {
           ctx.clearRect(0, 0, canvas.width, canvas.height);
+
           if (this.game.population.length === 0) {
             this.game.calculateFitness();
             this.game.getMaxFitness();
+            this.game.setMostBallHit();
             this.game.nextGeneration();
             this.game.deadPopulation = [];
             this.game.info_params();
@@ -29,11 +29,9 @@ class Game {
                 this.game.info_params();
               }
               player.start();
-
-              //document.addEventListener('keydown', (e) => player.control(e))
             });
           }
-        }, 1
+        }, 50
     );
   }
 
@@ -47,6 +45,7 @@ class Game {
 
   start() {
     this.interval;
+    this.game.population.map(player =>  document.addEventListener('keydown', (e) => player.control(e)))
   }
 }
 

@@ -17,13 +17,26 @@ class Population {
     this.bestPlayer = 0;
     this.bestFitness = 0;
     this.generation = 1;
-    this.total = 540;
+    this.total = 45;
 
     this.deadPopulation = [];
     this.population = [];
+    this.mostBallHit = 0;
     for (let i = 0; i < this.total; i++) {
       this.population[i] = new Player(new DNA(), false, new Ball());
     }
+  }
+
+  setMostBallHit() {
+    for(let player of this.deadPopulation) {
+      if(player.ballHit > this.mostBallHit) {
+        this.mostBallHit = player.ballHit;
+      }
+    }
+  }
+
+  getMostBallHit() {
+    return this.mostBallHit;
   }
 
   nextGeneration() {
@@ -59,11 +72,10 @@ class Population {
     let escapeLoop = 0;
     while (true) {
       const index = Math.floor(Math.random() * this.total);
+
       const partner = this.deadPopulation[index];
-      const halfBest = this.bestFitness * Math.random();
-      const r = [halfBest, this.bestFitness];
-      debugger;
-      if ( halfBest < partner.fitness || r[1] < partner.fitness) {
+      const r = Math.floor(Math.random() * this.bestFitness);
+      if (r < partner.fitness) {
        return partner;
       }
 
@@ -106,6 +118,7 @@ class Population {
 //         )}
     bestPlayer.innerHTML = `
       <h2>${this.bestFitness ? `Best fitness: ${this.bestFitness}` : 'No best fitness yet!'}</h2>
+      <h2>${this.mostBallHit ? `Most ball hit: ${this.mostBallHit}` : 'No best fitness yet!'}</h2>
     `;
 
     deadPlayersList.innerHTML = `
