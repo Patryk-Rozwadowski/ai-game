@@ -17,7 +17,7 @@ class Population {
     this.bestPlayer = 0;
     this.bestFitness = 0;
     this.generation = 1;
-    this.total = 45;
+    this.total = 645;
 
     this.deadPopulation = [];
     this.population = [];
@@ -43,6 +43,7 @@ class Population {
     console.log('Next generation');
     this.generation++;
     for(let i = 0; i < this.total; i++) {
+      debugger
       // let a = Math.floor(Math.random() * this.matingPool.length);
       // let b = Math.floor(Math.random() * this.matingPool.length);
       debugger;

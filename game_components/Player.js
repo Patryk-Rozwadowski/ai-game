@@ -4,20 +4,20 @@ const ctx = canvas.getContext('2d');
 class Player {
   constructor(dna, newGenes, ball) {
     this.id = Math.random();
-    this.lifeSpan = 3900;
+    this.lifeSpan = 2900;
     if (newGenes) {
       this.dna = dna;
       this.newGenes = true;
+      this.x = this.dna.genes[0];
     } else {
       this.dna = dna;
       this.dna.creatingGenes(this.lifeSpan);
       this.newGenes = false;
+      this.x = Math.floor(Math.random() * canvas.width);
     }
 
-    this.x = 400;
-
     this.y = canvas.height - 25;
-    this.x_step = 5;
+    this.x_step = 15;
     this.height = 15;
     this.width = 150;
     this.color = this.changeColor();
@@ -29,11 +29,17 @@ class Player {
     this.score = 0;
     this.ballHit = 0;
     this.fitness = 0;
-
+    this.distanceFromBall = 0;
   }
 
   calcFitness() {
-    this.fitness = this.ballHit + this.score;
+    this.distanceFromBall = Math.abs(this.distanceFromBall);
+    this.fitness = (this.score * this.ballHit) / this.distanceFromBall;
+    if(this.distanceFromBall > 200) this.fitness *= 0.25 ;
+    if(this.distanceFromBall > 100) this.fitness *= 0.75 ;
+    if(this.distanceFromBall < 50) this.fitness *= 1.25 ;
+    if(this.distanceFromBall < 5) this.fitness *= 2.5;
+
   }
 
   walls_collision() {
@@ -69,7 +75,6 @@ class Player {
     if (this.ball.y + this.ball.y_speed + this.ball.ballRadius >= this.y + this.height
         && this.ball.x + this.ball.ballRadius < this.x + this.width
         && this.x < this.ball.x + this.ball.ballRadius) {
-      debugger
       this.ball.y_speed = -this.ball.y_speed;
       this.ballHit++;
     }
@@ -104,7 +109,6 @@ class Player {
   }
 
   right() {
-    debugger
     this.x + this.width < canvas.width ? this.x += this.x_step : [];
   }
 
@@ -134,7 +138,7 @@ class Player {
   start() {
     if (!this.newGenes) this.dna.creatingGenes(this.lifeSpan);
     this.drawPlayer();
-    this.drawBallLine();
+    //this.drawBallLine();
     this.ball.start();
     this.player_collision();
     this.walls_collision();

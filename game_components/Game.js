@@ -12,26 +12,24 @@ class Game {
 
     this.interval = setInterval(() => {
           ctx.clearRect(0, 0, canvas.width, canvas.height);
-
+      this.game.info_params();
           if (this.game.population.length === 0) {
             this.game.calculateFitness();
             this.game.getMaxFitness();
             this.game.setMostBallHit();
             this.game.nextGeneration();
             this.game.deadPopulation = [];
-            this.game.info_params();
           }
           if (this.game.population) {
             this.game.population.map((player, i) => {
               if (player.dead === true || player.lifeSpan === 0) {
                 this.game.population.splice(i, 1);
                 this.game.deadPopulation.push(player);
-                this.game.info_params();
               }
               player.start();
             });
           }
-        }, 50
+        }, 10
     );
   }
 
