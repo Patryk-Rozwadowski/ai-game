@@ -7,7 +7,7 @@ const deadPlayersList = document.getElementById('deadPlayersList');
 const ballInfo = document.getElementById('ballInfo');
 const gameInfo = document.getElementById('gameInfo');
 const nnInfo = document.getElementById('nnInfo');
-const bestPlayer = document.getElementById('bestPlayer');
+const populationInformation = document.getElementById('populationInformation');
 
 class Population {
   constructor() {
@@ -18,7 +18,7 @@ class Population {
     this.bestFitness = 0;
     this.worstFitness = 0;
     this.generation = 1;
-    this.total = 645;
+    this.total = 355;
 
     this.deadPopulation = [];
     this.population = [];
@@ -92,9 +92,8 @@ class Population {
 
   getWorstFitness() {
     let worstFitness = this.deadPopulation[0].fitness;
-    debugger
     for (let i = 0; i < this.deadPopulation.length; i++) {
-      if (worstFitness > this.deadPopulation[i].fitness) worstFitness = this.deadPopulation[i].fitness;
+      if (worstFitness < this.deadPopulation[i].fitness) this.worstFitness = this.deadPopulation[i].fitness;
     }
   }
 
@@ -105,22 +104,11 @@ class Population {
   }
 
   info_params() {
-    playerInfo.innerHTML =
-        `
+    playerInfo.innerHTML = `
         <h2>Generations: ${this.generation}</h2>
 				<h2>Alive population: ${this.population.length}</h2>
-		
 		`;
-//				${this.population.map(player => `
-// 							<li>Player id: ${player.id}</li>
-// 							<li>Player id: ${player.fitness ? player.fitness : '0'}</li>
-// 							<li>Score: ${player.score}</li>
-// 							<li>Player id: ${player.lifes}</li>
-// 							<li>Player dead: ${player.dead}</li>
-// 							<li>Player X: ${player.x}</li>
-// 							`,
-//         )}
-    bestPlayer.innerHTML = `
+    populationInformation.innerHTML = `
       <h2>${this.bestFitness ? `Best fitness: ${this.bestFitness}` : 'No best fitness yet!'}</h2>
       <h2>${this.bestFitness ? `Worst fitness: ${this.worstFitness}` : 'No best worst yet!'}</h2>
       <h2>${this.mostBallHit ? `Most ball hit: ${this.mostBallHit}` : 'No best ball hit yet!'}</h2>

@@ -35,10 +35,10 @@ class Player {
   calcFitness() {
     this.distanceFromBall = Math.abs(this.distanceFromBall);
     this.fitness = (this.score * this.ballHit) / this.distanceFromBall;
-    if(this.distanceFromBall > 200) this.fitness *= 0.25 ;
-    if(this.distanceFromBall > 100) this.fitness *= 0.75 ;
-    if(this.distanceFromBall < 50) this.fitness *= 1.25 ;
-    if(this.distanceFromBall < 5) this.fitness *= 2.5;
+    // if(this.distanceFromBall > 200) this.fitness *= 0.25 ;
+    // if(this.distanceFromBall > 100) this.fitness *= 0.75 ;
+    // if(this.distanceFromBall < 50) this.fitness *= 1.25 ;
+    // if(this.distanceFromBall < 5) this.fitness *= 2.5;
 
   }
 

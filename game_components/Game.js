@@ -19,6 +19,7 @@ class Game {
             this.game.getWorstFitness();
             this.game.setMostBallHit();
             this.game.nextGeneration();
+
             this.game.deadPopulation = [];
           }
           if (this.game.population) {
@@ -30,7 +31,7 @@ class Game {
               player.start();
             });
           }
-        }, 10,
+        }, 10
     );
   }
 
