@@ -8,7 +8,7 @@ class Player {
     if (newGenes) {
       this.dna = dna;
       this.newGenes = true;
-      this.x = this.dna.genes[0];
+      this.x = 400;
     } else {
       this.dna = dna;
       this.dna.creatingGenes(this.lifeSpan);
@@ -19,7 +19,7 @@ class Player {
     this.y = canvas.height - 25;
     this.x_step = 15;
     this.height = 15;
-    this.width = 150;
+    this.width = 180;
     this.color = this.changeColor();
 
     this.dead = false;
@@ -30,15 +30,16 @@ class Player {
     this.ballHit = 0;
     this.fitness = 0;
     this.distanceFromBall = 0;
+    this.deathPenalty = 0;
   }
 
   calcFitness() {
     this.distanceFromBall = Math.abs(this.distanceFromBall);
-    this.fitness = (this.score * this.ballHit) / this.distanceFromBall;
-    // if(this.distanceFromBall > 200) this.fitness *= 0.25 ;
-    // if(this.distanceFromBall > 100) this.fitness *= 0.75 ;
-    // if(this.distanceFromBall < 50) this.fitness *= 1.25 ;
-    // if(this.distanceFromBall < 5) this.fitness *= 2.5;
+    this.fitness = (this.score * this.ballHit) / this.deathPenalty;
+     // if(this.distanceFromBall > 200) this.fitness *= 0.25 ;
+     // if(this.distanceFromBall > 100) this.fitness *= 0.75 ;
+     // if(this.distanceFromBall < 50) this.fitness *= 1.25 ;
+     // if(this.distanceFromBall < 5) this.fitness *= 2.5;
 
   }
 
@@ -97,7 +98,7 @@ class Player {
   }
 
   think() {
-    this.dna.genes[this.index] > 400 ? this.left() : this.right();
+    this.dna.genes[this.index] == 0 ? this.left() : this.right();
   }
 
   update() {
@@ -146,7 +147,8 @@ class Player {
     this.score++;
     this.lifeSpan--;
     this.index++;
-    this.distanceFromBall = ((this.x + this.width / 2 - this.ball.x) + (this.y - this.ball.y));
+    //if(this.dead) this.distanceFromBall += Math.abs((this.x + this.width / 2 - this.ball.x)) + (this.y - this.ball.y);
+    //console.log(this.distanceFromBall)
   }
 }
 

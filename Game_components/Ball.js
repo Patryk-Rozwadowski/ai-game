@@ -8,8 +8,8 @@ class Ball {
   constructor() {
     this.x = 500;
     this.y = canvas.height / 2;
-    this.x_speed = 3;
-    this.y_speed = -14;
+    this.x_speed = 2;
+    this.y_speed = -10;
     this.color = '';
     this.mass = this.ballRadius * this.ballRadius * this.ballRadius;
     this.ballRadius = 10;

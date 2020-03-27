@@ -10,7 +10,7 @@ class DNA {
 
   creatingGenes(lifeSpan) {
     for(let i = 0; i < lifeSpan; i++) {
-      this.genes[i] = Math.floor(Math.random() * 800);
+      this.genes[i] = Math.floor(Math.random() * 2);
     }
 
   }
@@ -32,13 +32,13 @@ class DNA {
   }
 
   applyMutate() {
-    return Math.floor(Math.random() * 800);
+    return Math.floor(Math.random() * 2);
   }
 
   mutate(rate) {
     for (let i = 0; i < this.genes.length; i++) {
       if (Math.random() < rate) {
-        this.genes[i] = Math.floor(Math.random() * 800);
+        this.genes[i] = this.applyMutate();
       }
     }
   }
