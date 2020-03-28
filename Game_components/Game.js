@@ -1,5 +1,6 @@
 import Population from '../GA_components/Population';
 
+const csvButton = document.getElementById('save-csv-btn');
 const canvas = document.getElementById('gameContainer');
 const ctx = canvas.getContext('2d');
 canvas.width = 800;
@@ -8,6 +9,7 @@ canvas.height = 500;
 class Game {
   constructor() {
     this.generation = 1;
+    this.history = [];
     this.game = new Population();
 
     this.interval = setInterval(() => {
@@ -21,6 +23,15 @@ class Game {
             this.game.getAvgFitnessPerGen();
             this.game.setMostBallHit();
             this.game.nextGeneration();
+
+            this.history.push({
+              Generation: this.game.generation,
+              Most_Ball_Hit: this.game.mostBallHit,
+              Best_Fitness: this.game.bestPlayer.fitness,
+              Worst_Fitness: this.game.worstFitness,
+              Average_Fitness: this.game.avgFitness,
+              Mutation_Ratio: this.game.mutationRatio,
+            });
             this.game.deadPopulation = [];
           }
           if (this.game.population) {
@@ -34,7 +45,7 @@ class Game {
               player.start();
             });
           }
-        }, 10,
+        }, 1
     );
   }
 
@@ -51,23 +62,31 @@ class Game {
     this.game.population.map(player => document.addEventListener('keydown', (e) => player.control(e)));
   }
 
-  saveToCsv() {
-    debugger
-    //this.game.population.map(player => )
-    const arr = [1,2,3,4,5,6,7,8];
-    const rows = ['player', 'fitness', 'best fitness', 'worst fitness', 'average fitness', 'ball hit'];
-    var encodedUri = encodeURI(rows);
-    var link = document.createElement("a");
-    link.setAttribute("href", encodedUri);
-    link.setAttribute("download", "my_data.csv");
-    document.body.appendChild(link); // Required for FF
+  getProgressTimeAndDate() {
+    const time = new Date();
+    const date = new Date();
+    return `${date.getFullYear()}.${date.getMonth()+1}.${date.getDate()} ${time.getHours()}-${time.getMinutes()}-${time.getSeconds()}`
+  }
 
-    link.click();
+  saveToCsv() {
+    let csvRows = Object.keys(this.history[0]).join(';');
+    let csvCols = '';
+    for (let record of this.history) {
+      csvCols += `\n${record.Generation};${record.Most_Ball_Hit};${record.Best_Fitness};${record.Worst_Fitness};${record.Average_Fitness};${record.Mutation_Ratio}`;
+    }
+    let csvContent = [
+      [csvRows],
+      [csvCols],
+    ];
+    const mimeType = 'text/csv;encoding:utf-8';
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL((new Blob([csvContent], {
+      type: mimeType,
+    })));
+    a.setAttribute('download', `${this.getProgressTimeAndDate()} progress session.csv`);
+    a.click();
   }
 }
-
-const csvButton = document.getElementById('save-csv-btn');
-
 
 document.addEventListener('DOMContentLoaded', () => {
   const game = new Game;

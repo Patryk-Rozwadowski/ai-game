@@ -11,7 +11,7 @@ const populationInformation = document.getElementById('populationInformation');
 
 class Population {
   constructor() {
-    this.total = 400;
+    this.total = 20;
 
     this.matingPool = [];
     this.avgFitness = 0;
