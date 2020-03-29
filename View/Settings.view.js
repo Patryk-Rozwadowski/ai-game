@@ -1,7 +1,7 @@
 
 const canvas = document.getElementById('gameContainer');
-canvas.width = 800;
-canvas.height = 500;
+canvas.width = window.innerWidth / 2;
+canvas.height = window.innerHeight;
 export const Settings = {
   gameContainer: document.getElementById('gameContainer'),
   canvasWidth: canvas.width,

@@ -1,0 +1,23 @@
+@import "./node_modules/bootstrap/scss/bootstrap.scss";
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+
+body {
+  font-family: 'Roboto', sans-serif;
+  color: #fff;
+  background-color: #222;
+  overflow: hidden;
+}
+
+#gameContainer {
+  position: relative;
+  height: 90vh;
+  width: 100vw;
+  margin-bottom: 20px;
+}
+
+.game-info {
+  position: absolute;
+  right: 0;
+  top: 0;
+  text-align: right;
+}

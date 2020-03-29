@@ -1,4 +1,4 @@
-class DNA {
+export class DNA {
   constructor(length) {
     if (length) {
       this.genes = new Array(length);
@@ -40,5 +40,3 @@ class DNA {
     }
   }
 }
-
-export default DNA;

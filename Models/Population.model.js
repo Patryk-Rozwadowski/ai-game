@@ -1,17 +1,10 @@
 import Player from './Player.model';
-import DNA from './DNA.model';
+import {DNA} from './DNA.model';
 import Ball from './Ball.model';
-
-const playerInfo = document.getElementById('playerInfo');
-const deadPlayersList = document.getElementById('deadPlayersList');
-const ballInfo = document.getElementById('ballInfo');
-const gameInfo = document.getElementById('gameInfo');
-const nnInfo = document.getElementById('nnInfo');
-const populationInformation = document.getElementById('populationInformation');
 
 class Population {
   constructor() {
-    this.total = 20;
+    this.total = 100;
 
     this.matingPool = [];
     this.avgFitness = 0;

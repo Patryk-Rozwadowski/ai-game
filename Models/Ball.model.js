@@ -5,7 +5,7 @@ class Ball {
     this.x = 500;
     this.y = Settings.canvasHeight / 2;
     this.x_speed = 2;
-    this.y_speed = -10;
+    this.y_speed = -15;
     this.color = '';
     this.mass = this.ballRadius * this.ballRadius * this.ballRadius;
     this.ballRadius = 10;

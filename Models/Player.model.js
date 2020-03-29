@@ -93,6 +93,7 @@ class Player {
   }
 
   drawBallLine() {
+    const {ctx} = Settings;
     ctx.moveTo(this.x + this.width / 2, this.y + this.height);
     ctx.lineTo(this.ball.x, this.ball.y);
     ctx.strokeStyle = this.color;
@@ -101,10 +102,6 @@ class Player {
 
   think() {
     this.dna.genes[this.index] == 0 ? this.left() : this.right();
-  }
-
-  update() {
-    ctx.rect(this.x, this.y, this.width, this.height);
   }
 
   left() {
@@ -149,8 +146,6 @@ class Player {
     this.score++;
     this.lifeSpan--;
     this.index++;
-    //if(this.dead) this.distanceFromBall += Math.abs((this.x + this.width / 2 - this.ball.x)) + (this.y - this.ball.y);
-    //console.log(this.distanceFromBall)
   }
 }
 
