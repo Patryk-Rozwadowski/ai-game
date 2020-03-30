@@ -13,10 +13,6 @@ export class DNA {
     }
   }
 
-  genesInfo() {
-    return this.genes;
-  }
-
   crossOver(partner) {
     let child = new DNA(this.genes.length);
     let midpoint = Math.floor(Math.random() * this.genes.length);

@@ -29,10 +29,6 @@ class Population {
     }
   }
 
-  getMostBallHit() {
-    return this.mostBallHit;
-  }
-
   nextGeneration() {
     console.log('Next generation');
     this.generation++;
@@ -101,25 +97,6 @@ class Population {
       player.calcFitness();
     }
   }
-
-  info_params() {
-    playerInfo.innerHTML = `
-        <h2>Generations: ${this.generation}</h2>
-				<h2>Alive population: ${this.population.length}</h2>
-		`;
-    populationInformation.innerHTML = `
-      <h2>${this.bestPlayer ? `Best fitness: ${this.bestPlayer.fitness}` : 'No best fitness yet!'}</h2>
-      <h2>${this.worstFitness ? `Worst fitness: ${this.worstFitness}` : 'No worst fitness yet!'}</h2>
-      <h2>${this.avgFitness ? `Average fitness per generation: ${this.avgFitness}` : 'No average fitness yet!'}</h2>
-      <h2>${this.mostBallHit ? `Most ball hit: ${this.mostBallHit}` : 'No best ball hit yet!'}</h2>
-      <h2>Mutation ratio: ${this.mutationRatio * 100}%</h2>
-    `;
-
-    deadPlayersList.innerHTML = `
-			<h2>Dead players: ${this.deadPopulation.length}</h2>
-		`;
-  }
-
 }
 
 export default Population;

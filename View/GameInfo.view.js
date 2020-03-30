@@ -1,6 +1,4 @@
-const playerInfo = document.getElementById('playerInfo');
 const populationInformation = document.getElementById('populationInformation');
-
 export const WriteGameInfo = (
     generation,
     population,
