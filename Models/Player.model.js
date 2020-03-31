@@ -1,10 +1,11 @@
 import {Settings} from '../View/Settings.view';
+import {getRandomNumber} from '../utils/getRandomNumber.util';
 
 const {canvasWidth, canvasHeight} = Settings;
 class Player {
   constructor(dna, newGenes, ball) {
 
-    this.id = Math.random();
+    this.id = getRandomNumber(1);
     this.lifeSpan = 2900;
     if (newGenes) {
       this.dna = dna;
@@ -37,11 +38,6 @@ class Player {
   calcFitness() {
     this.distanceFromBall = Math.abs(this.distanceFromBall);
     this.fitness = (this.score * this.ballHit) / this.deathPenalty;
-    // if(this.distanceFromBall > 200) this.fitness *= 0.25 ;
-    // if(this.distanceFromBall > 100) this.fitness *= 0.75 ;
-    // if(this.distanceFromBall < 50) this.fitness *= 1.25 ;
-    // if(this.distanceFromBall < 5) this.fitness *= 2.5;
-
   }
 
   walls_collision() {

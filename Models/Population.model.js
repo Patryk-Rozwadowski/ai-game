@@ -1,6 +1,7 @@
 import Player from './Player.model';
 import {DNA} from './DNA.model';
 import Ball from './Ball.model';
+import {getRandomNumber} from '../utils/getRandomNumber.util';
 
 class Population {
   constructor() {
@@ -33,11 +34,13 @@ class Population {
     console.log('Next generation');
     this.generation++;
     for (let i = 0; i < this.total; i++) {
-      const parentA = this.acceptReject();
-      const parentB = this.acceptReject();
-
+      let parentA = this.acceptReject();
+      let parentB = this.acceptReject();
+      if(!parentA) parentA = this.deadPopulation[getRandomNumber(this.total)];
+      if(!parentB) parentB = this.deadPopulation[getRandomNumber(this.total)];
       const parentAGenes = parentA.getDNA();
       const parentBGenes = parentB.getDNA();
+
 
       const childDNA = parentAGenes.crossOver(parentBGenes);
       childDNA.mutate(this.mutationRatio);
@@ -58,9 +61,8 @@ class Population {
   acceptReject() {
     let escapeLoop = 0;
     while (true) {
-      const index = Math.floor(Math.random() * this.total);
-      const partner = this.deadPopulation[index];
-      const r = Math.floor(Math.random() * this.bestPlayer.fitness);
+      const partner = this.deadPopulation[getRandomNumber(this.total)];
+      const r = getRandomNumber(this.bestPlayer.fitness);
       if (r < partner.fitness) {
         return partner;
       }
