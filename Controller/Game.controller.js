@@ -1,6 +1,7 @@
 import Population from '../Models/Population.model';
 import {Settings} from '../View/Settings.view';
 import {WriteGameInfo} from '../View/GameInfo.view';
+import {showElement} from '../utils/showBtn.util';
 
 const csvButton = document.getElementById('save-csv-btn');
 const startGameBtn = document.getElementById('startGame');
@@ -12,7 +13,7 @@ class Game {
 
   constructor() {
     this.generation = 1;
-    this.history = [];
+    this.populationHistory = [];
     this.game = new Population();
     this.gameStarted = true;
     this.learningSpeed = 5;
@@ -74,7 +75,7 @@ class Game {
       this.game.setMostBallHit();
       this.game.nextGeneration();
 
-      this.history.push({
+      this.populationHistory.push({
         Generation: this.game.generation,
         Most_Ball_Hit: this.game.mostBallHit,
         Best_Fitness: this.game.bestPlayer.fitness,
@@ -82,6 +83,7 @@ class Game {
         Average_Fitness: this.game.avgFitness,
         Mutation_Ratio: this.game.mutationRatio,
       });
+      if (this.populationHistory.length > 0) showElement([csvButton]);
       this.game.deadPopulation = [];
     }
   }
@@ -89,23 +91,14 @@ class Game {
   getProgressTimeAndDate() {
     const time = new Date();
     const date = new Date();
-    const {
-      getFullYear,
-      getMonth,
-      getDate,
-    } = date;
-    const {
-      getHours,
-      getMinutes,
-      getSeconds,
-    } = time;
-    return `${getFullYear()}.${getMonth() + 1}.${getDate()} ${getHours()}-${getMinutes()}-${getSeconds()}`;
+    return `${date.getFullYear()}.${date.getMonth() +
+    1}.${date.getDate()} ${time.getHours()}-${time.getMinutes()}-${time.getSeconds()}`;
   }
 
   saveToCsv() {
-    let csvRows = Object.keys(this.history[0]).join(';');
+    let csvRows = Object.keys(this.populationHistory[0]).join(';');
     let csvCols = '';
-    for (let record of this.history) {
+    for (let record of this.populationHistory) {
       const {
         Generation,
         Most_Ball_Hit,
@@ -134,17 +127,14 @@ startGameBtn.addEventListener('click', () => {
   const game = new Game;
 
   game.start();
-  controlPanel(game.gameStarted);
+  controlPanel(game.gameStarted, game.populationHistory);
 
-  csvButton.addEventListener('click', () => game.saveToCsv());
   pauseGameBtn.addEventListener('click', () => game.stop());
   resumeGameBtn.addEventListener('click', () => game.resume());
+  csvButton.addEventListener('click', () => game.saveToCsv());
 });
 
 const controlPanel = (gameStarted) => {
-  if (gameStarted) {
-    controlButtons.style.display = 'block';
-    startGameBtn.style.display = 'none';
-  }
+  if (gameStarted) showElement([controlButtons])([startGameBtn]);
 };
 
