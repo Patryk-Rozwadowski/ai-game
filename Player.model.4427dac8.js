@@ -187,9 +187,9 @@ var Player = /*#__PURE__*/function () {
     }
 
     this.y = _Settings.Settings.canvasHeight - 25;
-    this.x_step = 15;
+    this.x_step = 25;
     this.height = 15;
-    this.width = 180;
+    this.width = canvasWidth / 6;
     this.color = this.changeColor();
     this.dead = false;
     this.ball = ball;
@@ -206,7 +206,7 @@ var Player = /*#__PURE__*/function () {
     key: "calcFitness",
     value: function calcFitness() {
       this.distanceFromBall = Math.abs(this.distanceFromBall);
-      this.fitness = this.score * this.ballHit / this.deathPenalty;
+      this.fitness = this.score * this.ballHit / this.deathPenalty + this.distanceFromBall;
     }
   }, {
     key: "walls_collision",
@@ -360,7 +360,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62447" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64529" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

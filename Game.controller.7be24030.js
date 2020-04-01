@@ -187,9 +187,9 @@ var Player = /*#__PURE__*/function () {
     }
 
     this.y = _Settings.Settings.canvasHeight - 25;
-    this.x_step = 15;
+    this.x_step = 25;
     this.height = 15;
-    this.width = 180;
+    this.width = canvasWidth / 6;
     this.color = this.changeColor();
     this.dead = false;
     this.ball = ball;
@@ -206,7 +206,7 @@ var Player = /*#__PURE__*/function () {
     key: "calcFitness",
     value: function calcFitness() {
       this.distanceFromBall = Math.abs(this.distanceFromBall);
-      this.fitness = this.score * this.ballHit / this.deathPenalty;
+      this.fitness = this.score * this.ballHit / this.deathPenalty + this.distanceFromBall;
     }
   }, {
     key: "walls_collision",
@@ -340,8 +340,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.DNA = void 0;
 
-var _getRandomNumber = require("../utils/getRandomNumber.util");
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -370,7 +368,7 @@ var DNA = /*#__PURE__*/function () {
     key: "crossOver",
     value: function crossOver(partner) {
       var child = new DNA(this.genes.length);
-      var midpoint = (0, _getRandomNumber.getRandomNumber)(this.genes.length);
+      var midpoint = Math.floor(Math.random() * this.genes.length);
 
       for (var i = 0; i < this.genes.length; i++) {
         if (i > midpoint) child.genes[i] = this.genes[i];else if (i < midpoint) child.genes[i] = partner.genes[i];
@@ -381,13 +379,13 @@ var DNA = /*#__PURE__*/function () {
   }, {
     key: "applyMutate",
     value: function applyMutate() {
-      return (0, _getRandomNumber.getRandomNumber)(2);
+      return Math.floor(Math.random() * 2);
     }
   }, {
     key: "mutate",
     value: function mutate(rate) {
       for (var i = 0; i < this.genes.length; i++) {
-        if ((0, _getRandomNumber.getRandomNumber)(1) < rate) {
+        if (Math.random() < rate) {
           this.genes[i] = this.applyMutate();
         }
       }
@@ -398,7 +396,7 @@ var DNA = /*#__PURE__*/function () {
 }();
 
 exports.DNA = DNA;
-},{"../utils/getRandomNumber.util":"utils/getRandomNumber.util.js"}],"Models/Ball.model.js":[function(require,module,exports) {
+},{}],"Models/Ball.model.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -570,7 +568,7 @@ var Population = /*#__PURE__*/function () {
 
       while (true) {
         var partner = this.deadPopulation[(0, _getRandomNumber.getRandomNumber)(this.total)];
-        var r = (0, _getRandomNumber.getRandomNumber)(this.bestPlayer.fitness);
+        var r = Math.floor(Math.random() * this.bestPlayer.fitness); //getRandomNumber(this.bestPlayer.fitness);
 
         if (r < partner.fitness) {
           return partner;
@@ -917,7 +915,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62447" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64873" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

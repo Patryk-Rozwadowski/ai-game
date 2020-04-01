@@ -117,28 +117,13 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"utils/getRandomNumber.util.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.getRandomNumber = void 0;
-
-var getRandomNumber = function getRandomNumber(len) {
-  return Math.floor(Math.random() * len);
-};
-
-exports.getRandomNumber = getRandomNumber;
-},{}],"Models/DNA.model.js":[function(require,module,exports) {
+})({"Models/DNA.model.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.DNA = void 0;
-
-var _getRandomNumber = require("../utils/getRandomNumber.util");
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -168,7 +153,7 @@ var DNA = /*#__PURE__*/function () {
     key: "crossOver",
     value: function crossOver(partner) {
       var child = new DNA(this.genes.length);
-      var midpoint = (0, _getRandomNumber.getRandomNumber)(this.genes.length);
+      var midpoint = Math.floor(Math.random() * this.genes.length);
 
       for (var i = 0; i < this.genes.length; i++) {
         if (i > midpoint) child.genes[i] = this.genes[i];else if (i < midpoint) child.genes[i] = partner.genes[i];
@@ -179,13 +164,13 @@ var DNA = /*#__PURE__*/function () {
   }, {
     key: "applyMutate",
     value: function applyMutate() {
-      return (0, _getRandomNumber.getRandomNumber)(2);
+      return Math.floor(Math.random() * 2);
     }
   }, {
     key: "mutate",
     value: function mutate(rate) {
       for (var i = 0; i < this.genes.length; i++) {
-        if ((0, _getRandomNumber.getRandomNumber)(1) < rate) {
+        if (Math.random() < rate) {
           this.genes[i] = this.applyMutate();
         }
       }
@@ -196,7 +181,7 @@ var DNA = /*#__PURE__*/function () {
 }();
 
 exports.DNA = DNA;
-},{"../utils/getRandomNumber.util":"utils/getRandomNumber.util.js"}],"C:/Users/papryk/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{}],"C:/Users/papryk/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -224,7 +209,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62447" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64873" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
