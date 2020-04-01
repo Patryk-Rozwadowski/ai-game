@@ -19,9 +19,9 @@ class Player {
     }
 
     this.y = Settings.canvasHeight - 25;
-    this.x_step = 15;
+    this.x_step = 25;
     this.height = 15;
-    this.width = 180;
+    this.width = canvasWidth / 6;
     this.color = this.changeColor();
 
     this.dead = false;
@@ -37,7 +37,7 @@ class Player {
 
   calcFitness() {
     this.distanceFromBall = Math.abs(this.distanceFromBall);
-    this.fitness = (this.score * this.ballHit) / this.deathPenalty;
+    this.fitness = (this.score * this.ballHit) / this.deathPenalty + this.distanceFromBall;
   }
 
   walls_collision() {

@@ -62,7 +62,7 @@ class Population {
     let escapeLoop = 0;
     while (true) {
       const partner = this.deadPopulation[getRandomNumber(this.total)];
-      const r = getRandomNumber(this.bestPlayer.fitness);
+      const r = Math.floor(Math.random() * this.bestPlayer.fitness); //getRandomNumber(this.bestPlayer.fitness);
       if (r < partner.fitness) {
         return partner;
       }
