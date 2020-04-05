@@ -16,7 +16,8 @@ parcelRequire = (function (modules, cache, entry, globalName) {
         // if we cannot find the module within our internal map or
         // cache jump to the current global require ie. the last bundle
         // that was added to the page.
-        var currentRequire = typeof parcelRequire === 'function' && parcelRequire;
+        var currentRequire =
+          typeof parcelRequire === 'function' && parcelRequire;
         if (!jumped && currentRequire) {
           return currentRequire(name, true);
         }
@@ -34,7 +35,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
           return nodeRequire(name);
         }
 
-        var err = new Error('Cannot find module \'' + name + '\'');
+        var err = new Error("Cannot find module '" + name + "'");
         err.code = 'MODULE_NOT_FOUND';
         throw err;
       }
@@ -42,18 +43,24 @@ parcelRequire = (function (modules, cache, entry, globalName) {
       localRequire.resolve = resolve;
       localRequire.cache = {};
 
-      var module = cache[name] = new newRequire.Module(name);
+      var module = (cache[name] = new newRequire.Module(name));
 
-      modules[name][0].call(module.exports, localRequire, module, module.exports, this);
+      modules[name][0].call(
+        module.exports,
+        localRequire,
+        module,
+        module.exports,
+        this
+      );
     }
 
     return cache[name].exports;
 
-    function localRequire(x){
+    function localRequire(x) {
       return newRequire(localRequire.resolve(x));
     }
 
-    function resolve(x){
+    function resolve(x) {
       return modules[name][1][x] || x;
     }
   }
@@ -70,9 +77,12 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   newRequire.cache = cache;
   newRequire.parent = previousRequire;
   newRequire.register = function (id, exports) {
-    modules[id] = [function (require, module) {
-      module.exports = exports;
-    }, {}];
+    modules[id] = [
+      function (require, module) {
+        module.exports = exports;
+      },
+      {},
+    ];
   };
 
   var error;
@@ -93,16 +103,16 @@ parcelRequire = (function (modules, cache, entry, globalName) {
     var mainExports = newRequire(entry[entry.length - 1]);
 
     // CommonJS
-    if (typeof exports === "object" && typeof module !== "undefined") {
+    if (typeof exports === 'object' && typeof module !== 'undefined') {
       module.exports = mainExports;
 
-    // RequireJS
-    } else if (typeof define === "function" && define.amd) {
-     define(function () {
-       return mainExports;
-     });
+      // RequireJS
+    } else if (typeof define === 'function' && define.amd) {
+      define(function () {
+        return mainExports;
+      });
 
-    // <script>
+      // <script>
     } else if (globalName) {
       this[globalName] = mainExports;
     }
@@ -117,273 +127,342 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"Models/DNA.model.js":[function(require,module,exports) {
-"use strict";
+})(
+  {
+    'Models/DNA.model.js': [
+      function (require, module, exports) {
+        'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.DNA = void 0;
+        Object.defineProperty(exports, '__esModule', {
+          value: true,
+        });
+        exports.DNA = void 0;
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-var DNA = /*#__PURE__*/function () {
-  function DNA(length) {
-    _classCallCheck(this, DNA);
-
-    if (length) {
-      this.genes = new Array(length);
-    } else {
-      this.genes = [];
-    }
-  }
-
-  _createClass(DNA, [{
-    key: "creatingGenes",
-    value: function creatingGenes(lifeSpan) {
-      for (var i = 0; i < lifeSpan; i++) {
-        this.genes[i] = this.applyMutate();
-      }
-    }
-  }, {
-    key: "crossOver",
-    value: function crossOver(partner) {
-      var child = new DNA(this.genes.length);
-      var midpoint = Math.floor(Math.random() * this.genes.length);
-
-      for (var i = 0; i < this.genes.length; i++) {
-        if (i > midpoint) child.genes[i] = this.genes[i];else if (i < midpoint) child.genes[i] = partner.genes[i];
-      }
-
-      return child;
-    }
-  }, {
-    key: "applyMutate",
-    value: function applyMutate() {
-      return Math.floor(Math.random() * 2);
-    }
-  }, {
-    key: "mutate",
-    value: function mutate(rate) {
-      for (var i = 0; i < this.genes.length; i++) {
-        if (Math.random() < rate) {
-          this.genes[i] = this.applyMutate();
-        }
-      }
-    }
-  }]);
-
-  return DNA;
-}();
-
-exports.DNA = DNA;
-},{}],"C:/Users/papryk/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
-var global = arguments[3];
-var OVERLAY_ID = '__parcel__error__overlay__';
-var OldModule = module.bundle.Module;
-
-function Module(moduleName) {
-  OldModule.call(this, moduleName);
-  this.hot = {
-    data: module.bundle.hotData,
-    _acceptCallbacks: [],
-    _disposeCallbacks: [],
-    accept: function (fn) {
-      this._acceptCallbacks.push(fn || function () {});
-    },
-    dispose: function (fn) {
-      this._disposeCallbacks.push(fn);
-    }
-  };
-  module.bundle.hotData = null;
-}
-
-module.bundle.Module = Module;
-var checkedAssets, assetsToAccept;
-var parent = module.bundle.parent;
-
-if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
-  var hostname = "" || location.hostname;
-  var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64873" + '/');
-
-  ws.onmessage = function (event) {
-    checkedAssets = {};
-    assetsToAccept = [];
-    var data = JSON.parse(event.data);
-
-    if (data.type === 'update') {
-      var handled = false;
-      data.assets.forEach(function (asset) {
-        if (!asset.isNew) {
-          var didAccept = hmrAcceptCheck(global.parcelRequire, asset.id);
-
-          if (didAccept) {
-            handled = true;
+        function _classCallCheck(instance, Constructor) {
+          if (!(instance instanceof Constructor)) {
+            throw new TypeError('Cannot call a class as a function');
           }
         }
-      }); // Enable HMR for CSS by default.
 
-      handled = handled || data.assets.every(function (asset) {
-        return asset.type === 'css' && asset.generated.js;
-      });
+        function _defineProperties(target, props) {
+          for (var i = 0; i < props.length; i++) {
+            var descriptor = props[i];
+            descriptor.enumerable = descriptor.enumerable || false;
+            descriptor.configurable = true;
+            if ('value' in descriptor) descriptor.writable = true;
+            Object.defineProperty(target, descriptor.key, descriptor);
+          }
+        }
 
-      if (handled) {
-        console.clear();
-        data.assets.forEach(function (asset) {
-          hmrApply(global.parcelRequire, asset);
-        });
-        assetsToAccept.forEach(function (v) {
-          hmrAcceptRun(v[0], v[1]);
-        });
-      } else if (location.reload) {
-        // `location` global exists in a web worker context but lacks `.reload()` function.
-        location.reload();
-      }
-    }
+        function _createClass(Constructor, protoProps, staticProps) {
+          if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+          if (staticProps) _defineProperties(Constructor, staticProps);
+          return Constructor;
+        }
 
-    if (data.type === 'reload') {
-      ws.close();
+        var DNA = /*#__PURE__*/ (function () {
+          function DNA(length) {
+            _classCallCheck(this, DNA);
 
-      ws.onclose = function () {
-        location.reload();
-      };
-    }
+            if (length) {
+              this.genes = new Array(length);
+            } else {
+              this.genes = [];
+            }
+          }
 
-    if (data.type === 'error-resolved') {
-      console.log('[parcel] ✨ Error resolved');
-      removeErrorOverlay();
-    }
+          _createClass(DNA, [
+            {
+              key: 'creatingGenes',
+              value: function creatingGenes(lifeSpan) {
+                for (var i = 0; i < lifeSpan; i++) {
+                  this.genes[i] = this._applyMutate();
+                }
+              },
+            },
+            {
+              key: 'crossOver',
+              value: function crossOver(partner) {
+                var child = new DNA(this.genes.length);
+                var midpoint = Math.floor(Math.random() * this.genes.length);
 
-    if (data.type === 'error') {
-      console.error('[parcel] 🚨  ' + data.error.message + '\n' + data.error.stack);
-      removeErrorOverlay();
-      var overlay = createErrorOverlay(data);
-      document.body.appendChild(overlay);
-    }
-  };
-}
+                for (var i = 0; i < this.genes.length; i++) {
+                  if (i > midpoint) child.genes[i] = this.genes[i];
+                  else if (i < midpoint) child.genes[i] = partner.genes[i];
+                }
 
-function removeErrorOverlay() {
-  var overlay = document.getElementById(OVERLAY_ID);
+                return child;
+              },
+            },
+            {
+              key: '_applyMutate',
+              value: function _applyMutate() {
+                return Math.floor(Math.random() * 2);
+              },
+            },
+            {
+              key: '_mutate',
+              value: function _mutate(rate) {
+                for (var i = 0; i < this.genes.length; i++) {
+                  if (Math.random() < rate) {
+                    this.genes[i] = this._applyMutate();
+                  }
+                }
+              },
+            },
+          ]);
 
-  if (overlay) {
-    overlay.remove();
-  }
-}
+          return DNA;
+        })();
 
-function createErrorOverlay(data) {
-  var overlay = document.createElement('div');
-  overlay.id = OVERLAY_ID; // html encode message and stack trace
+        exports.DNA = DNA;
+      },
+      {},
+    ],
+    'C:/Users/papryk/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js': [
+      function (require, module, exports) {
+        var global = arguments[3];
+        var OVERLAY_ID = '__parcel__error__overlay__';
+        var OldModule = module.bundle.Module;
 
-  var message = document.createElement('div');
-  var stackTrace = document.createElement('pre');
-  message.innerText = data.error.message;
-  stackTrace.innerText = data.error.stack;
-  overlay.innerHTML = '<div style="background: black; font-size: 16px; color: white; position: fixed; height: 100%; width: 100%; top: 0px; left: 0px; padding: 30px; opacity: 0.85; font-family: Menlo, Consolas, monospace; z-index: 9999;">' + '<span style="background: red; padding: 2px 4px; border-radius: 2px;">ERROR</span>' + '<span style="top: 2px; margin-left: 5px; position: relative;">🚨</span>' + '<div style="font-size: 18px; font-weight: bold; margin-top: 20px;">' + message.innerHTML + '</div>' + '<pre>' + stackTrace.innerHTML + '</pre>' + '</div>';
-  return overlay;
-}
+        function Module(moduleName) {
+          OldModule.call(this, moduleName);
+          this.hot = {
+            data: module.bundle.hotData,
+            _acceptCallbacks: [],
+            _disposeCallbacks: [],
+            accept: function (fn) {
+              this._acceptCallbacks.push(fn || function () {});
+            },
+            dispose: function (fn) {
+              this._disposeCallbacks.push(fn);
+            },
+          };
+          module.bundle.hotData = null;
+        }
 
-function getParents(bundle, id) {
-  var modules = bundle.modules;
+        module.bundle.Module = Module;
+        var checkedAssets, assetsToAccept;
+        var parent = module.bundle.parent;
 
-  if (!modules) {
-    return [];
-  }
+        if (
+          (!parent || !parent.isParcelRequire) &&
+          typeof WebSocket !== 'undefined'
+        ) {
+          var hostname = '' || location.hostname;
+          var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
+          var ws = new WebSocket(
+            protocol + '://' + hostname + ':' + '51927' + '/'
+          );
 
-  var parents = [];
-  var k, d, dep;
+          ws.onmessage = function (event) {
+            checkedAssets = {};
+            assetsToAccept = [];
+            var data = JSON.parse(event.data);
 
-  for (k in modules) {
-    for (d in modules[k][1]) {
-      dep = modules[k][1][d];
+            if (data.type === 'update') {
+              var handled = false;
+              data.assets.forEach(function (asset) {
+                if (!asset.isNew) {
+                  var didAccept = hmrAcceptCheck(
+                    global.parcelRequire,
+                    asset.id
+                  );
 
-      if (dep === id || Array.isArray(dep) && dep[dep.length - 1] === id) {
-        parents.push(k);
-      }
-    }
-  }
+                  if (didAccept) {
+                    handled = true;
+                  }
+                }
+              }); // Enable HMR for CSS by default.
 
-  if (bundle.parent) {
-    parents = parents.concat(getParents(bundle.parent, id));
-  }
+              handled =
+                handled ||
+                data.assets.every(function (asset) {
+                  return asset.type === 'css' && asset.generated.js;
+                });
 
-  return parents;
-}
+              if (handled) {
+                console.clear();
+                data.assets.forEach(function (asset) {
+                  hmrApply(global.parcelRequire, asset);
+                });
+                assetsToAccept.forEach(function (v) {
+                  hmrAcceptRun(v[0], v[1]);
+                });
+              } else if (location.reload) {
+                // `location` global exists in a web worker context but lacks `.reload()` function.
+                location.reload();
+              }
+            }
 
-function hmrApply(bundle, asset) {
-  var modules = bundle.modules;
+            if (data.type === 'reload') {
+              ws.close();
 
-  if (!modules) {
-    return;
-  }
+              ws.onclose = function () {
+                location.reload();
+              };
+            }
 
-  if (modules[asset.id] || !bundle.parent) {
-    var fn = new Function('require', 'module', 'exports', asset.generated.js);
-    asset.isNew = !modules[asset.id];
-    modules[asset.id] = [fn, asset.deps];
-  } else if (bundle.parent) {
-    hmrApply(bundle.parent, asset);
-  }
-}
+            if (data.type === 'error-resolved') {
+              console.log('[parcel] ✨ Error resolved');
+              removeErrorOverlay();
+            }
 
-function hmrAcceptCheck(bundle, id) {
-  var modules = bundle.modules;
+            if (data.type === 'error') {
+              console.error(
+                '[parcel] 🚨  ' + data.error.message + '\n' + data.error.stack
+              );
+              removeErrorOverlay();
+              var overlay = createErrorOverlay(data);
+              document.body.appendChild(overlay);
+            }
+          };
+        }
 
-  if (!modules) {
-    return;
-  }
+        function removeErrorOverlay() {
+          var overlay = document.getElementById(OVERLAY_ID);
 
-  if (!modules[id] && bundle.parent) {
-    return hmrAcceptCheck(bundle.parent, id);
-  }
+          if (overlay) {
+            overlay.remove();
+          }
+        }
 
-  if (checkedAssets[id]) {
-    return;
-  }
+        function createErrorOverlay(data) {
+          var overlay = document.createElement('div');
+          overlay.id = OVERLAY_ID; // html encode message and stack trace
 
-  checkedAssets[id] = true;
-  var cached = bundle.cache[id];
-  assetsToAccept.push([bundle, id]);
+          var message = document.createElement('div');
+          var stackTrace = document.createElement('pre');
+          message.innerText = data.error.message;
+          stackTrace.innerText = data.error.stack;
+          overlay.innerHTML =
+            '<div style="background: black; font-size: 16px; color: white; position: fixed; height: 100%; width: 100%; top: 0px; left: 0px; padding: 30px; opacity: 0.85; font-family: Menlo, Consolas, monospace; z-index: 9999;">' +
+            '<span style="background: red; padding: 2px 4px; border-radius: 2px;">ERROR</span>' +
+            '<span style="top: 2px; margin-left: 5px; position: relative;">🚨</span>' +
+            '<div style="font-size: 18px; font-weight: bold; margin-top: 20px;">' +
+            message.innerHTML +
+            '</div>' +
+            '<pre>' +
+            stackTrace.innerHTML +
+            '</pre>' +
+            '</div>';
+          return overlay;
+        }
 
-  if (cached && cached.hot && cached.hot._acceptCallbacks.length) {
-    return true;
-  }
+        function getParents(bundle, id) {
+          var modules = bundle.modules;
 
-  return getParents(global.parcelRequire, id).some(function (id) {
-    return hmrAcceptCheck(global.parcelRequire, id);
-  });
-}
+          if (!modules) {
+            return [];
+          }
 
-function hmrAcceptRun(bundle, id) {
-  var cached = bundle.cache[id];
-  bundle.hotData = {};
+          var parents = [];
+          var k, d, dep;
 
-  if (cached) {
-    cached.hot.data = bundle.hotData;
-  }
+          for (k in modules) {
+            for (d in modules[k][1]) {
+              dep = modules[k][1][d];
 
-  if (cached && cached.hot && cached.hot._disposeCallbacks.length) {
-    cached.hot._disposeCallbacks.forEach(function (cb) {
-      cb(bundle.hotData);
-    });
-  }
+              if (
+                dep === id ||
+                (Array.isArray(dep) && dep[dep.length - 1] === id)
+              ) {
+                parents.push(k);
+              }
+            }
+          }
 
-  delete bundle.cache[id];
-  bundle(id);
-  cached = bundle.cache[id];
+          if (bundle.parent) {
+            parents = parents.concat(getParents(bundle.parent, id));
+          }
 
-  if (cached && cached.hot && cached.hot._acceptCallbacks.length) {
-    cached.hot._acceptCallbacks.forEach(function (cb) {
-      cb();
-    });
+          return parents;
+        }
 
-    return true;
-  }
-}
-},{}]},{},["C:/Users/papryk/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","Models/DNA.model.js"], null)
+        function hmrApply(bundle, asset) {
+          var modules = bundle.modules;
+
+          if (!modules) {
+            return;
+          }
+
+          if (modules[asset.id] || !bundle.parent) {
+            var fn = new Function(
+              'require',
+              'module',
+              'exports',
+              asset.generated.js
+            );
+            asset.isNew = !modules[asset.id];
+            modules[asset.id] = [fn, asset.deps];
+          } else if (bundle.parent) {
+            hmrApply(bundle.parent, asset);
+          }
+        }
+
+        function hmrAcceptCheck(bundle, id) {
+          var modules = bundle.modules;
+
+          if (!modules) {
+            return;
+          }
+
+          if (!modules[id] && bundle.parent) {
+            return hmrAcceptCheck(bundle.parent, id);
+          }
+
+          if (checkedAssets[id]) {
+            return;
+          }
+
+          checkedAssets[id] = true;
+          var cached = bundle.cache[id];
+          assetsToAccept.push([bundle, id]);
+
+          if (cached && cached.hot && cached.hot._acceptCallbacks.length) {
+            return true;
+          }
+
+          return getParents(global.parcelRequire, id).some(function (id) {
+            return hmrAcceptCheck(global.parcelRequire, id);
+          });
+        }
+
+        function hmrAcceptRun(bundle, id) {
+          var cached = bundle.cache[id];
+          bundle.hotData = {};
+
+          if (cached) {
+            cached.hot.data = bundle.hotData;
+          }
+
+          if (cached && cached.hot && cached.hot._disposeCallbacks.length) {
+            cached.hot._disposeCallbacks.forEach(function (cb) {
+              cb(bundle.hotData);
+            });
+          }
+
+          delete bundle.cache[id];
+          bundle(id);
+          cached = bundle.cache[id];
+
+          if (cached && cached.hot && cached.hot._acceptCallbacks.length) {
+            cached.hot._acceptCallbacks.forEach(function (cb) {
+              cb();
+            });
+
+            return true;
+          }
+        }
+      },
+      {},
+    ],
+  },
+  {},
+  [
+    'C:/Users/papryk/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js',
+    'Models/DNA.model.js',
+  ],
+  null
+);
 //# sourceMappingURL=/DNA.model.5c76b7a6.js.map
