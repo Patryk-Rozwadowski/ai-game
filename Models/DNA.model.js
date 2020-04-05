@@ -9,7 +9,7 @@ export class DNA {
 
   creatingGenes(lifeSpan) {
     for (let i = 0; i < lifeSpan; i++) {
-      this.genes[i] = this.applyMutate();
+      this.genes[i] = this._applyMutate();
     }
   }
 
@@ -24,14 +24,14 @@ export class DNA {
     return child;
   }
 
-  applyMutate() {
+  _applyMutate() {
     return Math.floor(Math.random() * 2);
   }
 
-  mutate(rate) {
+  _mutate(rate) {
     for (let i = 0; i < this.genes.length; i++) {
       if (Math.random() < rate) {
-        this.genes[i] = this.applyMutate();
+        this.genes[i] = this._applyMutate();
       }
     }
   }

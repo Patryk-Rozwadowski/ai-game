@@ -12,12 +12,11 @@ const controlButtons = document.getElementById('controlButtons');
 class Game {
 
   constructor() {
-    this.generation = 1;
-    this.populationHistory = [];
     this.game = new Population();
     this.gameStarted = true;
     this.learningSpeed = 5;
     const {canvasWidth, canvasHeight} = Settings;
+
     this.interval = setInterval(() => {
           if (!this.isPaused) {
             Settings.ctx.clearRect(0, 0, canvasWidth, canvasHeight);
@@ -32,14 +31,14 @@ class Game {
                 this.game.mutationRatio,
                 this.game.deadPopulation,
             );
-            this.whenPopulationIsNotEmpty();
-            this.whenPopulationIsEmpty();
+            this._whenPopulationIsNotEmpty();
+            this._whenPopulationIsEmpty();
           }
         }, this.learningSpeed,
     );
   }
 
-  stop() {
+  pause() {
     this.isPaused = true;
   }
 
@@ -52,53 +51,32 @@ class Game {
     this.gameStarted = true;
   }
 
-  whenPopulationIsNotEmpty() {
-    if (this.game.population) {
-      this.game.population.map((player, i) => {
-        let deathPenalty = this.game.population.length;
-        player.start();
-        if (player.dead === true) {
-          player.deathPenalty = deathPenalty;
-          this.game.population.splice(i, 1);
-          this.game.deadPopulation.push(player);
-        }
-      });
-    }
+  _whenPopulationIsNotEmpty() {
+    this.game.populationLearning();
   }
 
-  whenPopulationIsEmpty() {
+  _whenPopulationIsEmpty() {
     if (this.game.population.length === 0) {
-      this.game.calculateFitness();
-      this.game.getMaxFitness();
-      this.game.getWorstFitness();
-      this.game.getAvgFitnessPerGen();
-      this.game.setMostBallHit();
-      this.game.nextGeneration();
+      this.game.calculatePopulation();
+      this.game.fillHistory();
 
-      this.populationHistory.push({
-        Generation: this.game.generation,
-        Most_Ball_Hit: this.game.mostBallHit,
-        Best_Fitness: this.game.bestPlayer.fitness,
-        Worst_Fitness: this.game.worstFitness,
-        Average_Fitness: this.game.avgFitness,
-        Mutation_Ratio: this.game.mutationRatio,
-      });
-      if (this.populationHistory.length > 0) showElement([csvButton]);
+      if (this.game.populationHistory.length > 0) showElement([csvButton]);
       this.game.deadPopulation = [];
     }
   }
 
-  getProgressTimeAndDate() {
+  _getProgressTimeAndDate() {
     const time = new Date();
     const date = new Date();
     return `${date.getFullYear()}.${date.getMonth() +
-    1}.${date.getDate()} ${time.getHours()}-${time.getMinutes()}-${time.getSeconds()}`;
+    1}.${date.getDate()} ${time.getHours()}:${time.getMinutes()}`;
   }
 
-  saveToCsv() {
-    let csvRows = Object.keys(this.populationHistory[0]).join(';');
+  _saveToCsv() {
+    let csvRows = Object.keys(this.game.populationHistory[0]).join(';');
     let csvCols = '';
-    for (let record of this.populationHistory) {
+
+    for (let record of this.game.populationHistory) {
       const {
         Generation,
         Most_Ball_Hit,
@@ -118,7 +96,10 @@ class Game {
     a.href = URL.createObjectURL((new Blob([csvContent], {
       type: mimeType,
     })));
-    a.setAttribute('download', `${this.getProgressTimeAndDate()} progress session.csv`);
+
+    // DATE HOURS:MINUTES MR-(Mutation Rate) GN-(Generation)
+    a.setAttribute('download',
+        `${this._getProgressTimeAndDate()} MR-${this.game.mutationRatio} GN-${this.game.generation}.csv`);
     a.click();
   }
 }
@@ -129,9 +110,9 @@ startGameBtn.addEventListener('click', () => {
   game.start();
   controlPanel(game.gameStarted, game.populationHistory);
 
-  pauseGameBtn.addEventListener('click', () => game.stop());
+  pauseGameBtn.addEventListener('click', () => game.pause());
   resumeGameBtn.addEventListener('click', () => game.resume());
-  csvButton.addEventListener('click', () => game.saveToCsv());
+  csvButton.addEventListener('click', () => game._saveToCsv());
 });
 
 const controlPanel = (gameStarted) => {

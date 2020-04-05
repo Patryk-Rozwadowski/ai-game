@@ -17,25 +17,54 @@ class Population {
 
     this.deadPopulation = [];
     this.population = [];
+
+    this.populationHistory = [];
     for (let i = 0; i < this.total; i++) {
       this.population[i] = new Player(new DNA(), false, new Ball());
     }
   }
 
-  setMostBallHit() {
-    for (let player of this.deadPopulation) {
-      if (player.ballHit > this.mostBallHit) {
-        this.mostBallHit = player.ballHit;
-      }
+  calculatePopulation() {
+    this._calculateFitness();
+    this._getMaxFitness();
+    this._getWorstFitness();
+    this._getAvgFitnessPerGen();
+    this._setMostBallHit();
+    this._nextGeneration();
+  }
+
+  populationLearning() {
+    if(this.population) {
+      this.population.map((player, i) => {
+        let deathPenalty = this.population.length;
+        player.start();
+        if (player.dead === true) {
+          player.deathPenalty = deathPenalty;
+          this.population.splice(i, 1);
+          this.deadPopulation.push(player);
+        }
+      });
     }
   }
 
-  nextGeneration() {
+  fillHistory() {
+    console.log(this.populationHistory);
+    this.populationHistory.push({
+      Generation: this.generation,
+      Most_Ball_Hit: this.mostBallHit,
+      Best_Fitness: this.bestPlayer.fitness,
+      Worst_Fitness: this.worstFitness,
+      Average_Fitness: this.avgFitness,
+      Mutation_Ratio: this.mutationRatio,
+    });
+  }
+
+  _nextGeneration() {
     console.log('Next generation');
     this.generation++;
     for (let i = 0; i < this.total; i++) {
-      let parentA = this.acceptReject();
-      let parentB = this.acceptReject();
+      let parentA = this._acceptReject();
+      let parentB = this._acceptReject();
       if(!parentA) parentA = this.deadPopulation[getRandomNumber(this.total)];
       if(!parentB) parentB = this.deadPopulation[getRandomNumber(this.total)];
       const parentAGenes = parentA.getDNA();
@@ -43,7 +72,7 @@ class Population {
 
 
       const childDNA = parentAGenes.crossOver(parentBGenes);
-      childDNA.mutate(this.mutationRatio);
+      childDNA._mutate(this.mutationRatio);
       this.population[i] = new Player(childDNA, true, new Ball());
     }
   }
@@ -58,11 +87,41 @@ class Population {
     }
   }
 
-  acceptReject() {
+  _getMaxFitness() {
+    for (let player of this.deadPopulation) {
+      if (player.fitness > this.bestPlayer.fitness) {
+        this.bestPlayer = player;
+      }
+    }
+  }
+
+  _getAvgFitnessPerGen() {
+    let fitnessSum = 0;
+    for(let i = 0; i < this.deadPopulation.length; i++) {
+      fitnessSum += this.deadPopulation[i].fitness;
+    }
+    this.avgFitness = fitnessSum / this.deadPopulation.length;
+  }
+
+  _getWorstFitness() {
+    let worstFitness = 0;
+    
+    for (let i = 0; i < this.deadPopulation.length; i++) {
+      if (worstFitness < this.deadPopulation[i].fitness) this.worstFitness = this.deadPopulation[i].fitness;
+    }
+  }
+
+  _calculateFitness() {
+    for (let player of this.deadPopulation) {
+      player.calcFitness();
+    }
+  }
+
+  _acceptReject() {
     let escapeLoop = 0;
     while (true) {
       const partner = this.deadPopulation[getRandomNumber(this.total)];
-      const r = Math.floor(Math.random() * this.bestPlayer.fitness); //getRandomNumber(this.bestPlayer.fitness);
+      const r = Math.floor(Math.random() * this.bestPlayer.fitness);
       if (r < partner.fitness) {
         return partner;
       }
@@ -71,32 +130,12 @@ class Population {
     }
   }
 
-  getMaxFitness() {
+
+  _setMostBallHit() {
     for (let player of this.deadPopulation) {
-      if (player.fitness > this.bestPlayer.fitness) {
-        this.bestPlayer = player;
+      if (player.ballHit > this.mostBallHit) {
+        this.mostBallHit = player.ballHit;
       }
-    }
-  }
-
-  getAvgFitnessPerGen() {
-    let fitnessSum = 0;
-    for(let i = 0; i < this.deadPopulation.length; i++) {
-      fitnessSum += this.deadPopulation[i].fitness;
-    }
-    this.avgFitness = fitnessSum / this.deadPopulation.length;
-  }
-
-  getWorstFitness() {
-    let worstFitness = this.deadPopulation[0].fitness;
-    for (let i = 0; i < this.deadPopulation.length; i++) {
-      if (worstFitness < this.deadPopulation[i].fitness) this.worstFitness = this.deadPopulation[i].fitness;
-    }
-  }
-
-  calculateFitness() {
-    for (let player of this.deadPopulation) {
-      player.calcFitness();
     }
   }
 }
