@@ -1,4 +1,4 @@
-import {Settings} from '../View/Settings.view';
+import { Settings } from '../View/Settings.view';
 
 class Ball {
   constructor() {
@@ -12,7 +12,7 @@ class Ball {
   }
 
   draw() {
-    const {ctx} = Settings;
+    const { ctx } = Settings;
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.ballRadius, 0, Math.PI * 2);
     ctx.fillStyle = this.color;

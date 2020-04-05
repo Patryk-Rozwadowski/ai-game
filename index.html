@@ -1,13 +1,16 @@
 <html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="./index.scss">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link rel="stylesheet" href="./index.scss" />
     <title>Ai game</title>
-</head>
-<body>
-<main>
-    <div class="row">
+  </head>
+  <body>
+    <main>
+      <div class="row">
         <div class="col-sm-6">
             <canvas id="gameContainer"></canvas>
             <div id="controlPanel">
@@ -18,29 +21,25 @@
                         <button type="button" class="btn btn-success " id="resumeGameBtn">Resume Learning</button>
                         <button type="button" class="btn btn-info el-hide" id="save-csv-btn">Save to Excel</button>
                     </div>
-
                 </div>
             </div>
         </div>
         <div class="col-sm-6 game-info">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div id="populationInformation"></div>
-                </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <div id="populationInformation"></div>
             </div>
-            <div class="row">
-            </div>
+          </div>
+          <div class="row"></div>
         </div>
-
-    </div>
-</main>
-
-</body>
-<script src="./View/Settings.view.js" type="text/javascript"></script>
-<script src="./View/GameInfo.view.js" type="text/javascript"></script>
-<script src="./Models/DNA.model.js" type="text/javascript"></script>
-<script src="./Models/Ball.model.js" type="text/javascript"></script>
-<script src="./Models/Player.model.js" type="text/javascript"></script>
-<script src="./Models/Population.model.js" type="text/javascript"></script>
-<script src="./Controller/Game.controller.js" type="text/javascript"></script>
+      </div>
+    </main>
+  </body>
+  <script src="./View/Settings.view.js" type="text/javascript"></script>
+  <script src="./View/GameInfo.view.js" type="text/javascript"></script>
+  <script src="./Models/DNA.model.js" type="text/javascript"></script>
+  <script src="./Models/Ball.model.js" type="text/javascript"></script>
+  <script src="./Models/Player.model.js" type="text/javascript"></script>
+  <script src="./Models/Population.model.js" type="text/javascript"></script>
+  <script src="./Controller/Game.controller.js" type="text/javascript"></script>
 </html>

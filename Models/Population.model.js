@@ -1,7 +1,7 @@
 import Player from './Player.model';
-import {DNA} from './DNA.model';
+import { DNA } from './DNA.model';
 import Ball from './Ball.model';
-import {getRandomNumber} from '../utils/getRandomNumber.util';
+import { getRandomNumber } from '../utils/getRandomNumber.util';
 
 class Population {
   constructor() {
@@ -9,7 +9,7 @@ class Population {
 
     this.matingPool = [];
     this.avgFitness = 0;
-    this.bestPlayer = {fitness: 0};
+    this.bestPlayer = { fitness: 0 };
     this.worstFitness = 0;
     this.generation = 1;
     this.mutationRatio = 0.05;
@@ -34,7 +34,7 @@ class Population {
   }
 
   populationLearning() {
-    if(this.population) {
+    if (this.population) {
       this.population.map((player, i) => {
         let deathPenalty = this.population.length;
         player.start();
@@ -65,11 +65,10 @@ class Population {
     for (let i = 0; i < this.total; i++) {
       let parentA = this._acceptReject();
       let parentB = this._acceptReject();
-      if(!parentA) parentA = this.deadPopulation[getRandomNumber(this.total)];
-      if(!parentB) parentB = this.deadPopulation[getRandomNumber(this.total)];
+      if (!parentA) parentA = this.deadPopulation[getRandomNumber(this.total)];
+      if (!parentB) parentB = this.deadPopulation[getRandomNumber(this.total)];
       const parentAGenes = parentA.getDNA();
       const parentBGenes = parentB.getDNA();
-
 
       const childDNA = parentAGenes.crossOver(parentBGenes);
       childDNA._mutate(this.mutationRatio);
@@ -97,7 +96,7 @@ class Population {
 
   _getAvgFitnessPerGen() {
     let fitnessSum = 0;
-    for(let i = 0; i < this.deadPopulation.length; i++) {
+    for (let i = 0; i < this.deadPopulation.length; i++) {
       fitnessSum += this.deadPopulation[i].fitness;
     }
     this.avgFitness = fitnessSum / this.deadPopulation.length;
@@ -105,9 +104,10 @@ class Population {
 
   _getWorstFitness() {
     let worstFitness = 0;
-    
+
     for (let i = 0; i < this.deadPopulation.length; i++) {
-      if (worstFitness < this.deadPopulation[i].fitness) this.worstFitness = this.deadPopulation[i].fitness;
+      if (worstFitness < this.deadPopulation[i].fitness)
+        this.worstFitness = this.deadPopulation[i].fitness;
     }
   }
 
@@ -126,10 +126,11 @@ class Population {
         return partner;
       }
       escapeLoop++;
-      if (escapeLoop > 5000) { return;}
+      if (escapeLoop > 5000) {
+        return;
+      }
     }
   }
-
 
   _setMostBallHit() {
     for (let player of this.deadPopulation) {

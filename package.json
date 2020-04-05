@@ -15,11 +15,15 @@
   "license": "ISC",
   "dependencies": {
     "bootstrap": "^4.4.1",
-    "html-server": "^0.1.1"
+    "html-server": "^0.1.1",
+    "prettier": "^2.0.2"
   },
   "devDependencies": {
     "cssnano": "^4.1.10",
     "gh-pages": "^2.2.0",
     "sass": "^1.26.3"
+  },
+  "prettier": {
+    "singleQuote": true
   }
 }

@@ -1,1 +1,1 @@
-export const getRandomNumber = len => Math.floor(Math.random() * len);
+export const getRandomNumber = (len) => Math.floor(Math.random() * len);

@@ -1,10 +1,9 @@
-import {Settings} from '../View/Settings.view';
-import {getRandomNumber} from '../utils/getRandomNumber.util';
+import { Settings } from '../View/Settings.view';
+import { getRandomNumber } from '../utils/getRandomNumber.util';
 
-const {canvasWidth, canvasHeight} = Settings;
+const { canvasWidth, canvasHeight } = Settings;
 class Player {
   constructor(dna, newGenes, ball) {
-
     this.id = getRandomNumber(1);
     this.lifeSpan = 2900;
     if (newGenes) {
@@ -37,14 +36,18 @@ class Player {
 
   calcFitness() {
     this.distanceFromBall = Math.abs(this.distanceFromBall);
-    this.fitness = (this.score * this.ballHit) / this.deathPenalty + this.distanceFromBall;
+    this.fitness =
+      (this.score * this.ballHit) / this.deathPenalty + this.distanceFromBall;
   }
 
   walls_collision() {
     const ROOF = this.ball.y + this.ball.y_speed - this.ball.ballRadius < 0;
-    const RIGHT_WALL = this.ball.x + this.ball.x_speed + this.ball.ballRadius > canvasWidth;
-    const LEFT_WALL = this.ball.x + this.ball.x_speed - this.ball.ballRadius < 0;
-    const GROUND = this.ball.y + this.ball.y_speed + this.ball.ballRadius > canvasHeight;
+    const RIGHT_WALL =
+      this.ball.x + this.ball.x_speed + this.ball.ballRadius > canvasWidth;
+    const LEFT_WALL =
+      this.ball.x + this.ball.x_speed - this.ball.ballRadius < 0;
+    const GROUND =
+      this.ball.y + this.ball.y_speed + this.ball.ballRadius > canvasHeight;
 
     switch (true) {
       case ROOF:
@@ -70,16 +73,19 @@ class Player {
   }
 
   player_collision() {
-    if (this.ball.y + this.ball.y_speed + this.ball.ballRadius >= this.y + this.height
-        && this.ball.x + this.ball.ballRadius < this.x + this.width
-        && this.x < this.ball.x + this.ball.ballRadius) {
+    if (
+      this.ball.y + this.ball.y_speed + this.ball.ballRadius >=
+        this.y + this.height &&
+      this.ball.x + this.ball.ballRadius < this.x + this.width &&
+      this.x < this.ball.x + this.ball.ballRadius
+    ) {
       this.ball.y_speed = -this.ball.y_speed;
       this.ballHit++;
     }
   }
 
   drawPlayer() {
-    const {ctx} = Settings;
+    const { ctx } = Settings;
     ctx.beginPath();
     ctx.rect(this.x, canvasHeight - this.height, this.width, this.height);
     ctx.fill();
@@ -89,7 +95,7 @@ class Player {
   }
 
   drawBallLine() {
-    const {ctx} = Settings;
+    const { ctx } = Settings;
     ctx.moveTo(this.x + this.width / 2, this.y + this.height);
     ctx.lineTo(this.ball.x, this.ball.y);
     ctx.strokeStyle = this.color;
@@ -101,11 +107,11 @@ class Player {
   }
 
   left() {
-    this.x > 0 ? this.x -= this.x_step : [];
+    this.x > 0 ? (this.x -= this.x_step) : [];
   }
 
   right() {
-    this.x + this.width < canvasWidth ? this.x += this.x_step : [];
+    this.x + this.width < canvasWidth ? (this.x += this.x_step) : [];
   }
 
   changeColor() {
@@ -115,7 +121,7 @@ class Player {
     return `rgba(${red}, ${green}, ${blue}, ${Math.random()}`;
   }
 
-  control({key}) {
+  control({ key }) {
     switch (key) {
       case 'a':
         this.left();
