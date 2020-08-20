@@ -1,7 +1,7 @@
-import Population from '../Models/Population.model';
-import { Settings } from '../View/Settings.view';
-import { WriteGameInfo } from '../View/GameInfo.view';
-import { showElement } from '../utils/showBtn.util';
+import Population from '../../Models/Population.model';
+import { Settings } from '../../View/Settings.view';
+import { WriteGameInfo } from '../../View/GameInfo.view';
+import { showElement } from '../../utils/showBtn.util';
 
 const csvButton = document.getElementById('save-csv-btn');
 const startGameBtn = document.getElementById('startGame');
@@ -13,7 +13,7 @@ class Game {
   constructor() {
     this.game = new Population();
     this.gameStarted = true;
-    this.learningSpeed = 5;
+    this.learningSpeed = 2;
     const { canvasWidth, canvasHeight } = Settings;
 
     this.interval = setInterval(() => {

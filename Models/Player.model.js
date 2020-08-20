@@ -2,6 +2,7 @@ import { Settings } from '../View/Settings.view';
 import { getRandomNumber } from '../utils/getRandomNumber.util';
 
 const { canvasWidth, canvasHeight } = Settings;
+
 class Player {
   constructor(dna, newGenes, ball) {
     this.id = getRandomNumber(1);
@@ -140,6 +141,8 @@ class Player {
   start() {
     if (!this.newGenes) this.dna.creatingGenes(this.lifeSpan);
     this.drawPlayer();
+
+    // @todo add switch
     //this.drawBallLine();
     this.ball.start();
     this.player_collision();

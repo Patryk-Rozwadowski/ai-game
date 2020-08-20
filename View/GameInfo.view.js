@@ -17,7 +17,7 @@ export const WriteGameInfo = (
         bestPlayer ? `Best fitness: ${fitness}` : 'No best fitness yet!'
       }</p>
       <p class="h4">${
-        worstFitness
+        worstFitness || worstFitness === 0
           ? `Worst fitness: ${worstFitness}`
           : 'No worst fitness yet!'
       }</h2>

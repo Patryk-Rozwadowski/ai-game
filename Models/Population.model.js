@@ -5,20 +5,25 @@ import { getRandomNumber } from '../utils/getRandomNumber.util';
 
 class Population {
   constructor() {
-    this.total = 100;
+    this.total = 50;
 
-    this.matingPool = [];
+    // Fitness
     this.avgFitness = 0;
     this.bestPlayer = { fitness: 0 };
     this.worstFitness = 0;
-    this.generation = 1;
-    this.mutationRatio = 0.05;
-    this.mostBallHit = 0;
 
+    // GA params
+    this.mutationRatio = 0.05;
+    this.generation = 1;
+
+    // Population params
+    this.matingPool = [];
     this.deadPopulation = [];
     this.population = [];
-
     this.populationHistory = [];
+
+    // MISC
+    this.mostBallHit = 0;
     for (let i = 0; i < this.total; i++) {
       this.population[i] = new Player(new DNA(), false, new Ball());
     }
@@ -103,12 +108,13 @@ class Population {
   }
 
   _getWorstFitness() {
-    let worstFitness = 0;
+    let fitnessArr = [];
 
     for (let i = 0; i < this.deadPopulation.length; i++) {
-      if (worstFitness < this.deadPopulation[i].fitness)
-        this.worstFitness = this.deadPopulation[i].fitness;
+      fitnessArr.push(this.deadPopulation[i].fitness);
     }
+    this.worstFitness = Math.min(...fitnessArr);
+    console.log(this.worstFitness);
   }
 
   _calculateFitness() {
